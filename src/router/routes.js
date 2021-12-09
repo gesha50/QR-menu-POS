@@ -33,6 +33,14 @@ const routes = [
       { path: '', component: () => import('pages/Settings.vue') }
     ]
   },
+  {
+    path: '/restaurant',
+    component: () => import('layouts/RestaurantLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Waiters.vue') },
+      { path: 'login', component: () => import('pages/LoginWaiter.vue') }
+    ]
+  },
 
   // Always leave this as last one,
   // but you can also remove it

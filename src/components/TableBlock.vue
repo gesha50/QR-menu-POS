@@ -4,7 +4,7 @@
     <div class="column justify-between full-height">
       <div class="flex justify-between">
         <div class="TableBlock__title">
-          {{ $t('table') }} #{{table.id}}
+          {{ $t('index.table') }} #{{table.id}}
         </div>
         <div class="">
           00:00

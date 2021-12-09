@@ -1,6 +1,7 @@
 import { route } from 'quasar/wrappers'
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
 import routes from './routes'
+import middlewarePipeline from './middlewarePipeline'
 
 /*
  * If not building with SSR mode, you can
@@ -37,7 +38,8 @@ export default route(function ({ store } ) {
       store
     }
     return middleware[0]({
-      ...context
+      ...context,
+      next: middlewarePipeline(context, middleware, 1)
     })
   })
   return Router
