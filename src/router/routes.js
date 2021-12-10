@@ -1,5 +1,8 @@
 import guest from './middleware/guest'
 import auth from './middleware/auth'
+import restaurant from "src/router/middleware/restaurant";
+import notRestaurant from "src/router/middleware/notRestaurant";
+import restaurantWaiter from "src/router/middleware/restaurantWaiter";
 
 const routes = [
   {
@@ -10,7 +13,7 @@ const routes = [
     ],
     meta: {
       middleware: [
-        auth
+        auth, restaurant,
       ]
     },
   },
@@ -37,9 +40,14 @@ const routes = [
     path: '/restaurant',
     component: () => import('layouts/RestaurantLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Waiters.vue') },
-      { path: 'login', component: () => import('pages/LoginWaiter.vue') }
-    ]
+      { path: '', component: () => import('pages/Waiters.vue'), name: 'restaurant' },
+      { path: 'login/:id', component: () => import('pages/LoginWaiter.vue'), props: true }
+    ],
+    meta: {
+      middleware: [
+        notRestaurant, restaurantWaiter
+      ]
+    }
   },
 
   // Always leave this as last one,

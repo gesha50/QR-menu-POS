@@ -10,6 +10,12 @@ export default defineComponent({
     if (this.$q.localStorage.getItem('userAuth')) {
       this.$store.dispatch('settings/userAuth', [true, this.$q.localStorage.getItem('userToken')])
     }
+    if (typeof this.$q.localStorage.getItem('isRestaurant') === 'boolean') {
+      this.$store.dispatch('settings/setIsRestaurant', this.$q.localStorage.getItem('isRestaurant'))
+    }
+    if (this.$q.localStorage.getItem('ownerAuth')) {
+      this.$store.dispatch('settings/ownerAuth', [true, this.$q.localStorage.getItem('ownerToken')])
+    }
     if (this.$q.localStorage.getItem('currentLang')) {
       this.changedLang(this.$q.localStorage.getItem('currentLang'))
     }

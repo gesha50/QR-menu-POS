@@ -7,6 +7,7 @@ export default function () {
       email: null,
       loggedIn: false,
       token: null,
+      restaurant_id: null
     },
     user: {
       id: null,

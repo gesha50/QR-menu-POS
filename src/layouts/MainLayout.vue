@@ -1,6 +1,8 @@
 <template>
   <q-layout :class="$q.dark.isActive? 'blue-grey-10' : 'layoutMy'" view="hHh lpr lfr">
-    <main-header></main-header>
+    <main-header
+      :is-waiter-active="true"
+    ></main-header>
     <q-page-container>
       <router-view />
     </q-page-container>

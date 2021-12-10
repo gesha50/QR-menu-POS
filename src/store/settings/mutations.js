@@ -27,3 +27,22 @@ export function setIsRestaurant (state, value) {
 export function setRestaurantName (state, value) {
   state.restaurant = value
 }
+
+export function logoutWaiter (state) {
+  state.user.loggedIn = false
+  state.user.token = null
+  state.user.id = null
+}
+
+export function logoutRestaurantWaiter (state) {
+  state.user.loggedIn = false
+  state.user.token = null
+  state.user.id = null
+}
+
+export function logoutRestaurantOwner (state) {
+  state.owner.loggedIn = false
+  state.owner.token = null
+  state.owner.email = null
+}
+
