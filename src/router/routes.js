@@ -13,7 +13,7 @@ const routes = [
     ],
     meta: {
       middleware: [
-        auth, restaurant,
+        auth
       ]
     },
   },
@@ -45,7 +45,7 @@ const routes = [
     ],
     meta: {
       middleware: [
-        notRestaurant, restaurantWaiter
+        notRestaurant
       ]
     }
   },

@@ -4,17 +4,17 @@
     <div class="q-gutter-sm flex justify-center q-mt-md">
       <div class="text-center">
         <div v-if='isRestaurant === "Choose mode"'>
-          {{isRestaurant}}
+          {{$t('login.mode.choose_mode')}}
         </div>
-        <div v-else-if="isRestaurant" class="">Restaurant mode</div>
-        <div v-else class="">Individual mode</div>
+        <div v-else-if="isRestaurant" class="">{{ $t('login.mode.restaurant') }}</div>
+        <div v-else class="">{{ $t('login.mode.individual') }}</div>
         <q-toggle color="red-5" size="130px" indeterminate-value="Do not choose" v-model="isRestaurant" />
       </div>
     </div>
     <div class="column justify-center">
       <div class="q-pa-md flex justify-center LoginPage">
         <div v-if='isRestaurant === "Choose mode"' class="">
-          Please choose mode
+          {{$t('login.mode.choose_mode')}}
         </div>
         <div v-else-if="isRestaurant" class="">
           <q-form
@@ -26,10 +26,10 @@
               filled
               type="text"
               v-model="restaurant.email"
-              label="Email owner restaurant"
+              :label="$t('login.email_owner')"
               lazy-rules
               :rules="[
-            val => val !== null && val !== '' || 'Please write correct email',
+            val => val !== null && val !== '' || $t('login.rules.email'),
           ]"
             />
             <q-input
@@ -37,15 +37,15 @@
               filled
               type="password"
               v-model="restaurant.password"
-              label="password"
+              :label="$t('login.password')"
               lazy-rules
               :rules="[
-            val => val !== null && val !== '' || 'Please write password',
+            val => val !== null && val !== '' || $t('login.rules.password'),
           ]"
             />
             <div>
-              <q-btn label="Submit" type="submit" color="primary"/>
-              <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+              <q-btn :label="$t('btn.login')" type="submit" color="primary"/>
+              <q-btn :label="$t('btn.reset')" type="reset" color="primary" flat class="q-ml-sm" />
             </div>
           </q-form>
         </div>
@@ -59,10 +59,10 @@
               filled
               type="number"
               v-model="waiter.user_id"
-              label="ID waiter"
+              :label="'ID' + $t('login.waiter')"
               lazy-rules
               :rules="[
-            val => val !== null && val !== '' || 'Please write ID',
+            val => val !== null && val !== '' || $t('login.rules.id'),
           ]"
             />
             <q-input
@@ -70,17 +70,17 @@
               filled
               type="number"
               v-model="waiter.password"
-              label="password"
+              :label="$t('login.password')"
               lazy-rules
               :rules="[
-            val => val !== null && val !== '' || 'Please write password',
-            val => val >= 0 && val <= 9999 || 'Please enter 4 numbers',
-            val => val.length === 4 || 'Please enter 4 numbers'
+            val => val !== null && val !== '' || $t('login.rules.password'),
+            val => val >= 0 && val <= 9999 || $t('login.rules.enterFourNum'),
+            val => val.length === 4 || $t('login.rules.enterFourNum')
           ]"
             />
             <div>
-              <q-btn label="Submit" type="submit" color="primary"/>
-              <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+              <q-btn :label="$t('btn.login')" type="submit" color="primary"/>
+              <q-btn :label="$t('btn.reset')" type="reset" color="primary" flat class="q-ml-sm" />
             </div>
           </q-form>
         </div>
@@ -135,7 +135,7 @@ export default {
               color: 'green-4',
               textColor: 'white',
               icon: 'cloud_done',
-              message: 'Submitted'
+              message: this.$t('login.success')
             })
             this.$store.dispatch('settings/setIsRestaurant', true)
             this.$store.dispatch('settings/setOwnerEmail', this.restaurant.email)
@@ -147,7 +147,7 @@ export default {
               color: 'red-5',
               textColor: 'white',
               icon: 'warning',
-              message: 'It`s not correct password'
+              message: this.$t('login.failed')
             })
           }
         })
@@ -167,7 +167,7 @@ export default {
             color: 'green-4',
             textColor: 'white',
             icon: 'cloud_done',
-            message: 'Submitted'
+            message: this.$t('login.success')
           })
           this.$store.dispatch('settings/setIsRestaurant', false)
           this.$store.dispatch('settings/setUserID', this.waiter.user_id)
@@ -179,7 +179,7 @@ export default {
             color: 'red-5',
             textColor: 'white',
             icon: 'warning',
-            message: 'It`s not correct password'
+            message: this.$t('login.failed')
           })
         }
       })

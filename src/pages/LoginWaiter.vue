@@ -11,17 +11,17 @@
         filled
         type="number"
         v-model="password"
-        label="password"
+        :label="$t('login.password')"
         lazy-rules
         :rules="[
-            val => val !== null && val !== '' || 'Please write password',
-            val => val >= 0 && val <= 9999 || 'Please enter 4 numbers',
-            val => val.length === 4 || 'Please enter 4 numbers'
+            val => val !== null && val !== '' || $t('login.rules.password'),
+            val => val >= 0 && val <= 9999 || $t('login.rules.enterFourNum'),
+            val => val.length === 4 || $t('login.rules.enterFourNum')
           ]"
       />
       <div>
-        <q-btn label="Submit" type="submit" color="primary"/>
-        <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+        <q-btn :label="$t('btn.login')" type="submit" color="primary"/>
+        <q-btn :label="$t('btn.reset')" type="reset" color="primary" flat class="q-ml-sm" />
       </div>
     </q-form>
   </div>
@@ -53,7 +53,7 @@ export default {
               color: 'green-4',
               textColor: 'white',
               icon: 'cloud_done',
-              message: 'Submitted'
+              message: this.$t('login.success')
             })
             this.$store.dispatch('settings/setUserID', this.id)
             this.$store.dispatch('settings/userAuth', [true, res.data.token])
@@ -64,7 +64,7 @@ export default {
               color: 'red-5',
               textColor: 'white',
               icon: 'warning',
-              message: 'It`s not correct password'
+              message: this.$t('login.failed')
             })
           }
         })

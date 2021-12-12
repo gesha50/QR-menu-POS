@@ -4,7 +4,7 @@
       <q-select @update:model-value="changedLang" filled v-model="lang" :options="options" />
       <q-btn @click="toggleDarkMode" />
     </div>
-    <q-btn v-if="isRestaurant" @click="logout" label="выйти из режима ресторана" />
+    <q-btn v-if="!isRestaurant" @click="logout" :label="$t('settings.exit_restaurant_mode')" />
   </q-page>
 </template>
 
@@ -15,7 +15,7 @@ export default defineComponent({
   name: "Settings",
   data() {
     return {
-      isRestaurant: this.$store.getters["settings/getIsRestaurant"],
+      isRestaurant: this.$store.getters["settings/auth"].loggedIn,
       lang: this.$store.getters["settings/getLang"],
       options: [
         'en-US',
