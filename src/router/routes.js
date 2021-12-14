@@ -10,6 +10,7 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', name: 'index', component: () => import('pages/Index.vue') },
+      { path: ':table/menu', name: 'menu', component: () => import('pages/Menu.vue') },
     ],
     meta: {
       middleware: [

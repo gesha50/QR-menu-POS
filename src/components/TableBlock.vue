@@ -1,21 +1,27 @@
 <template>
-<div class="q-pa-md">
-  <div :class="tableBackground(table.status)" class=" q-ma-md TableBlock">
-    <div class="column justify-between full-height">
-      <div class="flex justify-between">
-        <div class="TableBlock__title">
-          {{ $t('index.table') }} #{{table.id}}
+  <router-link
+    class="tableBlockLink"
+    :class="$q.dark.isActive || table.status ? 'text-white' : 'text-black'"
+    :to="'/'+table.id+'/menu'"
+  >
+    <div class="q-pa-md">
+      <div :class="tableBackground(table.status)" class=" q-ma-md TableBlock">
+        <div class="column justify-between full-height">
+          <div class="flex justify-between">
+            <div class="TableBlock__title">
+              {{ $t('index.table') }} #{{table.id}}
+            </div>
+            <div class="">
+              00:00
+            </div>
+          </div>
+          <div class="TableBlock__footer">
+            No Order
+          </div>
         </div>
-        <div class="">
-          00:00
-        </div>
-      </div>
-      <div class="TableBlock__footer">
-        No Order
       </div>
     </div>
-  </div>
-</div>
+  </router-link>
 </template>
 
 <script>
@@ -47,6 +53,9 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+.tableBlockLink{
+  text-decoration: none;
+}
   .TableBlock {
     padding: 10px 20px;
     border-radius: 10px;

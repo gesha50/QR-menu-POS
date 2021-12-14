@@ -7,6 +7,19 @@
           <img v-else class="logo" src="../../assets/img/logo2.jpg">
         </router-link>
       </q-toolbar-title>
+      <q-input v-if="isMenuActive"  dense standout="bg-grey-6 text-white" v-model="text" class="q-mr-md">
+        <template v-slot:prepend>
+          <q-icon v-if="text === ''" name="search" />
+          <q-icon v-else name="clear" class="cursor-pointer" @click="text = ''" />
+        </template>
+      </q-input>
+      <q-btn
+        v-if="isMenuActive"
+        class="grey q-mr-md"
+        rounded
+        :color="cart.length ? 'red-5' : 'grey-6'"
+        :label="`Items in Cart (${cart.length})`"
+      />
       <q-btn to="/settings" round color="black" icon="fas fa-cog" :size="'sm'" />
       <q-btn v-if="isWaiterActive" @click="logout" round color="red" icon="fas fa-power-off" :size="'sm'" />
     </q-toolbar>
@@ -18,6 +31,18 @@ export default {
   name: "MainHeader",
   props: {
     isWaiterActive: Boolean
+  },
+  data() {
+    return {
+      text: '',
+      cart: []
+    }
+  },
+  computed: {
+    isMenuActive() {
+      console.log(this.$router)
+      return true
+    }
   },
   methods: {
     logout() {

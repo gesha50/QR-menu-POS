@@ -1,6 +1,8 @@
 // app global css in SCSS form
 
 @import "fonts";
+@import "var";
+@import "mixin";
 
 .layoutMy {
   background-color: #f8f9fd;
