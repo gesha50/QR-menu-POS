@@ -7,7 +7,16 @@
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "dev": "quasar dev",
+    "web-build": "quasar build",
+    "dev-mobile-ios": "quasar dev -m cordova -T ios",
+    "dev-mobile-android": "quasar dev -m cordova -T android",
+    "build-mobile-ios": "quasar build -m cordova -T ios",
+    "build-mobile-android": "quasar build -m cordova -T android",
+    "dev-electron": "quasar dev -m electron",
+    "build-mac": "quasar build -m electron",
+    "build-win": "quasar build -m electron -T win32"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
