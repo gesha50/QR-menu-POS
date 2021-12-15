@@ -2,7 +2,7 @@
   <router-link
     class="tableBlockLink"
     :class="$q.dark.isActive || table.status ? 'text-white' : 'text-black'"
-    :to="'/'+table.id+'/menu'"
+    :to="'/menu/'+table.id"
   >
     <div class="q-pa-md">
       <div :class="tableBackground(table.status)" class=" q-ma-md TableBlock">

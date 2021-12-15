@@ -19,6 +19,7 @@
         rounded
         :color="cart.length ? 'red-5' : 'grey-6'"
         :label="`Items in Cart (${cart.length})`"
+        @click='$emit("openCloseDrawer", this.drawer)'
       />
       <q-btn to="/settings" round color="black" icon="fas fa-cog" :size="'sm'" />
       <q-btn v-if="isWaiterActive" @click="logout" round color="red" icon="fas fa-power-off" :size="'sm'" />
@@ -29,8 +30,10 @@
 <script>
 export default {
   name: "MainHeader",
+  emits: ["click"],
   props: {
-    isWaiterActive: Boolean
+    isWaiterActive: Boolean,
+    drawer: Boolean
   },
   data() {
     return {
@@ -40,8 +43,7 @@ export default {
   },
   computed: {
     isMenuActive() {
-      console.log(this.$router)
-      return true
+      return this.$route.path.split('/')[1] === 'menu'
     }
   },
   methods: {
@@ -52,6 +54,9 @@ export default {
       } else {
         this.$router.push('/login')
       }
+    },
+    openCloseDrawer() {
+      this.$emit('openCloseDrawer', this.drawer)
     }
   },
 }
