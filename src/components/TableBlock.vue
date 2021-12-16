@@ -12,7 +12,7 @@
               {{ $t('index.table') }} #{{table.id}}
             </div>
             <div class="">
-              00:00
+              <time>{{time}}</time>
             </div>
           </div>
           <div class="TableBlock__footer">
@@ -29,10 +29,38 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: "TableBlock",
+  data() {
+    return {
+      sec: 0,
+      min: 0,
+      hrs: 0
+    }
+  },
   props: {
     table: Object,
   },
+  computed: {
+    time() {
+      return `${this.hrs > 9 ? this.hrs : "0" + this.hrs}:${this.min > 9 ? this.min : "0" + this.min}:${this.sec > 9 ? this.sec : "0" + this.sec}`
+    },
+  },
+  created() {
+    if (this.table.status) {
+      setInterval(this.tick, 1000);
+    }
+  },
   methods: {
+    tick(){
+      this.sec = this.sec + 1;
+      if (this.sec >= 60) {
+        this.sec = 0;
+        this.min = this.min+1;
+        if (this.min >= 60) {
+          this.min = 0;
+          this.hrs = this.hrs + 1;
+        }
+      }
+    },
     tableBackground(status) {
       if (status === 1) {
         return 'bg-green'

@@ -58,6 +58,46 @@ export default defineComponent({
           locationGroup: '',
           status: 0,
         },
+        {
+          id: 9,
+          locationGroup: '',
+          status: 1,
+        },
+        {
+          id: 10,
+          locationGroup: '',
+          status: 0,
+        },
+        {
+          id: 11,
+          locationGroup: '',
+          status: 2,
+        },
+        {
+          id: 12,
+          locationGroup: '',
+          status: 0,
+        },
+        {
+          id: 13,
+          locationGroup: '',
+          status: 3,
+        },
+        {
+          id: 14,
+          locationGroup: '',
+          status: 0,
+        },
+        {
+          id: 15,
+          locationGroup: '',
+          status: 0,
+        },
+        {
+          id: 16,
+          locationGroup: '',
+          status: 0,
+        },
       ],
     }
   },
