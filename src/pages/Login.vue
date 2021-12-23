@@ -171,6 +171,7 @@ export default {
           })
           this.$store.dispatch('settings/setIsRestaurant', false)
           this.$store.dispatch('settings/setUserID', this.waiter.user_id)
+          this.$store.dispatch('settings/restaurantID', res.data.restaurant_id)
           this.$store.dispatch('settings/userAuth', [true, res.data.token])
           this.$router.push('/')
         }

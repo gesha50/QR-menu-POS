@@ -3,6 +3,7 @@ export default function () {
     lang: 'en-US',
     isRestaurant: 'Choose mode',
     restaurant: '',
+    restaurantID: null,
     owner: {
       email: null,
       loggedIn: false,

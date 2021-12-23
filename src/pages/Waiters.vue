@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     getAllWaiters() {
-      api.get('api/staff/list', {
+      api.get('/api/staff/list', {
         headers: {
           Authorization: 'Bearer ' + this.$q.localStorage.getItem('ownerToken')
         }

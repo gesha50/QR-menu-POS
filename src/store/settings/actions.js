@@ -4,6 +4,11 @@ export function setLang ({ commit }, value) {
   commit('setLang', value)
 }
 
+export function restaurantID ({ commit }, value) {
+  LocalStorage.set('restaurantID', value)
+  commit('restaurantID', value)
+}
+
 export function userAuth ({ commit }, arr) {
   LocalStorage.set('userAuth', arr[0])
   LocalStorage.set('userToken', arr[1])
@@ -37,7 +42,6 @@ export function setRestaurantName ({ commit }, value) {
 }
 
 export function logoutWaiter ({ commit }, value) {
-  console.log(value)
   if (value) {
     // restaurant mode
     // remove all localstorage var
@@ -51,6 +55,7 @@ export function logoutWaiter ({ commit }, value) {
     // remove all localstorage var
     LocalStorage.remove('userAuth')
     LocalStorage.remove('userToken')
+    LocalStorage.remove('restaurantID')
 
     commit('logoutRestaurantWaiter')
   }
@@ -58,6 +63,7 @@ export function logoutWaiter ({ commit }, value) {
 }
 
 export function logoutOwner ({ commit }) {
+  LocalStorage.remove('restaurantID')
   LocalStorage.remove('ownerAuth')
   LocalStorage.remove('ownerToken')
   commit('logoutRestaurantOwner')

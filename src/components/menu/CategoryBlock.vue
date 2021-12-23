@@ -1,7 +1,9 @@
 <template>
-<div class="CategoryBlock q-ma-sm" :class="bgColorCategory">
+<div @click="changeCategory" class="CategoryBlock q-ma-sm" :class="bgColorCategory">
   <div class="CategoryBlock__forImg">
-    <img :src="require('../../assets/img/category/'+ category.img +'.png')" class="CategoryBlock__img q-ma-sm" alt="">
+    <img v-if="category.img" :src="require('../../assets/img/category/'+ category.img +'.png')" class="CategoryBlock__img q-ma-sm" alt="">
+    <img v-else :src="require('../../assets/img/category/burger.png')" class="CategoryBlock__img q-ma-sm" alt="">
+
   </div>
   <div class="CategoryBlock__text">
     {{category.name}}
@@ -36,12 +38,20 @@ export default defineComponent({
         return 'bg-white'
       },
     },
-    methods: {},
+    methods: {
+      changeCategory() {
+        if (!this.category.isActive) {
+          // change category active
+          this.$store.dispatch('items/changeCategory', this.category.id)
+        }
+      }
+    },
 })
 </script>
 
 <style lang="scss" scoped>
 .CategoryBlock {
+  cursor: pointer;
   border-radius: 11px;
   text-align: center;
   &__forImg {

@@ -6,13 +6,11 @@
       @openCloseDrawer="drawer = !drawer"
     ></main-header>
     <cart-drawer
+      v-if="routerContains === 'menu'"
       :drawer="drawer"
     ></cart-drawer>
 
-    <dark-container-for-drawer
-      @click="drawer = !drawer"
-      :drawer="drawer"
-    ></dark-container-for-drawer>
+
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -31,13 +29,19 @@ export default defineComponent({
   name: 'MainLayout',
   data() {
     return {
-      drawer: false
+      drawer: true
     }
+  },
+  computed: {
+    routerContains() {
+      let item = this.$route.path
+      return item.split('/')[1]
+    },
   },
   components: {
     MainHeader,
     CartDrawer,
-    DarkContainerForDrawer
+
   },
 })
 </script>

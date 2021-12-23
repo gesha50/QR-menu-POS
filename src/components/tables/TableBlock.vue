@@ -1,15 +1,15 @@
 <template>
-  <router-link
-    class="tableBlockLink"
-    :class="$q.dark.isActive || table.status ? 'text-white' : 'text-black'"
-    :to="'/menu/'+table.id"
-  >
     <div class="q-pa-md">
-      <div :class="tableBackground(table.status)" class=" q-ma-md TableBlock">
+      <router-link
+        class="tableBlockLink"
+        :class="$q.dark.isActive ? 'text-white' : 'text-black'"
+        :to="'/menu/'+table.id"
+      >
+      <div :class="tableBackground(0)" class=" q-ma-md TableBlock">
         <div class="column justify-between full-height">
           <div class="flex justify-between">
             <div class="TableBlock__title">
-              {{ $t('index.table') }} #{{table.id}}
+              {{ $t('index.table') }} {{table.name}}
             </div>
             <div class="">
               <time>{{time}}</time>
@@ -20,8 +20,8 @@
           </div>
         </div>
       </div>
+      </router-link>
     </div>
-  </router-link>
 </template>
 
 <script>
@@ -37,7 +37,7 @@ export default defineComponent({
     }
   },
   props: {
-    table: Object,
+    table: Object || Array,
   },
   computed: {
     time() {
@@ -45,7 +45,7 @@ export default defineComponent({
     },
   },
   created() {
-    if (this.table.status) {
+    if (0) {
       setInterval(this.tick, 1000);
     }
   },

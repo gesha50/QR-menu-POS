@@ -2,10 +2,10 @@
 <div class="MenuList q-pa-md">
     <div class="row">
       <card-item
-        v-for="(item, index) in items"
+        v-for="(item, index) in filteredItems"
         :key="index"
         :item="item"
-        class="col-3"
+        class="col-4"
       ></card-item>
     </div>
 </div>
@@ -19,80 +19,24 @@ export default defineComponent({
     name: "MenuList",
     data() {
         return {
-          items: [
-            {
-              id: 1,
-              name: 'Цезарь с курицей',
-              img: 'cesar.jpg',
-              isInCart: false,
-              price: 1000,
-              isActive: 1
-            },
-            {
-              id: 2,
-              name: 'Цезарь с курицей',
-              img: '',
-              isInCart: false,
-              price: 1000,
-              isActive: 1
-            },
-            {
-              id: 3,
-              name: 'Цезарь с курицей',
-              img: '',
-              isInCart: true,
-              price: 1000,
-              isActive: 0
-            },
-            {
-              id: 4,
-              name: 'Цезарь с курицей',
-              img: '',
-              isInCart: false,
-              price: 1000,
-              isActive: 1
-            },
-            {
-              id: 5,
-              name: 'Цезарь с курицей',
-              img: '',
-              isInCart: false,
-              price: 1000,
-              isActive: 1
-            },
-            {
-              id: 6,
-              name: 'Цезарь с курицей',
-              img: '',
-              isInCart: false,
-              price: 1000,
-              isActive: 1
-            },
-            {
-              id: 7,
-              name: 'Цезарь с курицей',
-              img: '',
-              isInCart: false,
-              price: 1000,
-              isActive: 1
-            },
-            {
-              id: 8,
-              name: 'Цезарь с курицей',
-              img: '',
-              isInCart: false,
-              price: 1000,
-              isActive: 1
-            },
-          ]
+
         }
     },
     created() {},
-    mounted() {},
+    mounted() {
+      this.$store.dispatch('items/getItems')
+    },
     components: {
       CardItem,
     },
-    computed: {},
+    computed: {
+      filteredItems() {
+        return this.$store.getters['items/items'].filter(item => item.category_id === this.category_id)
+      },
+      category_id() {
+        return this.$store.getters['items/activeCategoryID']
+      },
+    },
     methods: {},
 })
 </script>

@@ -49,8 +49,8 @@ module.exports = configure(function (ctx) {
     build: {
       env: {
         API: ctx.dev
-          ? 'http://127.0.0.1:8000/'
-          : 'https://qr-menu.uz/'
+          ? 'http://127.0.0.1:8000'
+          : 'https://qr-menu.uz'
       },
       vueRouterMode: 'hash', // available values: 'hash', 'history'
 
@@ -85,7 +85,7 @@ module.exports = configure(function (ctx) {
         type: 'http'
       },
       port: 8080,
-      open: true // opens browser window automatically
+      open: true, // opens browser window automatically
     },
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework

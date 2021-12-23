@@ -1,5 +1,5 @@
 <template>
-  <q-header reveal class="text-white" :class="$q.dark.isActive? 'bg-black' : 'bg-white'">
+  <q-header class="text-white" :class="$q.dark.isActive? 'bg-black' : 'bg-white'">
     <q-toolbar>
       <q-toolbar-title class="row">
         <router-link to="/">
@@ -15,14 +15,23 @@
       </q-input>
       <q-btn
         v-if="isMenuActive"
-        class="grey q-mr-md"
+        class="q-mr-md"
+        :class="cart.length? 'red' : 'grey'"
         rounded
         :color="cart.length ? 'red-5' : 'grey-6'"
         :label="`Items in Cart (${cart.length})`"
         @click='$emit("openCloseDrawer", this.drawer)'
       />
       <q-btn to="/settings" round color="black" icon="fas fa-cog" :size="'sm'" />
-      <q-btn v-if="isWaiterActive" @click="logout" round color="red" icon="fas fa-power-off" :size="'sm'" />
+      <q-btn
+        class="q-ml-sm"
+        v-if="isWaiterActive"
+        @click="logout"
+        round
+        color="red"
+        icon="fas fa-power-off"
+        :size="'sm'"
+      />
     </q-toolbar>
   </q-header>
 </template>
@@ -38,12 +47,14 @@ export default {
   data() {
     return {
       text: '',
-      cart: []
     }
   },
   computed: {
     isMenuActive() {
       return this.$route.path.split('/')[1] === 'menu'
+    },
+    cart() {
+      return this.$store.getters['items/ItemsInCart']
     }
   },
   methods: {

@@ -56,6 +56,7 @@ export default {
               message: this.$t('login.success')
             })
             this.$store.dispatch('settings/setUserID', this.id)
+            this.$store.dispatch('settings/restaurantID', res.data.restaurant_id)
             this.$store.dispatch('settings/userAuth', [true, res.data.token])
             this.$router.push('/')
           }

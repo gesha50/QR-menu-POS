@@ -9,6 +9,7 @@
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev",
+    "icons": "icongenie generate -i app-icon.png --skip-trim --theme-color ffffff",
     "web-build": "quasar build",
     "local-serve": "quasar serve dist/spa --history -o",
     "dev-mobile-ios": "quasar dev -m cordova -T ios",

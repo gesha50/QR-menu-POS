@@ -1,5 +1,6 @@
 
 export default {
+  valuta: '₽',
   btn: {
     login: 'Login',
     reset: 'Reset',
@@ -29,5 +30,8 @@ export default {
     },
     success: 'Login success',
     failed: 'Login failed'
+  },
+  table: {
+    OtherTables: 'Другие Столы',
   },
 }

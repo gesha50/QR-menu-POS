@@ -16,56 +16,22 @@ export default defineComponent({
     name: "Sidebar",
     data() {
         return {
-          categories: [
-            {
-              name: 'Fast Food',
-              img: 'burger',
-              isActive: true,
-            },
-            {
-              name: 'Fish',
-              img: 'fish',
-              isActive: false,
-            },
-            {
-              name: 'Noodles',
-              img: 'noodles',
-              isActive: false,
-            },
-            {
-              name: 'Cake',
-              img: 'cake',
-              isActive: false,
-            },
-            {
-              name: 'Fast Food',
-              img: 'burger',
-              isActive: false,
-            },
-            {
-              name: 'Fish',
-              img: 'fish',
-              isActive: false,
-            },
-            {
-              name: 'Noodles',
-              img: 'noodles',
-              isActive: false,
-            },
-            {
-              name: 'Cake',
-              img: 'cake',
-              isActive: false,
-            },
-          ]
+
         }
     },
-    created() {},
-    mounted() {},
+    created() {
+    },
+    mounted() {
+      this.$store.dispatch('items/getCategories')
+    },
     components: {
       CategoryBlock,
     },
-    computed: {},
+    computed: {
+      categories() {
+        return this.$store.getters['items/categories']
+      },
+    },
     methods: {},
 })
 </script>

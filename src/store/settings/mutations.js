@@ -1,5 +1,11 @@
+import {LocalStorage} from "quasar";
+
 export function setLang (state, value) {
   state.lang = value
+}
+
+export function restaurantID (state, value) {
+  state.restaurantID = value
 }
 
 export function userAuth (state, arr) {
@@ -38,11 +44,14 @@ export function logoutRestaurantWaiter (state) {
   state.user.loggedIn = false
   state.user.token = null
   state.user.id = null
+  state.restaurantID = null
 }
 
 export function logoutRestaurantOwner (state) {
   state.owner.loggedIn = false
   state.owner.token = null
   state.owner.email = null
+  state.restaurantID = null
+
 }
 

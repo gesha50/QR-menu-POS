@@ -4,13 +4,13 @@
     class="CardItem__inside q-ma-sm"
     :class="$q.dark.isActive ? 'bg-black' : 'bg-white'"
   >
-    <div v-if="item.isInCart" class="CardItem__inCart">
-      <div class="CardItem__counter bg-white text-amber-8">1</div>
-    </div>
-    <div class="CardItem__forImg full-width">
+    <div @click="addItemInCart" class="CardItem__forImg full-width" style="user-select: none;">
+      <div v-if="item.isInCart" class="CardItem__inCart">
+        <div class="CardItem__counter bg-white text-amber-8">{{item.counter}}</div>
+      </div>
         <img
-          v-if="item.img"
-          :src="require(`../../assets/img/menu-item/${item.img}`)"
+          v-if="item.image"
+          :src="`${url}/uploads/restorants/${item.image}_large.jpg`"
           alt=""
           class="CardItem__img full-width"
         >
@@ -51,8 +51,16 @@ export default defineComponent({
     created() {},
     mounted() {},
     components: {},
-    computed: {},
-    methods: {},
+    computed: {
+      url() {
+        return process.env.API
+      }
+    },
+    methods: {
+      addItemInCart() {
+        this.$store.dispatch('items/addItemInCart',this.item)
+      },
+    },
 })
 </script>
 
@@ -89,6 +97,7 @@ export default defineComponent({
     font-weight: 500;
   }
   &__forImg {
+    cursor: pointer;
     height: 200px;
   }
   &__img {

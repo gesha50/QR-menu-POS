@@ -1,10 +1,10 @@
 <template>
-<div class="Menu row">
-  <div class="col-1">
-    <sidebar></sidebar>
-  </div>
+<div class="Menu row relative-position">
   <div class="col-11">
     <menu-list></menu-list>
+  </div>
+  <div class="absolute-right" style="width: 120px;">
+    <sidebar></sidebar>
   </div>
 </div>
 </template>

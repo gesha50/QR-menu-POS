@@ -3,16 +3,13 @@
   <q-drawer
     v-model="myDrawer"
     class="relative-position"
-    side="right"
     :width="380"
     :breakpoint="500"
-    overlay
     :class="$q.dark.isActive ? 'bg-black' : 'bg-white'"
-    style="padding-bottom: 128px;"
   >
-    <q-scroll-area class="fit q-pl-sm" style="">
+    <q-scroll-area v-if="this.$store.getters['items/ItemsInCart'].length" class="fit q-pl-sm" style="">
       <q-list padding class="rounded-borders CartList">
-        <template v-for="(Item, index) in ItemsInCart" :key="index">
+        <template v-for="(Item, index) in this.$store.getters['items/ItemsInCart']" :key="index">
           <q-item class="CartItem">
             <q-item-section top thumbnail class="q-ml-none">
               <img
@@ -30,28 +27,40 @@
             </q-item-section>
 
             <q-item-section>
-              <q-item-label class="CartItem__title q-mb-md" >{{ Item.name }}</q-item-label>
+              <div class="row justify-between items-baseline">
+                <q-item-label class="CartItem__title q-mb-md" >{{ Item.name }}</q-item-label>
+                <q-icon @click="removeFromCart(Item)" color="red" name="fas fa-trash-alt" style="cursor:pointer;" />
+              </div>
               <div class="row justify-between">
                   <q-btn-group rounded outline class=" CountersBtn items-center">
-                    <q-btn flat @click="decrement" class="CountersBtn__dec" icon="fas fa-minus" />
-                    <div class="CountersBtn__counter q-mx-md">1</div>
-                    <q-btn flat @click="increment" class="CountersBtn__inc" icon="fas fa-plus" />
+                    <q-btn flat @click="decrement(Item)" class="CountersBtn__dec" icon="fas fa-minus" />
+                    <div class="CountersBtn__counter q-mx-md">{{ Item.counter}}</div>
+                    <q-btn flat @click="increment(Item)" class="CountersBtn__inc" icon="fas fa-plus" />
                   </q-btn-group>
-                <div class="CountersBtn__price">$ 5.00</div>
+                <div class="CountersBtn__price">{{$t('valuta') + Item.price }}</div>
               </div>
-              <div class="CartItem__extra q-mt-md row justify-between">
-                <div class="CartItem__extraTitle">more cheese</div>
-                <div class="CartItem__extraPrice">$ 2.00</div>
+              <div v-if="Item.extra && Item.extra.length" class="CartItem__extra q-mt-md row justify-between">
+                <div class="CartItem__extraTitle">{{Item.extra.name}}</div>
+                <div class="CartItem__extraPrice">$ {{Item.extra.price}}</div>
               </div>
             </q-item-section>
           </q-item>
         </template>
       </q-list>
     </q-scroll-area>
+    <q-scroll-area v-else class="fit q-pl-sm" style="">
+      <q-list padding class="rounded-borders CartList">
+          <q-item class="CartItem text-center">
+            <q-item-section>
+              <q-item-label class="CartItem__title q-mb-md"> Cart is EMPTY :( </q-item-label>
+            </q-item-section>
+          </q-item>
+      </q-list>
+    </q-scroll-area>
     <div class="absolute-bottom">
       <div class="totalPrice bg-grey-2 full-width row justify-between q-pa-md">
         <div class="totalPrice__title">Total Price:</div>
-        <div class="totalPrice__price">$ 100</div>
+        <div class="totalPrice__price">$ {{ totalPrice }}</div>
       </div>
       <div class="checkout">
         <q-btn @click="checkout" class="full-width checkout__btn bg-amber-6" label="Finish Ordering" />
@@ -69,40 +78,7 @@ export default defineComponent({
     props: ['drawer'],
     data() {
         return {
-          ItemsInCart: [
-            {
-              id: 1,
-              name: 'Цезарь с курицей',
-              img: 'cesar.jpg',
-              isInCart: false,
-              price: 1000,
-              isActive: 1
-            },
-            {
-              id: 2,
-              name: 'Цезарь с курицей',
-              img: '',
-              isInCart: false,
-              price: 1000,
-              isActive: 1
-            },
-            {
-              id: 1,
-              name: 'Цезарь с курицей',
-              img: 'cesar.jpg',
-              isInCart: false,
-              price: 1000,
-              isActive: 1
-            },
-            {
-              id: 2,
-              name: 'Цезарь с курицей',
-              img: '',
-              isInCart: false,
-              price: 1000,
-              isActive: 1
-            },
-          ],
+
         }
     },
     created() {
@@ -114,14 +90,28 @@ export default defineComponent({
     computed: {
       myDrawer() {
         return this.drawer
-      }
+      },
+      cart() {
+        return  this.$store.getters['items/ItemsInCart']
+      },
+      totalPrice() {
+        let total = 0
+        for (let i=0; i<this.cart.length;++i) {
+          console.log(i)
+          total = total + this.cart[i].price * this.cart[i].counter
+        }
+        return total
+      },
     },
     methods: {
-      decrement() {
-        console.log('decrement')
+      decrement(item) {
+        this.$store.dispatch('items/decrement', item)
       },
-      increment() {
-        console.log('increment')
+      increment(item) {
+        this.$store.dispatch('items/increment', item)
+      },
+      removeFromCart(item) {
+        this.$store.dispatch('items/removeFromCart', item)
       },
       checkout() {
         console.log('checkout')
@@ -130,7 +120,12 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.q-drawer {
+  position: fixed !important;
+  height: calc(100vh - 59px);
+  overflow-y: auto;
+}
 .CartItem {
   &__img {
     width: 100px;

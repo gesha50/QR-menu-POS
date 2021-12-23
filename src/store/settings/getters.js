@@ -3,6 +3,10 @@ export function getLang (state) {
   return state.lang
 }
 
+export function restaurantID (state) {
+  return state.restaurantID
+}
+
 export function auth (state) {
   return state.user
 }
