@@ -22,9 +22,9 @@
         :label="`Items in Cart (${cart.length})`"
         @click='$emit("openCloseDrawer", this.drawer)'
       />
-      <q-btn to="/orders" class="q-mr-sm text-blue-grey-9" round color="amber-5" icon="fas fa-concierge-bell" :size="'md'" />
-      <q-btn to="/settings" class="text-amber-5" round color="blue-grey-9" icon="fas fa-bell" :size="'md'" />
-      <q-btn to="/archive" class="q-mx-sm" round color="blue-grey-8" icon="far fa-folder-open" :size="'md'" />
+      <q-btn v-if="isWaiterActive" to="/orders" class="q-mr-sm text-blue-grey-9" round color="amber-5" icon="fas fa-concierge-bell" :size="'md'" />
+      <q-btn v-if="isWaiterActive" to="/settings" class="text-amber-5" round color="blue-grey-9" icon="fas fa-bell" :size="'md'" />
+      <q-btn v-if="isWaiterActive" to="/archive" class="q-mx-sm" round color="blue-grey-8" icon="far fa-folder-open" :size="'md'" />
       <q-btn to="/settings" round color="grey-7" icon="fas fa-cog" :size="'md'" />
       <q-btn
         class="q-ml-sm"
