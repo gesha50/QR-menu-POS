@@ -36,34 +36,34 @@
     <q-card class="q-dialog-plugin">
       <div class="row">
         <div class="col-6">
-          <div class="q-gutter-sm">
-            <div class="">{{item.options[0].name}}: {{optionNameRadio}}</div>
-              <div
-                v-for="(optionName, ind) in item.options[0].options.split(',')"
-                :key="ind"
-                class=""
-              >
-                <input
-                  type="radio"
-                  :checked="optionName === optionNameRadio"
-                  :value="optionName"
-                  @change="changeOptions($event, optionName)"
-                >
-              </div>
-            <div class="">{{item.options[1].name}}: {{optionNameRadio2}}</div>
-            <div
-              v-for="(optionName, ind) in item.options[1].options.split(',')"
-              :key="ind"
-              class=""
-            >
-              <input
-                type="radio"
-                :checked="optionName === optionNameRadio2"
-                :value="optionName"
-                @change="changeOptions2($event, optionName)"
-              >
-            </div>
-          </div>
+<!--          <div class="q-gutter-sm">-->
+<!--            <div class="">{{item.options[0].name}}: {{optionNameRadio}}</div>-->
+<!--              <div-->
+<!--                v-for="(optionName, ind) in item.options[0].options.split(',')"-->
+<!--                :key="ind"-->
+<!--                class=""-->
+<!--              >-->
+<!--                <input-->
+<!--                  type="radio"-->
+<!--                  :checked="optionName === optionNameRadio"-->
+<!--                  :value="optionName"-->
+<!--                  @change="changeOptions($event, optionName)"-->
+<!--                >-->
+<!--              </div>-->
+<!--            <div class="">{{item.options[1].name}}: {{optionNameRadio2}}</div>-->
+<!--            <div-->
+<!--              v-for="(optionName, ind) in item.options[1].options.split(',')"-->
+<!--              :key="ind"-->
+<!--              class=""-->
+<!--            >-->
+<!--              <input-->
+<!--                type="radio"-->
+<!--                :checked="optionName === optionNameRadio2"-->
+<!--                :value="optionName"-->
+<!--                @change="changeOptions2($event, optionName)"-->
+<!--              >-->
+<!--            </div>-->
+<!--          </div>-->
         </div>
         <div class="col-6">
           <div class="">Extra</div>
