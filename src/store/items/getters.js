@@ -21,8 +21,12 @@ export function items (state) {
   return  state.items
 }
 
-export function ItemsInCart (state) {
-  return  state.ItemsInCart
+export const ItemsInCart = state => id => {
+  return state.carts[id]
+}
+
+export function carts (state) {
+  return  state.carts
 }
 
 

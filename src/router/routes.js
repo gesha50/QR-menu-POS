@@ -11,6 +11,8 @@ const routes = [
     children: [
       { path: '', name: 'index', component: () => import('pages/Index.vue') },
       { path: 'menu/:table', name: 'menu', component: () => import('pages/Menu.vue') },
+      { path: 'archive', name: 'archive', component: () => import('pages/Archive.vue') },
+      { path: 'orders', name: 'orders', component: () => import('pages/Orders.vue') },
     ],
     meta: {
       middleware: [

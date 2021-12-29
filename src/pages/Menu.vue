@@ -21,8 +21,12 @@ export default defineComponent({
 
         }
     },
-    created() {},
-    mounted() {},
+    created() {
+      this.$store.dispatch('items/createCartForCurrentTable', this.$route.path.split('/')[2])
+    },
+    mounted() {
+
+    },
     components: {
       Sidebar,
       MenuList,

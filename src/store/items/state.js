@@ -6,6 +6,7 @@ export default function () {
     firstScreenTables: '',
     categories: [],
     items: [],
+    carts: {},
     ItemsInCart: [],
   }
 }

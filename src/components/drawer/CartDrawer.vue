@@ -7,15 +7,15 @@
     :breakpoint="500"
     :class="$q.dark.isActive ? 'bg-black' : 'bg-white'"
   >
-    <q-scroll-area v-if="this.$store.getters['items/ItemsInCart'].length" class="fit q-pl-sm" style="">
+    <q-scroll-area v-if="cart.length" class="fit q-pl-sm" style="">
       <q-list padding class="rounded-borders CartList">
-        <template v-for="(Item, index) in this.$store.getters['items/ItemsInCart']" :key="index">
-          <q-item class="CartItem">
+        <template v-for="(Item, index) in cart" :key="index">
+          <q-item id="printMe" class="CartItem">
             <q-item-section top thumbnail class="q-ml-none">
               <img
                 class="CartItem__img"
-                v-if="Item.img"
-                :src="require(`../../assets/img/menu-item/${Item.img}`)"
+                v-if="Item.image"
+                :src="`${url}/uploads/restorants/${Item.image}_large.jpg`"
                 alt=""
               >
               <img
@@ -37,11 +37,15 @@
                     <div class="CountersBtn__counter q-mx-md">{{ Item.counter}}</div>
                     <q-btn flat @click="increment(Item)" class="CountersBtn__inc" icon="fas fa-plus" />
                   </q-btn-group>
-                <div class="CountersBtn__price">{{$t('valuta') + Item.price }}</div>
+                <div class="CountersBtn__price">{{$t('valuta') + ' ' + Item.price }}</div>
               </div>
-              <div v-if="Item.extra && Item.extra.length" class="CartItem__extra q-mt-md row justify-between">
-                <div class="CartItem__extraTitle">{{Item.extra.name}}</div>
-                <div class="CartItem__extraPrice">$ {{Item.extra.price}}</div>
+              <div v-if="Item.extras && Item.extras.length" class="CartItem__extra q-mt-md ">
+                <div class="" v-for="(extra, ind) in Item.extras" :key="ind">
+                  <div v-if="extra.isChecked" class="row justify-between">
+                    <div class="CartItem__extraTitle">{{extra.name}}</div>
+                    <div class="CartItem__extraPrice">{{$t('valuta') + ' ' + extra.price}}</div>
+                  </div>
+                </div>
               </div>
             </q-item-section>
           </q-item>
@@ -82,36 +86,51 @@ export default defineComponent({
         }
     },
     created() {
+      console.log(this.cart)
     },
     updated() {
     },
-    mounted() {},
+    mounted() {
+
+    },
     components: {},
     computed: {
+      url() {
+        return process.env.API
+      },
       myDrawer() {
         return this.drawer
       },
+      table_id() {
+        return this.$route.path.split('/')[2]
+      },
       cart() {
-        return  this.$store.getters['items/ItemsInCart']
+        return this.$store.getters['items/ItemsInCart'](this.table_id)
+          ? this.$store.getters['items/ItemsInCart'](this.table_id)
+          : []
       },
       totalPrice() {
         let total = 0
         for (let i=0; i<this.cart.length;++i) {
-          console.log(i)
           total = total + this.cart[i].price * this.cart[i].counter
+          this.cart[i].extras.forEach(ex=>{
+            if (ex.isChecked) {
+              total += ex.price * this.cart[i].counter
+            }
+          })
         }
         return total
       },
     },
     methods: {
       decrement(item) {
-        this.$store.dispatch('items/decrement', item)
+        this.$store.dispatch('items/decrement', [item, this.cart, this.table_id])
       },
       increment(item) {
-        this.$store.dispatch('items/increment', item)
+        this.$store.dispatch('items/increment', [item, this.cart, this.table_id])
       },
       removeFromCart(item) {
-        this.$store.dispatch('items/removeFromCart', item)
+        this.$store.dispatch('items/removeFromCart', [item, this.cart, this.table_id])
       },
       checkout() {
         console.log('checkout')
@@ -121,9 +140,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@media print {
+
+}
+.CartList {
+  margin-bottom: 126px;
+}
 .q-drawer {
   position: fixed !important;
-  height: calc(100vh - 59px);
   overflow-y: auto;
 }
 .CartItem {

@@ -74,7 +74,7 @@ export default defineComponent({
   name: 'PageIndex',
   data() {
     return {
-      tab: ''
+      tab: this.$store.getters['items/firstScreenTables'] ? this.$store.getters['items/firstScreenTables'] : ''
     }
   },
   computed: {
@@ -90,7 +90,7 @@ export default defineComponent({
       return translit(name)
     }
   },
-  created() {
+  mounted() {
     this.$store.dispatch('items/getTable')
   },
   components: {
