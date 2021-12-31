@@ -64,7 +64,7 @@
 <!--              >-->
 <!--            </div>-->
 <!--          </div>-->
-        </div>
+        </div>{{ extraArr }}
         <div class="col-6">
           <div class="">Extra</div>
           <div

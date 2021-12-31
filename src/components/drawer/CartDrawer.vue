@@ -41,7 +41,7 @@
               </div>
               <div v-if="Item.extras && Item.extras.length" class="CartItem__extra q-mt-md ">
                 <div class="" v-for="(extra, ind) in Item.extras" :key="ind">
-                  <div v-if="extra.isChecked" class="row justify-between">
+                  <div class="row justify-between">
                     <div class="CartItem__extraTitle">{{extra.name}}</div>
                     <div class="CartItem__extraPrice">{{$t('valuta') + ' ' + extra.price}}</div>
                   </div>
@@ -113,13 +113,11 @@ export default defineComponent({
         let total = 0
         for (let i=0; i<this.cart.length;++i) {
           total = total + this.cart[i].price * this.cart[i].counter
-          if (this.cart[i].extras != null) {
             this.cart[i].extras.forEach(ex=>{
               if (ex.isChecked) {
                 total += ex.price * this.cart[i].counter
               }
             })
-          }
         }
         return total
       },

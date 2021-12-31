@@ -15,7 +15,7 @@ export function addItemInCart ({commit}, data) {
 
 export function decrement ({commit}, arr) {
   arr[1].forEach(el => {
-    if (arr[0].id === el.id) {
+    if (arr[0].id === el.id && JSON.stringify(arr[0].extras) === JSON.stringify(el.extras)) {
       if (el.counter === 1) {
         commit('removeFromCart', arr)
       } else {
