@@ -1,3 +1,5 @@
+import {LocalStorage} from "quasar";
+
 export default function () {
   return {
     lang: 'en-US',
@@ -13,7 +15,12 @@ export default function () {
     user: {
       id: null,
       loggedIn: false,
-      token: null,
+      token: LocalStorage.getItem('userToken') ? LocalStorage.getItem('userToken'): null,
+    },
+    configAxios: {
+      headers: {
+        Authorization: 'Bearer ' + LocalStorage.getItem('userToken')
+      }
     }
   }
 }

@@ -13,10 +13,6 @@ export function addItemInCart ({commit}, data) {
   commit('addItemInCart', data)
 }
 
-export function addItemInCartWithExtra ({commit}, data) {
-  commit('addItemInCartWithExtra', data)
-}
-
 export function decrement ({commit}, arr) {
   arr[1].forEach(el => {
     if (arr[0].id === el.id) {
@@ -39,7 +35,11 @@ export function increment ({commit}, arr) {
 
 export function getTable({commit}) {
   let restaurant_id = LocalStorage.getItem('restaurantID')
-  api.get('api/tables/'+restaurant_id)
+  api.get('api/tables/'+restaurant_id, {
+    headers: {
+      Authorization: 'Bearer '+LocalStorage.getItem('userToken')
+    }
+  })
     .then(res => {
       console.log(res.data)
       commit('getTable', res.data)

@@ -181,11 +181,7 @@ export default defineComponent({
         // or with payload: this.$emit('ok', { ... })
         console.log(this.extraArr)
         console.log(this.item.extras)
-        if (!this.extraArr.length) {
-          this.$store.dispatch('items/addItemInCart', [this.item, this.table_id, this.extraArr])
-        } else {
-          this.$store.dispatch('items/addItemInCartWithExtra', [this.item, this.table_id, this.extraArr])
-        }
+        this.$store.dispatch('items/addItemInCart', [this.item, this.table_id, this.extraArr])
 
         // then hiding dialog
         this.hide()

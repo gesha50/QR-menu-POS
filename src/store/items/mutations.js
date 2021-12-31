@@ -14,64 +14,32 @@ export function createCartForCurrentTable (state, table_id) {
 }
 
 export function addItemInCart (state, data) {
+  let itemInCart = {
+    id: data[0].id,
+    counter: 0,
+    price: data[0].price,
+    image: data[0].image,
+    extras: data[0].extras.length ? data[0].extras : null,
+    variants: data[0].variants.length ? data[0].variants : null,
+    options: data[0].options.length ? data[0].options : null
+  }
   // data[0] - item; data[1] - table_id; data[2] - extraArr
   let isInCart = false
   state.carts[data[1]].forEach(el => {
-    if (el.id === data[0].id) {
+    if (el.id === itemInCart.id) {
       isInCart = true
       el.counter++
     }
   })
 
   if (!isInCart) {
-    data[0].counter = 1
-    state.carts[data[1]].push(data[0])
-  }
-}
-
-export function addItemInCartWithExtra (state, data) {
-  // data[0] - item; data[1] - table_id; data[2] - extraArr
-  let isInCart = false
-  state.carts[data[1]].forEach(el => {
-    console.log('1')
-    if (el.extras.length) {
-      for (let i=0;i<el.extras.length;i++) {
-        console.log('3')
-        for (let j=0;j<data[0].extras.length;j++) {
-          console.log('4')
-          console.log(el.extras[i])
-          console.log(data[0].extras[j])
-          if (el.id === data[0].id && el.extras[i].isChecked === true) {
-            console.log('5')
-            isInCart = true
-          }
-          if (el.id === data[0].id && el.extras[i].isChecked !== data[0].extras[j].isChecked) {
-            console.log('6')
-            isInCart = false
-          }
-        }
-      }
-    }
-    if (isInCart) {
-      console.log('ok')
-      el.counter++
-    }
-  })
-  if (!isInCart) {
-    data[0].counter = 1
-    let oldItem = data[0]
-    let newItem = data[0]
-    newItem.extras.map(el => {
-      if (el.id === data[2][0]) {
-        el.isChecked = true
-      }
-    })
-    state.carts[data[1]].push(newItem)
-    data[0] = oldItem
+    itemInCart.counter = 1
+    state.carts[data[1]].push(itemInCart)
   }
 }
 
 export function increment (state, arr) {
+  // arr[0] - item; arr[1] - cart; arr[2] - table_id;
   state.carts[arr[2]].forEach(data => {
     if (arr[0].id === data.id) {
       data.counter++
@@ -80,6 +48,7 @@ export function increment (state, arr) {
 }
 
 export function decrement (state, arr) {
+  // arr[0] - item; arr[1] - cart; arr[2] - table_id;
   state.carts[arr[2]].forEach(data => {
     if (arr[0].id === data.id) {
       data.counter--
@@ -88,12 +57,8 @@ export function decrement (state, arr) {
 }
 
 export function removeFromCart (state, arr) {
-  state.carts[arr[2]] = state.carts[arr[2]].filter(el => {
-    if (el.id === arr[0].id) {
-      arr[0].extras.forEach(ex => ex.isChecked = false)
-    }
-    return el.id !== arr[0].id
-  })
+  // arr[0] - item; arr[1] - cart; arr[2] - table_id;
+  state.carts[arr[2]] = state.carts[arr[2]].filter(el => el.id !== arr[0].id)
 }
 const obj1 = {
     id: 1,
@@ -126,9 +91,6 @@ export function getCategories(state, data) {
 export function getItems (state, data) {
   state.items = data.map((obj, i) => {
     obj['isActive'] = 1
-    if (obj['extras'].length) {
-      obj['extras'].map(el => el.isChecked = false)
-    }
     return obj
   })
 }
