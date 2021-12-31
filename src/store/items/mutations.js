@@ -20,9 +20,10 @@ export function addItemInCart (state, data) {
     counter: 0,
     price: data[0].price,
     image: data[0].image,
-    variants: data[0].variants.length ? data[0].variants : [],
-    options: data[0].options.length ? data[0].options : []
+    // variant
+    // extras
   }
+  itemInCart.variant = data[3]
   itemInCart.extras = data[0].extras.filter(el => {
     let isInExtra = false
     data[2].forEach(id => {
@@ -76,6 +77,15 @@ export function addItemInCart (state, data) {
     itemInCart.counter = 1
     state.carts[data[1]].push(itemInCart)
   }
+}
+
+export function changeOptionValue (state, arr) {
+  // arr[0] - e.target.value;  arr[1] - item; arr[2] - option_id;
+  arr[1].options.forEach(op=> {
+    if (op.id === arr[2]) {
+      op.value = arr[0]
+    }
+  })
 }
 
 export function increment (state, arr) {
@@ -134,6 +144,9 @@ export function getCategories(state, data) {
 export function getItems (state, data) {
   state.items = data.map((obj, i) => {
     obj['isActive'] = 1
+    obj.options.forEach(op=>{
+      op['value'] = ''
+    })
     return obj
   })
 }

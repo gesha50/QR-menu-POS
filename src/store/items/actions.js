@@ -13,6 +13,10 @@ export function addItemInCart ({commit}, data) {
   commit('addItemInCart', data)
 }
 
+export function changeOptionValue ({commit}, arr) {
+  commit('changeOptionValue', arr)
+}
+
 export function decrement ({commit}, arr) {
   arr[1].forEach(el => {
     if (arr[0].id === el.id && JSON.stringify(arr[0].extras) === JSON.stringify(el.extras)) {

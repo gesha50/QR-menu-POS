@@ -37,31 +37,25 @@
       <div class="row">
         <div class="col-6">
           <div v-if="item.options.length" class="q-gutter-sm">
-            <div class="">{{item.options[0].name}}: {{optionNameRadio}}</div>
+            <div
+              v-for="(op, inx) in item.options"
+              :key="inx"
+              class=""
+            >
+              <div class="">{{op.name}}: {{op.value}}</div>
               <div
-                v-for="(optionName, ind) in item.options[0].options.split(',')"
+                v-for="(optionName, ind) in op.options.split(',')"
                 :key="ind"
                 class=""
               >
+                {{optionName}}
                 <input
                   type="radio"
-                  :checked="optionName === optionNameRadio"
+                  :checked="optionName === op.value"
                   :value="optionName"
-                  @change="changeOptions($event, optionName)"
+                  @change="changeOptions($event, op)"
                 >
               </div>
-            <div class="">{{item.options[1].name}}: {{optionNameRadio2}}</div>
-            <div
-              v-for="(optionName, ind) in item.options[1].options.split(',')"
-              :key="ind"
-              class=""
-            >
-              <input
-                type="radio"
-                :checked="optionName === optionNameRadio2"
-                :value="optionName"
-                @change="changeOptions2($event, optionName)"
-              >
             </div>
           </div>
         </div>
@@ -114,7 +108,7 @@ export default defineComponent({
     mounted() {
       if (this.item.variants.length) {
         this.item.variants.forEach(variant => {
-          // console.log(JSON.parse(variant.options))
+          console.log(JSON.parse(variant.options))
         })
       }
       console.log(this.item.options.length)
@@ -143,11 +137,8 @@ export default defineComponent({
       }
     },
     methods: {
-      changeOptions(e, option) {
-        this.optionNameRadio = e.target.value
-      },
-      changeOptions2(e, option) {
-        this.optionNameRadio2 = e.target.value
+      changeOptions(e, op) {
+        this.$store.dispatch('items/changeOptionValue', [e.target.value, this.item, op.id])
       },
       addItemInCart() {
         if (this.item.extras.length || this.item.variants.length) {
