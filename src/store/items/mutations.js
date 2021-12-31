@@ -1,5 +1,4 @@
 import {translit} from 'assets/functions/translit'
-import {date} from "quasar";
 
 export function changeCategory (state,id) {
   state.activeCategoryID = id
@@ -24,43 +23,51 @@ export function addItemInCart (state, data) {
     variants: data[0].variants.length ? data[0].variants : [],
     options: data[0].options.length ? data[0].options : []
   }
-  let extraInItem = data[0].extras.filter(el=> {
+  itemInCart.extras = data[0].extras.filter(el => {
     let isInExtra = false
-    data[2].forEach(id =>{
+    data[2].forEach(id => {
       if (el.id === id) {
         return isInExtra = true
       }
     })
     return isInExtra
   })
-  itemInCart.extras = extraInItem
   let isInCart = false
   state.carts[data[1]].forEach(el => {
     if (el.id === itemInCart.id) {
-      if (itemInCart.extras.length || itemInCart.variants.length || itemInCart.options.length) {
-        if (itemInCart.extras.length) {
-          // sort from 0 to 99999
-          itemInCart.extras.sort(function (a, b) {
-            return a - b;
-          });
-          // sort from 0 to 99999
-          el.extras.sort(function (a, b) {
-            return a - b;
-          });
-          if (JSON.stringify(itemInCart.extras) === JSON.stringify(el.extras)) {
-            isInCart = true
-            el.counter++
+      // if no extra choose
+      if (data[2].length) {
+        if (itemInCart.extras.length || itemInCart.variants.length || itemInCart.options.length) {
+          if (itemInCart.extras.length) {
+            // sort from 0 to 99999
+            itemInCart.extras.sort(function (a, b) {
+              return a - b;
+            });
+            // sort from 0 to 99999
+            el.extras.sort(function (a, b) {
+              return a - b;
+            });
+            if (JSON.stringify(itemInCart.extras) === JSON.stringify(el.extras)) {
+              isInCart = true
+              el.counter++
+            }
           }
-        }
-        if (itemInCart.variants.length) {
+          if (itemInCart.variants.length) {
 
-        }
-        if (itemInCart.options.length) {
+          }
+          if (itemInCart.options.length) {
 
+          }
+        } else {
+          isInCart = true
+          el.counter++
         }
       } else {
-        isInCart = true
-        el.counter++
+        console.log(el.extras.length)
+        if (el.extras.length === 0){
+          isInCart = true
+          el.counter++
+        }
       }
     }
   })

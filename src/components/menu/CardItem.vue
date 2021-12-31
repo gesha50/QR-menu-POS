@@ -36,35 +36,35 @@
     <q-card class="q-dialog-plugin">
       <div class="row">
         <div class="col-6">
-<!--          <div class="q-gutter-sm">-->
-<!--            <div class="">{{item.options[0].name}}: {{optionNameRadio}}</div>-->
-<!--              <div-->
-<!--                v-for="(optionName, ind) in item.options[0].options.split(',')"-->
-<!--                :key="ind"-->
-<!--                class=""-->
-<!--              >-->
-<!--                <input-->
-<!--                  type="radio"-->
-<!--                  :checked="optionName === optionNameRadio"-->
-<!--                  :value="optionName"-->
-<!--                  @change="changeOptions($event, optionName)"-->
-<!--                >-->
-<!--              </div>-->
-<!--            <div class="">{{item.options[1].name}}: {{optionNameRadio2}}</div>-->
-<!--            <div-->
-<!--              v-for="(optionName, ind) in item.options[1].options.split(',')"-->
-<!--              :key="ind"-->
-<!--              class=""-->
-<!--            >-->
-<!--              <input-->
-<!--                type="radio"-->
-<!--                :checked="optionName === optionNameRadio2"-->
-<!--                :value="optionName"-->
-<!--                @change="changeOptions2($event, optionName)"-->
-<!--              >-->
-<!--            </div>-->
-<!--          </div>-->
-        </div>{{ extraArr }}
+          <div v-if="item.options.length" class="q-gutter-sm">
+            <div class="">{{item.options[0].name}}: {{optionNameRadio}}</div>
+              <div
+                v-for="(optionName, ind) in item.options[0].options.split(',')"
+                :key="ind"
+                class=""
+              >
+                <input
+                  type="radio"
+                  :checked="optionName === optionNameRadio"
+                  :value="optionName"
+                  @change="changeOptions($event, optionName)"
+                >
+              </div>
+            <div class="">{{item.options[1].name}}: {{optionNameRadio2}}</div>
+            <div
+              v-for="(optionName, ind) in item.options[1].options.split(',')"
+              :key="ind"
+              class=""
+            >
+              <input
+                type="radio"
+                :checked="optionName === optionNameRadio2"
+                :value="optionName"
+                @change="changeOptions2($event, optionName)"
+              >
+            </div>
+          </div>
+        </div>
         <div class="col-6">
           <div class="">Extra</div>
           <div
@@ -117,6 +117,7 @@ export default defineComponent({
           // console.log(JSON.parse(variant.options))
         })
       }
+      console.log(this.item.options.length)
     },
     components: {},
     computed: {
@@ -135,7 +136,7 @@ export default defineComponent({
         let res = 0
         this.cart.forEach(el => {
           if (el.id === this.item.id) {
-            res = el.counter
+            res += el.counter
           }
         })
         return res
@@ -179,8 +180,7 @@ export default defineComponent({
         // before hiding the QDialog
         this.$emit('ok')
         // or with payload: this.$emit('ok', { ... })
-        console.log(this.extraArr)
-        console.log(this.item.extras)
+
         this.$store.dispatch('items/addItemInCart', [this.item, this.table_id, this.extraArr])
 
         // then hiding dialog

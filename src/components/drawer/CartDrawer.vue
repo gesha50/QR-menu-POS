@@ -114,9 +114,7 @@ export default defineComponent({
         for (let i=0; i<this.cart.length;++i) {
           total = total + this.cart[i].price * this.cart[i].counter
             this.cart[i].extras.forEach(ex=>{
-              if (ex.isChecked) {
-                total += ex.price * this.cart[i].counter
-              }
+              total += ex.price * this.cart[i].counter
             })
         }
         return total
