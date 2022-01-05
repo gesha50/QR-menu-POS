@@ -42,33 +42,37 @@ export function addItemInCart (state, data) {
   let isInCart = false
   state.carts[data[1]].forEach(el => {
     if (el.id === itemInCart.id) {
-      // if no extra choose
-      if (data[2].length) {
-        if (itemInCart.extras.length || itemInCart.variants.length || itemInCart.options.length) {
+      // if extra or variant choose
+      if (itemInCart.extras.length || itemInCart.variant.length) {
           if (itemInCart.extras.length) {
             // sort from 0 to 99999
             itemInCart.extras.sort(function (a, b) {
               return a - b;
             });
-            // sort from 0 to 99999
+            // sort from 0 to 9999999
             el.extras.sort(function (a, b) {
               return a - b;
             });
             if (JSON.stringify(itemInCart.extras) === JSON.stringify(el.extras)) {
               isInCart = true
-              el.counter++
+              // el.counter++
             }
           }
+          let isSameVariant = true
           if (itemInCart.variant.length) {
-
+             isSameVariant = (itemInCart.variant.length === el.variant.length) && itemInCart.variant.every((elem, i)=> {
+                return elem === el.variant[i];
+             })
+            if (!isSameVariant) {
+              isInCart = false
+            }
           }
-        } else {
-          isInCart = true
-          el.counter++
-        }
+          if (isInCart && isSameVariant) {
+            el.counter++
+          }
       } else {
         console.log(el.extras.length)
-        if (el.extras.length === 0){
+        if (el.extras.length === 0 && el.variant.length === 0){
           isInCart = true
           el.counter++
         }
@@ -94,7 +98,10 @@ export function changeOptionValue (state, arr) {
 export function increment (state, arr) {
   // arr[0] - item; arr[1] - cart; arr[2] - table_id;
   state.carts[arr[2]].forEach(data => {
-    if (arr[0].id === data.id && JSON.stringify(arr[0].extras) === JSON.stringify(data.extras)) {
+    if (arr[0].id === data.id
+      && JSON.stringify(arr[0].extras) === JSON.stringify(data.extras)
+      && arr[0].variant.every((elem, i) => elem === data.variant[i])
+    ) {
       data.counter++
     }
   })
@@ -103,7 +110,9 @@ export function increment (state, arr) {
 export function decrement (state, arr) {
   // arr[0] - item; arr[1] - cart; arr[2] - table_id;
   state.carts[arr[2]].forEach(data => {
-    if (arr[0].id === data.id && JSON.stringify(arr[0].extras) === JSON.stringify(data.extras)) {
+    if (arr[0].id === data.id
+      && JSON.stringify(arr[0].extras) === JSON.stringify(data.extras)
+      && arr[0].variant.every((elem, i) => elem === data.variant[i])) {
       data.counter--
     }
   })
@@ -111,7 +120,10 @@ export function decrement (state, arr) {
 
 export function removeFromCart (state, arr) {
   // arr[0] - item; arr[1] - cart; arr[2] - table_id;
-  state.carts[arr[2]] = state.carts[arr[2]].filter(el => !(el.id === arr[0].id && JSON.stringify(arr[0].extras) === JSON.stringify(el.extras)))
+  state.carts[arr[2]] = state.carts[arr[2]].filter(el => !(el.id === arr[0].id
+    && JSON.stringify(arr[0].extras) === JSON.stringify(el.extras)
+    && arr[0].variant.length === el.variant.length
+    && arr[0].variant.every((elem, i) => elem === el.variant[i])))
 }
 const obj1 = {
     id: 1,

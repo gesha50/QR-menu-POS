@@ -19,7 +19,10 @@ export function changeOptionValue ({commit}, arr) {
 
 export function decrement ({commit}, arr) {
   arr[1].forEach(el => {
-    if (arr[0].id === el.id && JSON.stringify(arr[0].extras) === JSON.stringify(el.extras)) {
+    if (arr[0].id === el.id
+      && JSON.stringify(arr[0].extras) === JSON.stringify(el.extras)
+      && arr[0].variant.every((elem, i) => elem === el.variant[i])
+    ) {
       if (el.counter === 1) {
         commit('removeFromCart', arr)
       } else {

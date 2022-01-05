@@ -28,7 +28,15 @@
 
             <q-item-section>
               <div class="row justify-between items-baseline">
-                <q-item-label class="CartItem__title q-mb-md" >{{ Item.name }}</q-item-label>
+                <q-item-label class="CartItem__title q-mb-md row" >{{ Item.name }}
+                  <div
+                    v-if="Item.variant.length"
+                    class="q-ml-sm text-green"
+                    style="font-size: 14px"
+                  >
+                    {{ '('+ Item.variant +')' }}
+                  </div>
+                </q-item-label>
                 <q-icon @click="removeFromCart(Item)" color="red" name="fas fa-trash-alt" style="cursor:pointer;" />
               </div>
               <div class="row justify-between">
