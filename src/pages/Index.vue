@@ -66,7 +66,7 @@
 <script>
 import { defineComponent } from 'vue';
 import TableBlock from "components/tables/TableBlock";
-import { translit } from '../assets/functions/translit'
+import { translit } from 'assets/functions/translit'
 import DeliveryBlock from "components/tables/DeliveryBlock";
 import TakeAwayBlock from "components/tables/TakeAwayBlock";
 
@@ -74,7 +74,7 @@ export default defineComponent({
   name: 'PageIndex',
   data() {
     return {
-      tab: this.$store.getters['items/firstScreenTables'] ? this.$store.getters['items/firstScreenTables'] : ''
+      tab: ''
     }
   },
   computed: {
@@ -92,6 +92,9 @@ export default defineComponent({
   },
   mounted() {
     this.$store.dispatch('items/getTable')
+    setTimeout(()=>{
+      this.tab = this.$store.getters['items/firstScreenTables']
+    },100)
   },
   components: {
     TableBlock,

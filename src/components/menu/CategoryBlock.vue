@@ -1,7 +1,7 @@
 <template>
 <div @click="changeCategory" class="CategoryBlock q-ma-sm" :class="bgColorCategory">
   <div class="CategoryBlock__forImg">
-    <img v-if="category.img" :src="require('../../assets/img/category/'+ category.img +'.png')" class="CategoryBlock__img q-ma-sm" alt="">
+    <img v-if="category.image" :src="require('../../assets/img/category/'+ category.img +'.png')" class="CategoryBlock__img q-ma-sm" alt="">
     <img v-else :src="require('../../assets/img/category/burger.png')" class="CategoryBlock__img q-ma-sm" alt="">
 
   </div>

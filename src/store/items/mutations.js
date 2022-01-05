@@ -14,16 +14,22 @@ export function createCartForCurrentTable (state, table_id) {
 }
 
 export function addItemInCart (state, data) {
-  // data[0] - item; data[1] - table_id; data[2] - extraArr
+  // data[0] - item; data[1] - table_id; data[2] - extraArr;
   let itemInCart = {
     id: data[0].id,
+    name: data[0].name,
     counter: 0,
     price: data[0].price,
     image: data[0].image,
     // variant
     // extras
   }
-  itemInCart.variant = data[3]
+  itemInCart.variant = []
+  data[0].options.forEach(op=>{
+    if (op.value !== '') {
+      itemInCart.variant.push(op.value)
+    }
+  })
   itemInCart.extras = data[0].extras.filter(el => {
     let isInExtra = false
     data[2].forEach(id => {
@@ -53,10 +59,7 @@ export function addItemInCart (state, data) {
               el.counter++
             }
           }
-          if (itemInCart.variants.length) {
-
-          }
-          if (itemInCart.options.length) {
+          if (itemInCart.variant.length) {
 
           }
         } else {
@@ -99,11 +102,8 @@ export function increment (state, arr) {
 
 export function decrement (state, arr) {
   // arr[0] - item; arr[1] - cart; arr[2] - table_id;
-  console.log(state.carts[arr[2]])
   state.carts[arr[2]].forEach(data => {
-    console.log(data)
     if (arr[0].id === data.id && JSON.stringify(arr[0].extras) === JSON.stringify(data.extras)) {
-      console.log('----')
       data.counter--
     }
   })
@@ -127,7 +127,7 @@ export function getTable (state, data) {
   state.areasTablesObj = data.result
   state.otherTables = data.otherTables
   state.firstScreenTables = translit(data.result[0].restoArea.name)
-  console.log(state.firstScreenTables.toLowerCase())
+  console.log(state.firstScreenTables)
 }
 
 export function getCategories(state, data) {
