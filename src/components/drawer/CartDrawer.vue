@@ -75,7 +75,7 @@
         <div class="totalPrice__price">$ {{ totalPrice }}</div>
       </div>
       <div class="checkout">
-        <q-btn @click="checkout" class="full-width checkout__btn bg-amber-6" label="Finish Ordering" />
+        <q-btn :disable="isCartEmpty" @click="checkout" class="full-width checkout__btn bg-amber-6" label="Finish Ordering" />
       </div>
     </div>
   </q-drawer>
@@ -103,6 +103,9 @@ export default defineComponent({
     },
     components: {},
     computed: {
+      isCartEmpty() {
+        return this.cart.length <= 0;
+      },
       url() {
         return process.env.API
       },
