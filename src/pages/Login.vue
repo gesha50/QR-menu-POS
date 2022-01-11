@@ -12,8 +12,8 @@
             color="white"
             text-color="black"
             :options="[
-              {label: 'Inactive',  value: null},
-              {label: 'Active ', value: 'true'},
+              {label: 'Individual',  value: false},
+              {label: 'Restaurant ', value: true},
             ]"
           />
         </div>
@@ -31,16 +31,27 @@
             class="LoginPage__form"
           >
             <div class="input-container">
-              <label class="block" for="restaurant-email">{{$t('login.email_owner')}}</label>
-              <input
-                type="text"
-                id="restaurant-email"
-                v-model="restaurant.email"
+              <label class="block">{{$t('login.email_owner')}}
+              <q-input
+                class="q-mt-sm"
+                type="email"
+                bg-color="white"
+                rounded outlined v-model="restaurant.email"
                 :placeholder="$t('login.email_owner')"
                 :rules="[
                   val => val !== null && val !== '' || $t('login.rules.email'),
                 ]"
-              />
+              ></q-input>
+              </label>
+<!--              <input-->
+<!--                type="text"-->
+<!--                id="restaurant-email"-->
+<!--                v-model="restaurant.email"-->
+<!--                :placeholder="$t('login.email_owner')"-->
+<!--                :rules="[-->
+<!--                  val => val !== null && val !== '' || $t('login.rules.email'),-->
+<!--                ]"-->
+<!--              />-->
             </div>
             <div class="input-container">
               <label class="block" for="restaurant-password">{{$t('login.password')}}</label>
@@ -77,7 +88,7 @@
             <div class="input-container">
               <label class="block" for="restaurant-email">{{$t('login.password')}}</label>
               <input
-                type="number"
+                type="password"
                 v-model="waiter.password"
                 id="restaurant-email"
                 :placeholder="$t('login.password')"
@@ -243,11 +254,11 @@ export default {
     margin: 0 auto 100px;
     .input-container {
       width: 100%;
-      margin-bottom: 30px;
+
       &:last-child {
         margin-bottom: 0;
       }
-      label { 
+      label {
         font-family: 'Raleway',sans-serif;
         font-style: normal;
         font-weight: bold;
