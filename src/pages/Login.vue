@@ -4,12 +4,6 @@
     <div class="q-gutter-sm flex justify-center">
       <div class="text-center">
         <img class="logo" src="../assets/img/logo_login.svg" alt="logo">
-        <!-- <div v-if='isRestaurant === "Choose mode"'>
-          {{$t('login.mode.choose_mode')}}
-        </div>
-        <div v-else-if="isRestaurant" class="">{{ $t('login.mode.restaurant') }}</div>
-        <div v-else class="">{{ $t('login.mode.individual') }}</div> -->
-        <!-- <q-toggle color="red-5" size="130px" indeterminate-value="Do not choose" v-model="isRestaurant" /> -->
         <div class="white">
           <q-btn-toggle
             v-model="isRestaurant"
@@ -62,70 +56,8 @@
             </div>
             <button class="login-button" type="submit">{{$t('btn.login')}}</button>
           </form>
-          <!-- <q-form
-            @submit="authOwner"
-            @reset="resetOwnerData"
-            class="q-gutter-md LoginPage__form"
-          >
-            <q-input
-              type="text"
-              standout="bg-white text-white"
-              v-model="restaurant.email"
-              :label="$t('login.email_owner')"
-              lazy-rules
-              :rules="[
-              val => val !== null && val !== '' || $t('login.rules.email'),
-          ]"
-            />
-            <q-input
-              type="password"
-              v-model="restaurant.password"
-              :label="$t('login.password')"
-              lazy-rules
-              :rules="[
-            val => val !== null && val !== '' || $t('login.rules.password'),
-          ]"
-            />
-            <div>
-              <q-btn :label="$t('btn.login')" type="submit" color="primary"/>
-              <q-btn :label="$t('btn.reset')" type="reset" color="primary" flat class="q-ml-sm" />
-            </div>
-          </q-form> -->
         </div>
         <div v-else>
-          <!-- <q-form
-            @submit="authWaiter"
-            @reset="resetWaiterData"
-            class="q-gutter-md LoginPage__form"
-          >
-            <q-input
-              filled
-              type="number"
-              v-model="waiter.user_id"
-              :label="'ID' + $t('login.waiter')"
-              lazy-rules
-              :rules="[
-            val => val !== null && val !== '' || $t('login.rules.id'),
-          ]"
-            />
-            <q-input
-              autofocus
-              filled
-              type="number"
-              v-model="waiter.password"
-              :label="$t('login.password')"
-              lazy-rules
-              :rules="[
-            val => val !== null && val !== '' || $t('login.rules.password'),
-            val => val >= 0 && val <= 9999 || $t('login.rules.enterFourNum'),
-            val => val.length === 4 || $t('login.rules.enterFourNum')
-          ]"
-            />
-            <div>
-              <q-btn :label="$t('btn.login')" type="submit" color="primary"/>
-              <q-btn :label="$t('btn.reset')" type="reset" color="primary" flat class="q-ml-sm" />
-            </div>
-          </q-form> -->
           <form
             @submit="authWaiter"
             @reset="resetWaiterData"
