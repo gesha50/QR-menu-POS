@@ -49,7 +49,7 @@ module.exports = configure(function (ctx) {
     build: {
       env: {
         API: ctx.dev
-          ? 'http://127.0.0.1:8000'
+          ? 'http://qrm.loc'
           : 'https://qr-menu.uz'
       },
       vueRouterMode: 'hash', // available values: 'hash', 'history'

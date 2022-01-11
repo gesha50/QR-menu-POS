@@ -1,40 +1,83 @@
 <template>
-<q-page >
-  <div class="column">
-    <div class="q-gutter-sm flex justify-center q-mt-md">
+<q-page>
+  <div class="bg absolute-center">
+    <div class="q-gutter-sm flex justify-center">
       <div class="text-center">
-        <div v-if='isRestaurant === "Choose mode"'>
+        <img class="logo" src="../assets/img/logo_login.svg" alt="logo">
+        <!-- <div v-if='isRestaurant === "Choose mode"'>
           {{$t('login.mode.choose_mode')}}
         </div>
         <div v-else-if="isRestaurant" class="">{{ $t('login.mode.restaurant') }}</div>
-        <div v-else class="">{{ $t('login.mode.individual') }}</div>
-        <q-toggle color="red-5" size="130px" indeterminate-value="Do not choose" v-model="isRestaurant" />
+        <div v-else class="">{{ $t('login.mode.individual') }}</div> -->
+        <!-- <q-toggle color="red-5" size="130px" indeterminate-value="Do not choose" v-model="isRestaurant" /> -->
+        <div class="white">
+          <q-btn-toggle
+            v-model="isRestaurant"
+            toggle-color="red-6"
+            rounded
+            color="white"
+            text-color="black"
+            :options="[
+              {label: 'Inactive',  value: null},
+              {label: 'Active ', value: 'true'},
+            ]"
+          />
+        </div>
       </div>
     </div>
     <div class="column justify-center">
-      <div class="q-pa-md flex justify-center LoginPage">
+      <div class="q-pa-md LoginPage">
         <div v-if='isRestaurant === "Choose mode"' class="">
           {{$t('login.mode.choose_mode')}}
         </div>
-        <div v-else-if="isRestaurant" class="">
-          <q-form
+        <div v-else-if="isRestaurant">
+          <form
+            @submit="authOwner"
+            @reset="resetOwnerData"
+            class="LoginPage__form"
+          >
+            <div class="input-container">
+              <label class="block" for="restaurant-email">{{$t('login.email_owner')}}</label>
+              <input
+                type="text"
+                id="restaurant-email"
+                v-model="restaurant.email"
+                :placeholder="$t('login.email_owner')"
+                :rules="[
+                  val => val !== null && val !== '' || $t('login.rules.email'),
+                ]"
+              />
+            </div>
+            <div class="input-container">
+              <label class="block" for="restaurant-password">{{$t('login.password')}}</label>
+              <input
+                type="password"
+                id="restaurant-password"
+                v-model="restaurant.password"
+                :placeholder="$t('login.rules.password')"
+                :rules="[
+                  val => val !== null && val !== '' || $t('login.rules.password'),
+                ]"
+              />
+            </div>
+            <button class="login-button" type="submit">{{$t('btn.login')}}</button>
+          </form>
+          <!-- <q-form
             @submit="authOwner"
             @reset="resetOwnerData"
             class="q-gutter-md LoginPage__form"
           >
             <q-input
-              filled
               type="text"
+              standout="bg-white text-white"
               v-model="restaurant.email"
               :label="$t('login.email_owner')"
               lazy-rules
               :rules="[
-            val => val !== null && val !== '' || $t('login.rules.email'),
+              val => val !== null && val !== '' || $t('login.rules.email'),
           ]"
             />
             <q-input
-              autofocus
-              filled
               type="password"
               v-model="restaurant.password"
               :label="$t('login.password')"
@@ -47,10 +90,10 @@
               <q-btn :label="$t('btn.login')" type="submit" color="primary"/>
               <q-btn :label="$t('btn.reset')" type="reset" color="primary" flat class="q-ml-sm" />
             </div>
-          </q-form>
+          </q-form> -->
         </div>
-        <div v-else class="">
-          <q-form
+        <div v-else>
+          <!-- <q-form
             @submit="authWaiter"
             @reset="resetWaiterData"
             class="q-gutter-md LoginPage__form"
@@ -82,7 +125,38 @@
               <q-btn :label="$t('btn.login')" type="submit" color="primary"/>
               <q-btn :label="$t('btn.reset')" type="reset" color="primary" flat class="q-ml-sm" />
             </div>
-          </q-form>
+          </q-form> -->
+          <form
+            @submit="authWaiter"
+            @reset="resetWaiterData"
+            class="LoginPage__form"
+          >
+            <div class="input-container">
+              <label class="block" for="restaurant-id">{{'ID ' + $t('login.waiter')}}</label>
+              <input
+                  type="number"
+                  id="restaurant-id"
+                  v-model="waiter.user_id"
+                  :placeholder="'ID '+$t('login.waiter')"
+                  :rules="[
+                val => val !== null && val !== '' || $t('login.rules.id'),]"
+              />
+            </div>
+            <div class="input-container">
+              <label class="block" for="restaurant-email">{{$t('login.password')}}</label>
+              <input
+                type="number"
+                v-model="waiter.password"
+                id="restaurant-email"
+                :placeholder="$t('login.password')"
+                :rules="[
+                val => val !== null && val !== '' || $t('login.rules.password'),
+                val => val >= 0 && val <= 9999 || $t('login.rules.enterFourNum'),
+                val => val.length === 4 || $t('login.rules.enterFourNum')]"
+              />
+            </div>
+            <button class="login-button" type="submit">{{$t('btn.login')}}</button>
+          </form>
         </div>
       </div>
     </div>
@@ -92,7 +166,6 @@
 
 <script>
 import {api} from "boot/axios";
-
 export default {
   name: "Login",
   data() {
@@ -201,12 +274,173 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.q-page {
+  background: url('assets/img/background/bg-login.jpg') no-repeat center center;
+  background-size: cover;
+  .bg {
+    width: 700px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+    padding: 70px 70px 0 70px;
+    img.logo {
+      width: 150px;
+    }
+    .white {
+      background-color: #ffffff;
+      border-radius: 25px;
+      padding: 3px;
+      margin: 10px 0 30px;
+      .q-btn-group {
+        box-shadow: none;
+        .q-btn-item {
+          background-color: #000;
+        }
+      }
+    }
+  }
+}
+.q-btn-group {
+  box-shadow: none;
+  .q-btn-item {
+    background-color: #000;
+  }
+}
 .LoginPage {
   &__form {
-    width: 300px;
+    width: 400px;
+    margin: 0 auto 100px;
+    .input-container {
+      width: 100%;
+      margin-bottom: 30px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      label { 
+        font-family: 'Raleway',sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 19px;
+        margin: 0 0 5px;
+        font-feature-settings: 'pnum' on, 'lnum' on;
+        color: #1E1E1E;
+      }
+      input {
+        width: 100%;
+        background: #FFFFFF;
+        border: 1.5px solid #DFDFDF;
+        box-sizing: border-box;
+        border-radius: 52px;
+        padding: 14px 25px;
+        font-family: 'Raleway',sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        margin: 0;
+        font-feature-settings: 'pnum' on, 'lnum' on;
+        color: #010101;
+        outline: none;
+        &:placeholder {
+          font-family: 'Raleway',sans-serif;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 19px;
+          margin: 0;
+          font-feature-settings: 'pnum' on, 'lnum' on;
+          color: #B5B5B5;
+        }
+      }
+    }
+    .login-button {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      background: #08C804;
+      border: none;
+      padding: 25px 0;
+      border-radius: 0px 0px 30px 30px;
+      font-family: 'Raleway',sans-serif;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 26px;
+      line-height: 120%;
+      font-feature-settings: 'pnum' on, 'lnum' on;
+      cursor: pointer;
+      color: #FAFAFA;
+    }
   }
 }
 .marginAuto {
   margin: auto;
+}
+
+@media (max-width: 1040px) {
+  .q-page {
+    .bg {
+      width: 50%;
+    }
+  }
+  .LoginPage {
+    width: 100%;
+    &__form {
+      width: 100%;
+    }
+  }
+}
+@media (max-width: 990px) {
+  .q-page {
+    .bg {
+      width: 60%;
+    }
+  }
+}
+@media (max-width: 770px) {
+  .q-page {
+    .bg {
+      width: 70%;
+      padding: 50px 40px 0 40px;
+    }
+  }
+}
+@media (max-width: 580px) {
+  .q-page {
+    .bg {
+      width: 80%;
+      padding: 50px 40px 0 40px;
+    }
+  }
+}
+@media (max-width: 500px) {
+  .q-page {
+    .bg {
+      width: 90%;
+      padding: 30px 20px 0 20px;
+      img.logo {
+        width: 120px;
+      }
+      .white {
+        margin: 15px 0 25px;
+      }
+    }
+  }
+  .LoginPage {
+    padding:0;
+    &__form {
+      margin: 0 auto 80px;
+      .input-container {
+        margin-bottom: 15px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+      .login-button {
+        padding: 15px 0;
+        font-size:22px
+      }
+    }
+  }
 }
 </style>
