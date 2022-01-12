@@ -3,13 +3,18 @@
     <main-header
       :is-waiter-active="true"
       :drawer="drawer"
+      :notify-drawer="notifyDrawer"
       @openCloseDrawer="drawer = !drawer"
+      @openCloseNotifyDrawer="notifyDrawer = !notifyDrawer"
     ></main-header>
     <cart-drawer
       v-if="routerContains === 'menu'"
       :drawer="drawer"
     ></cart-drawer>
 
+    <notify-drawer
+      :notifyDrawer="notifyDrawer"
+    ></notify-drawer>
 
     <q-page-container>
       <router-view />
@@ -23,13 +28,14 @@
 import { defineComponent } from 'vue'
 import MainHeader from "components/header/MainHeader";
 import CartDrawer from "components/drawer/CartDrawer";
-import DarkContainerForDrawer from "components/drawer/DarkContainerForDrawer";
+import NotifyDrawer from "components/drawer/NotifyDrawer";
 
 export default defineComponent({
   name: 'MainLayout',
   data() {
     return {
-      drawer: true
+      drawer: true,
+      notifyDrawer: false
     }
   },
   computed: {
@@ -41,7 +47,7 @@ export default defineComponent({
   components: {
     MainHeader,
     CartDrawer,
-
+    NotifyDrawer
   },
 })
 </script>

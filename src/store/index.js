@@ -3,6 +3,7 @@ import { createStore } from 'vuex'
 import settings from './settings'
 import items from './items'
 import orders from './orders'
+import notify from './notify'
 
 /*
  * If not building with SSR mode, you can
@@ -19,6 +20,7 @@ export default store(function (/* { ssrContext } */) {
       settings,
       items,
       orders,
+      notify,
     },
 
     // enable strict mode (adds overhead!)

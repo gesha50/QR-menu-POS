@@ -33,9 +33,15 @@
             </q-badge>
           </q-td>
           <q-td key="actions" :props="props">
-            <q-badge color="accent">
-              {{ props.row.actions }}
-            </q-badge>
+
+            <template v-for="(action, i) in props.row.actions" :key="i">
+              <q-badge v-if="action === 'действий не требуется'" >
+                действий не требуется
+              </q-badge>
+              <q-badge v-else color="accent">
+                {{ action }}
+              </q-badge>
+            </template>
           </q-td>
         </q-tr>
       </template>
