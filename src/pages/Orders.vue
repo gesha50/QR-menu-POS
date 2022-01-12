@@ -16,24 +16,16 @@
             {{ props.row.ID }}
           </q-td>
           <q-td key="created_at" :props="props">
-            <q-badge color="green">
               {{ props.row.created_at }}
-            </q-badge>
           </q-td>
           <q-td key="table" :props="props">
-            <q-badge color="purple">
               {{ props.row.table }}
-            </q-badge>
           </q-td>
           <q-td key="items" :props="props">
-            <q-badge color="orange">
               {{ props.row.items }}
-            </q-badge>
           </q-td>
           <q-td key="price" :props="props">
-            <q-badge color="primary">
               {{ props.row.price }}
-            </q-badge>
           </q-td>
           <q-td key="status" :props="props">
             <q-badge color="teal">
