@@ -104,7 +104,6 @@ export default defineComponent({
           this.$store.dispatch('items/addItemInCart', [this.item, this.table_id, this.extraArr])
         }
       },
-
     },
 })
 </script>

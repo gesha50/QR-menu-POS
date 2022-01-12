@@ -1,31 +1,254 @@
 <template>
-<div class="Archive">
-  <q-page
-    class="window-width"
-  >
-    <h1>Archive!</h1>
-  </q-page>
-</div>
-</template>
+  <q-page>
+    <div class="main-block">
+      <div class="tab" :class="showSidebar ? 'padding-right' : '' ">
+        <div class="tab-root shadow-N rounded-borders bg-white">
+          <q-tabs
+            v-model="tab"
+            class="tab-flex"
+            active-class="btn-active"
+            indicator-color="transparent"
+          >
+            <q-tab class="tab-btn" name="mails" label="Order History" />
+            <q-tab class="tab-btn" name="alarms" label="Order On Hold" />
+            <q-tab class="tab-btn" name="movies" label="Offline Order" />
+          </q-tabs>
+          <button @click="showSidebar = !showSidebar">See</button>
+        </div>
+        <div class="root">
+          <q-tab-panels v-model="tab" class="text-white">
+            <q-tab-panel class="tab-panel" name="mails">
+              <div class="search-form">
+                <input type="text" placeholder="Search Order ID end Customers">
+                <img src="../assets/img/icons_search.svg" alt="search">
+              </div>
+              <div class="tabel-block">
+                <div class="tabel-head">
+                  <p>Order ID</p>
+                  <p>Date</p>
+                  <p>Total Sales</p>
+                </div>
+                <div class="tabel-body">
+                  <div class="tabel-body-box" @click="addToCheck" v-for="row in rows" :key="row">
+                    <p>#{{ row.ID }}</p>
+                    <p>{{ row.created_at }}</p>
+                    <p>{{ row.price }}</p>
+                  </div>
+                </div>
+              </div>
+            </q-tab-panel>
 
+            <q-tab-panel class="tab-panel" name="alarms">
+              
+            </q-tab-panel>
+
+            <q-tab-panel class="tab-panel" name="movies">
+              
+            </q-tab-panel>
+          </q-tab-panels>
+        </div>
+      </div>
+      <div class="sidebar" :class="showSidebar ? 'open-sidebar' : '' ">
+          <print-sidebar />
+      </div>
+    </div>
+  </q-page>
+</template>
 <script>
 import { defineComponent } from 'vue';
+import { ref } from 'vue'
+import PrintSidebar from "components/menu/PrintSidebar"
 
 export default defineComponent({
     name: "Archive",
     data() {
-        return {
-
-        }
+      return {
+        showSidebar: false,
+        tab: ref('mails'),
+      }
     },
     created() {},
-    mounted() {},
-    components: {},
-    computed: {},
-    methods: {},
+    mounted() { this.$store.dispatch('orders/getOrders')},
+    components: {
+      PrintSidebar
+    },
+    computed: {
+      columns() {
+        return this.$store.getters['orders/columns']
+      },
+      rows() {
+        return this.$store.getters['orders/rows']
+      },
+    },
+    methods: {
+      addToCheck() {
+        
+      }
+    },
 })
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
+.main-block {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 20px 20px 20px;
+  .sidebar {
+    width: 350px;
+    min-height: 100%;
+    position: fixed;
+    transform: translateX(350px);
+    right: 0;
+    top: 58px;
+    z-index: 999;
+    background: #ffffff;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.07);
+  }
+  .open-sidebar {
+    transform: translateX(0);
+    transition: all 0.2s;
+  }
+  .q-tab {
+    padding: 0;
+    height: auto!important;;
+    min-height:auto!important;
+  }
+  .padding-right {
+    padding-right: 350px;
+  }
+  .tab {
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    transition: all 0.2s;
+    .tab-root {
+      padding: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.04);
+      border-radius: 10px;
+      .tab-flex {
+        .q-tabs__content {
+          height: auto;
+          min-height: auto;
+          flex: none;
+          display: flex;
+          flex: none;
+          justify-content: left;
+        }
+        .tab-btn {
+          padding: 5px 20px;
+          height:auto;
+          border-radius: 8px;
+          border: 1px solid transparent;
+          margin-right: 10px;
+          .q-tab__content {
+            padding: 0;
+            height: auto!important;;
+            min-height:auto!important;
+          }
+          
+        }
+        .btn-active {
+          color: #BF9A6A;
+          border: 1px solid #BF9A6A;
+          border-radius: 8px;       
+        }
+      }
+    }
+    .root {
+      .q-tab-panels {
+        border-radius: 10px;
+        padding: 20px 20px 30px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.04);
+        .tab-panel {
+          padding: 0;
+          .search-form {
+            position: relative;
+            display: block;
+            margin: 0 0 20px;
+            input {
+              width: 100%;
+              padding: 15px 0 15px 30px;
+              border: none;
+              outline: none;
+              font-family: 'Raleway',sans-serif;
+              font-style: normal;
+              font-weight: 500;
+              font-size: 16px;
+              line-height: 19px;
+              margin: 0;
+              font-feature-settings: 'pnum' on, 'lnum' on;
+              color: #010101;
+              border-bottom: 1px solid #cccccc;
+            }
+            img {
+              width: 20px;
+              height: 20px;
+              position: absolute;
+              top: 50%;
+              left: 0;
+              transform: translateY(-50%);
+            }
+          }
+          .tabel-block {
+            .tabel-head {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              background: rgba(0, 0, 0, 0.09);
+              border-radius: 8px;
+              padding: 15px 10px;
+              p {
+                font-style: normal;
+                font-weight: bold;
+                font-size: 16px;
+                line-height: 130%;
+                margin: 0;
+                font-feature-settings: 'pnum' on, 'lnum' on;
+                color: #1E1E1E;
+              }
+            }
+            .tabel-body {
+              .tabel-body-box {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                border-radius: 8px;
+                padding: 15px 10px;
+                cursor: pointer;
+                -moz-user-select: none;
+                -webkit-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                &:nth-child( even) {
+                  background: rgba(0, 0, 0, 0.07);
+                }
+                &:nth-child(odd) {
+                  background: #ffffff;
+                }
+                &:hover {
+                  p {
+                    color: #000000;
+                  }
+                }
+                p {
+                  font-style: normal;
+                  font-weight: normal;
+                  font-size: 16px;
+                  line-height: 130%;
+                  margin: 0;
+                  font-feature-settings: 'pnum' on, 'lnum' on;
+                  color: #898690;
+                  transition: all 0.2s;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
 </style>

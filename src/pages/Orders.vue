@@ -71,6 +71,7 @@ export default defineComponent({
       },
       rows() {
         return this.$store.getters['orders/rows']
+        // console.log(this.$store.getters['orders/rows']);
       }
     },
     methods: {},
