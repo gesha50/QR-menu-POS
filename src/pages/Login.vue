@@ -12,8 +12,8 @@
             color="white"
             text-color="black"
             :options="[
-              {label: 'Inactive',  value: null},
-              {label: 'Active ', value: 'true'},
+              {label: 'Individual',  value: false},
+              {label: 'Restaurant ', value: true},
             ]"
           />
         </div>
@@ -31,28 +31,38 @@
             class="LoginPage__form"
           >
             <div class="input-container">
-              <label class="block" for="restaurant-email">{{$t('login.email_owner')}}</label>
-              <input
-                type="text"
-                id="restaurant-email"
+              <label class="block">
+                <div class="q-mb-sm">{{$t('login.email_owner')}}</div>
+              <q-input
+                class="q-mt-sm"
+                type="email"
+                bg-color="white"
+                rounded
+                outlined
                 v-model="restaurant.email"
                 :placeholder="$t('login.email_owner')"
                 :rules="[
                   val => val !== null && val !== '' || $t('login.rules.email'),
                 ]"
-              />
+              ></q-input>
+              </label>
             </div>
             <div class="input-container">
-              <label class="block" for="restaurant-password">{{$t('login.password')}}</label>
-              <input
-                type="password"
-                id="restaurant-password"
-                v-model="restaurant.password"
-                :placeholder="$t('login.rules.password')"
-                :rules="[
+              <label class="block">
+                <div class="q-mb-sm">{{$t('login.password')}}</div>
+                <q-input
+                  class="q-mt-sm"
+                  type="password"
+                  bg-color="white"
+                  rounded
+                  outlined
+                  v-model="restaurant.password"
+                  :placeholder="$t('login.rules.password')"
+                  :rules="[
                   val => val !== null && val !== '' || $t('login.rules.password'),
                 ]"
-              />
+                ></q-input>
+              </label>
             </div>
             <button class="login-button" type="submit">{{$t('btn.login')}}</button>
           </form>
@@ -64,28 +74,40 @@
             class="LoginPage__form"
           >
             <div class="input-container">
-              <label class="block" for="restaurant-id">{{'ID ' + $t('login.waiter')}}</label>
-              <input
+              <label class="block">
+                <div class="q-mb-sm">{{'ID ' + $t('login.waiter')}}</div>
+                <q-input
+                  class="q-mt-sm"
                   type="number"
-                  id="restaurant-id"
+                  bg-color="white"
+                  rounded
+                  outlined
                   v-model="waiter.user_id"
-                  :placeholder="'ID '+$t('login.waiter')"
+                  :placeholder="$t('login.waiter')"
                   :rules="[
-                val => val !== null && val !== '' || $t('login.rules.id'),]"
-              />
+                  val => val !== null && val !== '' || $t('login.rules.id'),
+                ]"
+                ></q-input>
+              </label>
             </div>
             <div class="input-container">
-              <label class="block" for="restaurant-email">{{$t('login.password')}}</label>
-              <input
-                type="number"
-                v-model="waiter.password"
-                id="restaurant-email"
-                :placeholder="$t('login.password')"
-                :rules="[
-                val => val !== null && val !== '' || $t('login.rules.password'),
-                val => val >= 0 && val <= 9999 || $t('login.rules.enterFourNum'),
-                val => val.length === 4 || $t('login.rules.enterFourNum')]"
-              />
+              <label class="block">
+                <div class="q-mb-sm">{{$t('login.password')}}</div>
+                <q-input
+                  class="q-mt-sm"
+                  type="password"
+                  bg-color="white"
+                  rounded
+                  outlined
+                  v-model="waiter.password"
+                  :placeholder="$t('login.password')"
+                  :rules="[
+                     val => val !== null && val !== '' || $t('login.rules.password'),
+                     val => val >= 0 && val <= 9999 || $t('login.rules.enterFourNum'),
+                     val => val.length === 4 || $t('login.rules.enterFourNum')
+                  ]"
+                ></q-input>
+              </label>
             </div>
             <button class="login-button" type="submit">{{$t('btn.login')}}</button>
           </form>
@@ -243,11 +265,11 @@ export default {
     margin: 0 auto 100px;
     .input-container {
       width: 100%;
-      margin-bottom: 30px;
+
       &:last-child {
         margin-bottom: 0;
       }
-      label { 
+      label {
         font-family: 'Raleway',sans-serif;
         font-style: normal;
         font-weight: bold;

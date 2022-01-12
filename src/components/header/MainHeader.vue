@@ -23,7 +23,17 @@
         @click='$emit("openCloseDrawer", this.drawer)'
       />
       <q-btn v-if="isWaiterActive" to="/orders" class="q-mr-sm text-blue-grey-9" round color="amber-5" icon="fas fa-concierge-bell" :size="'md'" />
-      <q-btn v-if="isWaiterActive" to="/settings" class="text-amber-5" round color="blue-grey-9" icon="fas fa-bell" :size="'md'" />
+      <q-btn
+        v-if="isWaiterActive"
+        class="text-amber-5"
+        round
+        color="blue-grey-9"
+        icon="fas fa-bell"
+        :size="'md'"
+        @click='$emit("openCloseNotifyDrawer", this.notifyDrawer)'
+      >
+        <q-badge color="red" floating>{{ notificationsNumber }}</q-badge>
+      </q-btn>
       <q-btn v-if="isWaiterActive" to="/archive" class="q-mx-sm" round color="blue-grey-8" icon="far fa-folder-open" :size="'md'" />
       <q-btn to="/settings" round color="grey-7" icon="fas fa-cog" :size="'md'" />
       <q-btn
@@ -45,7 +55,8 @@ export default {
   emits: ["click"],
   props: {
     isWaiterActive: Boolean,
-    drawer: Boolean
+    drawer: Boolean,
+    notifyDrawer: Boolean
   },
   data() {
     return {
@@ -63,6 +74,9 @@ export default {
       return this.$store.getters['items/ItemsInCart'](this.table_id)
         ? this.$store.getters['items/ItemsInCart'](this.table_id)
         : []
+    },
+    notificationsNumber() {
+      return this.$store.getters['notify/notifications'].length
     }
   },
   methods: {
@@ -76,6 +90,9 @@ export default {
     },
     openCloseDrawer() {
       this.$emit('openCloseDrawer', this.drawer)
+    },
+    openCloseNotifyDrawer() {
+      this.$emit('openCloseNotifyDrawer', this.notifyDrawer)
     }
   },
 }

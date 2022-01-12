@@ -24,6 +24,7 @@ module.exports = configure(function (ctx) {
     boot: [
       'i18n',
       'axios',
+      'pusher',
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -49,7 +50,7 @@ module.exports = configure(function (ctx) {
     build: {
       env: {
         API: ctx.dev
-          ? 'http://qrm.loc'
+          ? 'http://127.0.0.1:8000'
           : 'https://qr-menu.uz'
       },
       vueRouterMode: 'hash', // available values: 'hash', 'history'
