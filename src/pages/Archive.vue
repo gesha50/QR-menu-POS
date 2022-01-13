@@ -12,8 +12,8 @@
             <q-tab class="tab-btn" name="mails" label="Order History" />
             <q-tab class="tab-btn" name="alarms" label="Order On Hold" />
             <q-tab class="tab-btn" name="movies" label="Offline Order" />
+            <button @click="showSidebar = !showSidebar">See</button>
           </q-tabs>
-          <button @click="showSidebar = !showSidebar">See</button>
         </div>
         <div class="root">
           <q-tab-panels v-model="tab" class="text-white">
@@ -28,12 +28,14 @@
                   <p>Date</p>
                   <p>Total Sales</p>
                 </div>
-                <div class="tabel-body">
-                  <div class="tabel-body-box" @click="addToCheck" v-for="row in rows" :key="row">
-                    <p>#{{ row.ID }}</p>
-                    <p>{{ row.created_at }}</p>
-                    <p>{{ row.price }}</p>
-                  </div>
+                <div class="tabel-body" v-for="(row, index) in rows" :key="index">
+                  <archive-list
+                    :ID="row.ID"
+                    :price="row.price"
+                    :archive_data="row"
+                    :created_at="row.created_at"
+                    @addToCheck="addToCheck"
+                  />
                 </div>
               </div>
             </q-tab-panel>
@@ -57,7 +59,8 @@
 <script>
 import { defineComponent } from 'vue';
 import { ref } from 'vue'
-import PrintSidebar from "components/menu/PrintSidebar"
+import PrintSidebar from "components/menu/PrintSidebar";
+import ArchiveList from "components/tables/ArchiveList";
 
 export default defineComponent({
     name: "Archive",
@@ -68,21 +71,21 @@ export default defineComponent({
       }
     },
     created() {},
-    mounted() { this.$store.dispatch('orders/getOrders')},
+    mounted() {
+      this.$store.dispatch('archive/getOrders')
+    },
     components: {
-      PrintSidebar
+      PrintSidebar,
+      ArchiveList
     },
     computed: {
-      columns() {
-        return this.$store.getters['orders/columns']
-      },
       rows() {
-        return this.$store.getters['orders/rows']
+        return this.$store.getters['archive/rows']
       },
     },
     methods: {
-      addToCheck() {
-        
+      addToCheck(data) {
+        console.log(data)
       }
     },
 })
@@ -97,10 +100,10 @@ export default defineComponent({
   padding: 0 20px 20px 20px;
   .sidebar {
     width: 350px;
-    min-height: 100%;
     position: fixed;
     transform: translateX(350px);
     right: 0;
+    bottom: 0;
     top: 58px;
     z-index: 999;
     background: #ffffff;
