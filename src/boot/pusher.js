@@ -1,6 +1,6 @@
 import {boot} from 'quasar/wrappers'
 import Pusher from 'pusher-js'
-import Echo from 'laravel-echo';
+// import Echo from 'laravel-echo';
 
 const PUSHER_APP_KEY = 'c812c9319e07a8503510'
 const CLUSTER = 'eu'

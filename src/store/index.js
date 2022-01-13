@@ -3,6 +3,7 @@ import { createStore } from 'vuex'
 import settings from './settings'
 import items from './items'
 import orders from './orders'
+import archive from './archive'
 import notify from './notify'
 
 /*
@@ -20,6 +21,7 @@ export default store(function (/* { ssrContext } */) {
       settings,
       items,
       orders,
+      archive,
       notify,
     },
 
