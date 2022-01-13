@@ -30,10 +30,8 @@
                 </div>
                 <div class="tabel-body" v-for="(row, index) in rows" :key="index">
                   <archive-list
-                    :ID="row.ID"
-                    :price="row.price"
+                    :CurrentActive="CurrentActive"
                     :archive_data="row"
-                    :created_at="row.created_at"
                     @addToCheck="addToCheck"
                   />
                 </div>
@@ -41,17 +39,22 @@
             </q-tab-panel>
 
             <q-tab-panel class="tab-panel" name="alarms">
-              
+
             </q-tab-panel>
 
             <q-tab-panel class="tab-panel" name="movies">
-              
+
             </q-tab-panel>
           </q-tab-panels>
         </div>
       </div>
       <div class="sidebar" :class="showSidebar ? 'open-sidebar' : '' ">
-          <print-sidebar />
+          <print-sidebar
+            :id="id"
+            :restaurantName="restaurantName"
+            :items="items"
+            :totalPrice="totalPrice"
+          />
       </div>
     </div>
   </q-page>
@@ -66,6 +69,11 @@ export default defineComponent({
     name: "Archive",
     data() {
       return {
+        CurrentActive: null,
+        id: null,
+        restaurantName: this.$q.localStorage.getItem('restaurantName'),
+        items: [],
+        totalPrice: null,
         showSidebar: false,
         tab: ref('mails'),
       }
@@ -85,7 +93,17 @@ export default defineComponent({
     },
     methods: {
       addToCheck(data) {
-        console.log(data)
+        if (this.CurrentActive === data.ID || isNaN(this.CurrentActive)) {
+          this.showSidebar = !this.showSidebar
+        } else {
+          if (!this.showSidebar) {
+            this.showSidebar = !this.showSidebar
+          }
+        }
+        this.CurrentActive = data.ID
+        this.id = data.ID
+        this.items = data.items
+        this.totalPrice = data.price
       }
     },
 })
@@ -151,12 +169,12 @@ export default defineComponent({
             height: auto!important;;
             min-height:auto!important;
           }
-          
+
         }
         .btn-active {
           color: #BF9A6A;
           border: 1px solid #BF9A6A;
-          border-radius: 8px;       
+          border-radius: 8px;
         }
       }
     }
@@ -200,7 +218,7 @@ export default defineComponent({
               display: flex;
               align-items: center;
               justify-content: space-between;
-              background: rgba(0, 0, 0, 0.09);
+              background: $grey-4;
               border-radius: 8px;
               padding: 15px 10px;
               p {

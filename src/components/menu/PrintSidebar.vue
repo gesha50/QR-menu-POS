@@ -1,49 +1,43 @@
 <template>
   <div class="root fit relative-position" id="print">
       <div class="order-id">
-        <h4>Order ID #87687</h4>
+        <h4>Order ID #{{ id }}</h4>
         <div class="flex">
-          <p>Vincet Lobo</p>
+          <p>{{ restaurantName }}</p>
           <p>Dine-In T-34</p>
         </div>
       </div>
       <div class="order-items fit">
-        <div class="item">
-          <div class="item-name">
-            <p>1</p>
-            <div class="name">
-              <p>Sofi osh</p>
-              <span>Medium-Half Grilled</span>
+        <div
+          class=""
+          v-for="(item, i) in items"
+          :key="i"
+        >
+          <div class="item">
+            <div class="item-name">
+              <p>{{i+1}}</p>
+              <div class="name">
+                <p>{{ item.name }}</p>
+                <p v-if="item.pivot.variant_name">{{ '(' + item.pivot.variant_name + ')' }}</p>
+              </div>
+            </div>
+            <div class="row">
+            <div v-if="item.pivot.qty>1" class="q-pr-sm">
+              {{ item.pivot.qty + ' x ' }}
+            </div>
+              {{ item.price  + ' ' + $t('valuta') }}
             </div>
           </div>
-          <p>38,000 sum</p>
-        </div>
-        <div class="item">
-          <div class="item-name">
-            <p>2</p>
-            <div class="name">
-              <p>Sofi osh</p>
-              <span>Medium-Half Grilled</span>
-            </div>
+          <div class="float-right">
+            <div class="">{{ JSON.parse(item.pivot.extras)[0] }}</div>
           </div>
-          <p>38,000 sum</p>
-        </div>
-        <div class="item">
-          <div class="item-name">
-            <p>3</p>
-            <div class="name">
-              <p>Sofi osh</p>
-              <span>Medium-Half Grilled</span>
-            </div>
-          </div>
-          <p>38,000 sum</p>
         </div>
       </div>
       <div class="order-price absolute-bottom">
         <div class="price-block">
           <div class="flex-item">
             <h5>Grand Total</h5>
-            <p>38,000 sum</p>
+            <p>{{ totalPrice + ' ' + $t('valuta') }}</p>
           </div>
         </div>
         <button class="button-print" onclick="print()"><img src="~/assets/img/cil_print.svg" alt="print"> Print invice</button>
@@ -52,7 +46,10 @@
 </template>
 
 <script>
+import print from 'print-js'
+
 export default {
+  props: ['id', 'restaurantName', 'totalPrice', 'items'],
   computed: {
     archive() {
       return this.$store.getters['archive/archive']
@@ -60,8 +57,8 @@ export default {
   },
   methods: {
     print() {
-       Printjs({
-         printable: "print", //Id to print content 
+       printJS({
+         printable: "print", //Id to print content
          type: "HTML"
       });
     }
