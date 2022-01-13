@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import printJS from 'print-js';
 export default {
   computed: {
     archive() {
@@ -60,9 +61,8 @@ export default {
   },
   methods: {
     print() {
-       Printjs({
-         printable: "print", //Id to print content 
-         type: "HTML"
+       printJS({
+        
       });
     }
   }
@@ -70,6 +70,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media print {
+  body {
+    &:not(#print *) {
+      visibility: hidden;
+    }
+  }
+}
   .root {
     .order-id {
       padding: 0 10px 15px;
