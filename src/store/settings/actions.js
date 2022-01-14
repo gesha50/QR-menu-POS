@@ -38,25 +38,22 @@ export function setIsRestaurant ({ commit }, value) {
 }
 
 export function setRestaurantName ({ commit }, value) {
+  LocalStorage.set('restaurantName', value)
   commit('setRestaurantName', value)
 }
 
 export function logoutWaiter ({ commit }, value) {
+  // remove all localstorage var
+  LocalStorage.remove('restaurantName')
+  LocalStorage.remove('userAuth')
+  LocalStorage.remove('userToken')
   if (value) {
     // restaurant mode
-    // remove all localstorage var
-    LocalStorage.remove('userAuth')
-    LocalStorage.remove('userToken')
     LocalStorage.remove('user_id')
-
     commit('logoutWaiter')
   } else {
     // no restaurant mode
-    // remove all localstorage var
-    LocalStorage.remove('userAuth')
-    LocalStorage.remove('userToken')
     LocalStorage.remove('restaurantID')
-
     commit('logoutRestaurantWaiter')
   }
   commit('logoutRestaurantWaiter')

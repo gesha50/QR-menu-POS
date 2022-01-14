@@ -2,7 +2,6 @@ export function getOrders (state, data) {
   state.rows = []
   data.data.forEach(order=>{
     let rowObj = {}
-    console.log(order)
     rowObj.ID = order.id
     rowObj.created_at = order.time_created
     rowObj.table = order.table_id

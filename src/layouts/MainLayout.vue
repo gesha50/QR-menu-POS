@@ -44,6 +44,37 @@ export default defineComponent({
       return item.split('/')[1]
     },
   },
+  created() {
+    this.connect()
+  },
+  methods: {
+    connect() {
+      let channel = this.$pusher.subscribe('user.62')
+      console.log(channel)
+      channel.bind('neworder-event',  (data) => {
+        console.log(data)
+        this.$q.notify({
+          color: 'green-4',
+          type: 'positive',
+          textColor: 'white',
+          icon: 'fas fa-cart-arrow-down',
+          message: data.message,
+          position: 'top'
+        })
+      })
+      channel.bind('callwaiter-event', (data) => {
+        console.log(data)
+        this.$q.notify({
+          color: 'green-4',
+          type: 'positive',
+          textColor: 'white',
+          icon: 'fas fa-running',
+          message: `${data.msg} стол: ${data.table.name}`,
+          position: 'top'
+        })
+      });
+    }
+  },
   components: {
     MainHeader,
     CartDrawer,

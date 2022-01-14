@@ -58,9 +58,13 @@ export default defineComponent({
         return {
         }
     },
-    created() {},
-    mounted() {
+    created() {
       this.$store.dispatch('orders/getOrders')
+    },
+    mounted() {
+      setTimeout(()=>{
+        this.$store.dispatch('orders/getOrders')
+      }, 10000)
     },
     components: {},
     computed: {

@@ -55,6 +55,7 @@ export default {
               icon: 'cloud_done',
               message: this.$t('login.success')
             })
+            this.$store.dispatch('settings/setRestaurantName', res.data.restaurant_name)
             this.$store.dispatch('settings/setUserID', this.id)
             this.$store.dispatch('settings/restaurantID', res.data.restaurant_id)
             this.$store.dispatch('settings/userAuth', [true, res.data.token])
