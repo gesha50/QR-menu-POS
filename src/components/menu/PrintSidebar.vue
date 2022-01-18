@@ -13,15 +13,15 @@
         v-for="(item, i) in items"
         :key="i"
       >
-        <div class="item">
-          <div class="item-name">
-            <p>{{i+1}}</p>
-            <div class="name">
-              <p>{{ item.name }}</p>
-              <p v-if="item.pivot.variant_name">{{ '(' + item.pivot.variant_name + ')' }}</p>
-            </div>
+      <div class="item">
+        <div class="item-name">
+          <p>{{i+1}}</p>
+          <div class="name">
+            <p>{{ item.name }}</p>
+            <p v-if="item.pivot.variant_name">{{ '(' + item.pivot.variant_name + ')' }}</p>
           </div>
-          <div class="row">
+        </div>
+        <div class="row">
           <div v-if="item.pivot.qty>1" class="q-pr-sm">
             {{ item.pivot.qty + ' x ' }}
           </div>
@@ -125,7 +125,7 @@ export default {
       padding: 0 5px 5px;
     }
     .block {
-      border-top: 1px solid #101010;
+      border-top: 1px dashed #101010;
       border-bottom: 1px solid #101010;
       padding: 5px 0;
       .head {
@@ -143,11 +143,11 @@ export default {
         .item {
           width: 100%;
           padding: 5px;
-          border-radius: 8px;
           display: flex;
           flex-wrap: nowrap;
           align-items: center;
           justify-content: space-between;
+          border-top: 0.5px solid #101010;
           p {
             font-style: normal;
             font-weight: normal;
@@ -240,7 +240,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        &:nth-child( even) {
+        &:nth-child(even) {
           background: rgba(0, 0, 0, 0.07);
         }
         &:nth-child(odd) {

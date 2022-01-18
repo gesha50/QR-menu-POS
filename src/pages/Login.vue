@@ -1,13 +1,15 @@
 <template>
 <q-page>
   <div class="column justify-evenly items-center">
-    <img
-      width="150"
-      height="150"
-      class="logo q-mt-md"
-      src="../assets/img/logo_login.svg"
-      alt="logo"
-    >
+    <div class="logo q-my-md">
+      <img
+      width="110"
+      height="110"
+      class="q-mb-sm"
+      src="../assets/img/1.svg"
+      alt="logo">
+      <h5 class="no-margin text-center">QR-Menu</h5>
+    </div>
 
     <div class="bg relative-position">
       <login-mode />
@@ -34,6 +36,13 @@ export default {
 
 <style lang="scss">
 .q-page {
+  .logo {
+    h5 {
+      font-family: 'Raleway',sans-serif;
+      color: #ffffff;
+      font-weight: bold;
+    }
+  }
   .bg {
     width: 700px;
     background: rgba(255, 255, 255, 0.8);
