@@ -53,14 +53,12 @@ export function logoutWaiter ({ commit }, value) {
     commit('logoutWaiter')
   } else {
     // no restaurant mode
-    LocalStorage.remove('restaurantID')
     commit('logoutRestaurantWaiter')
   }
   commit('logoutRestaurantWaiter')
 }
 
 export function logoutOwner ({ commit }) {
-  LocalStorage.remove('restaurantID')
   LocalStorage.remove('ownerAuth')
   LocalStorage.remove('ownerToken')
   commit('logoutRestaurantOwner')

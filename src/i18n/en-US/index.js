@@ -21,8 +21,8 @@ export default {
     email_owner: 'Email owner restaurant',
     mode: {
       choose_mode: 'Please choose mode',
-      individual: 'Individual mode',
-      restaurant: 'Restaurant mode'
+      individual: 'Individual',
+      restaurant: 'Restaurant'
     },
     rules: {
       email: 'Please write correct email',

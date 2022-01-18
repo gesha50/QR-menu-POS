@@ -41,7 +41,7 @@ const routes = [
   },
   {
     path: '/restaurant',
-    component: () => import('layouts/RestaurantLayout.vue'),
+    component: () => import('layouts/LoginLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Waiters.vue'), name: 'restaurant' },
       { path: 'login/:id', component: () => import('pages/LoginWaiter.vue'), props: true }

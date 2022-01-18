@@ -11,25 +11,25 @@ export default {
     table: 'Стол',
   },
   settings: {
-    exit_restaurant_mode: 'Exit from restaurant mode'
+    exit_restaurant_mode: 'Выход из режима ресторана'
   },
   login: {
-    password: 'password',
-    waiter: 'waiter',
-    email_owner: 'Email owner restaurant',
+    password: 'пароль',
+    waiter: 'официант',
+    email_owner: 'Email владельца ресторана',
     mode: {
       choose_mode: 'Выберите режим',
-      individual: 'Individual mode',
-      restaurant: 'Restaurant mode'
+      individual: 'Индивидуальный',
+      restaurant: 'Ресторан'
     },
     rules: {
-      email: 'Please write correct email',
-      password: 'Please write password',
-      id: 'Please write ID',
-      enterFourNum: 'Please enter 4 numbers'
+      email: 'Введите корректный email',
+      password: 'Введите пароль',
+      id: 'Введите ID',
+      enterFourNum: 'Введите 4 цифры'
     },
-    success: 'Login success',
-    failed: 'Login failed'
+    success: 'Вход выполнен',
+    failed: 'Вход не выполнен'
   },
   table: {
     OtherTables: 'Другие Столы',

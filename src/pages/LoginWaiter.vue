@@ -1,8 +1,8 @@
 <template>
 <q-page>
-  <div class="q-gutter-sm flex justify-center q-mt-md">
+  <div class="flex justify-center">
     <q-form
-      @submit="authWaiter"
+      @submit.prevent="authWaiter"
       @reset="resetWaiterData"
       class="q-gutter-md LoginPage__form"
     >
