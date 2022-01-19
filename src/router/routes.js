@@ -24,7 +24,14 @@ const routes = [
     path: '/login',
     component: () => import('layouts/LoginLayout.vue'),
     children: [
-      { path: '',name: 'login', component: () => import('pages/Login.vue') }
+      {
+        path: '',
+        name: 'login',
+        component: () => import('pages/Login.vue'),
+        children: [
+          {name: 'login', path: '', component: () => import('components/login/LoginMode')},
+        ],
+      }
     ],
     meta: {
       middleware: [
