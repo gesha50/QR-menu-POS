@@ -1,6 +1,23 @@
 <template>
 <q-page>
-  <div class="flex justify-center">
+  <div class="column justify-evenly items-center">
+    <div class="logo q-my-md">
+      <img
+        width="110"
+        height="110"
+        class="q-mb-sm"
+        src="../assets/img/1.svg"
+        alt="logo"
+      >
+      <h5 class="no-margin text-center">QR-Menu</h5>
+    </div>
+    <div class="bg">
+      <div class="header-block column justify-center q-mb-xl">
+        <h3 class="no-margin text-center">Введите код</h3>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="flex justify-center">
     <q-form
       @submit.prevent="authWaiter"
       @reset="resetWaiterData"
@@ -24,7 +41,7 @@
         <q-btn :label="$t('btn.reset')" type="reset" color="primary" flat class="q-ml-sm" />
       </div>
     </q-form>
-  </div>
+  </div> -->
 </q-page>
 </template>
 
@@ -81,8 +98,32 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .displayNone {
   display: none;
+}
+.q-page {
+  .logo {
+    h5 {
+      font-family: 'Raleway',sans-serif;
+      color: #ffffff;
+      font-weight: bold;
+    }
+  }
+  .bg {
+      width: 900px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 30px;
+      padding: 40px 50px 0 50px;
+      .header-block {
+      h3 {
+        font-family: 'Raleway',sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 32px;
+        line-height: 130%;
+      }
+    }
+  }
 }
 </style>
