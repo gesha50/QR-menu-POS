@@ -16,12 +16,12 @@
         <h3 class="no-margin text-center">Список официантов</h3>
         <div class="input-container q-mx-auto q-mt-md relative-position	">
           <img class="absolute" src="../assets/img/search.svg" alt="search">
-          <input class="no-border q-py-sm" type="text" name="waiterSearch" placeholder="Поиск...">
+          <input v-model="searchText" class="no-border q-py-sm" type="text" name="waiterSearch" placeholder="Поиск...">
         </div>
       </div>
       <div class="scroll-bar scroll-y overflow-auto">
         <div class="LoginPage row items-center">
-          <div v-for="(waiter, i) in waiters" :key="i" class="col-6 col-md-4 waiters">
+          <div v-for="(waiter, i) in filteredWaiters" :key="i" class="col-6 col-md-4 waiters">
             <router-link class="row items-center no-wrap bg-white q-pa-md" :to="'/restaurant/login/' + waiter.id">
               <img width="65" height="65" src="https://toppng.com/uploads/preview/instagram-default-profile-picture-11562973083brycehrmyv.png" alt="waiter">
               <span class="waiter-name q-ml-md">{{waiter.name}}</span>
@@ -41,11 +41,23 @@ export default {
   name: "Waiters",
   data() {
     return {
+      searchText: '',
       waiters: [],
     }
   },
   mounted() {
     this.getAllWaiters()
+  },
+  computed: {
+    filteredWaiters() {
+      if (this.searchText) {
+        return this.waiters.filter(el=>{
+          let str = el.name.toLowerCase()
+          return str.includes(this.searchText.toLowerCase())
+        })
+      }
+      return this.waiters
+    }
   },
   methods: {
     getAllWaiters() {
