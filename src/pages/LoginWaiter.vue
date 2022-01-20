@@ -195,27 +195,24 @@ export default {
           background: #B5B5B5;
         }
       }
-      .btn-number {
-        width: 50px;
-        height: 50px;
-        background: #EBEBEB;
-        border: 2px solid #D2D2D2;
-        border-radius: 50%;
-        font-family: 'Raleway',sans-serif;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 18px;
-        line-height: 130%;
-        margin-left: 10px;
-        cursor: pointer;
-        font-feature-settings: 'pnum' on, 'lnum' on;
-        color: #5B5B5B;
-        &:active {
-          background-color: rgba(85, 62, 62, 9%);
-          outline: 0;
-        }
-      }
     }
   }
+}
+
+// >1440px
+@media (min-width: $breakpoint-md-max) {
+
+}
+// >1024px  <1439px
+@media (min-width: $breakpoint-sm-max) and (max-width: $breakpoint-md-max) {
+
+}
+// >600px and <1023px
+@media (min-width: $breakpoint-xs-max) and (max-width: $breakpoint-sm-max) {
+
+}
+// <599px
+@media (max-width: $breakpoint-xs-max) {
+
 }
 </style>
