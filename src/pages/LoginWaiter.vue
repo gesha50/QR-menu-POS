@@ -40,7 +40,7 @@
         </div>
         <div class="row justify-end">
           <button class="btn-number" @click="password += '0'; authWaiter()">0</button>
-          <button class="btn-number relative-position	" @click="password = password.slice(0, password.length - 1)"><img class="absolute-center" width="18" height="18" src="../assets/img/remove.svg" alt=""></button>
+          <button class="btn-number relative-position	" @click="password = password.slice(0, password.length - 1)"><q-icon class="fas fa-backspace absolute-center"/></button>
         </div>
       </div>
       <router-link class="back q-py-sm q-px-lg" to="/">Назад</router-link>
