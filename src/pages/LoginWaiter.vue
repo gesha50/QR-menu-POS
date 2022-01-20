@@ -40,37 +40,14 @@
         </div>
         <div class="row justify-end">
           <button class="btn-number" @click="password += '0'; authWaiter()">0</button>
-          <button class="btn-number relative-position	" @click="password = password.slice(0, password.length - 1)"><img class="absolute-center" width="18" height="18" src="../assets/img/remove.svg" alt=""></button>
+          <button class="btn-number relative-position	" @click="deleteNumber">
+            <q-icon class="fas fa-backspace" />
+          </button>
         </div>
       </div>
       <router-link class="back q-py-sm q-px-lg" to="/">Назад</router-link>
     </div>
   </div>
-  <!-- <div class="flex justify-center">
-    <q-form
-      @submit.prevent="authWaiter"
-      @reset="resetWaiterData"
-      class="q-gutter-md LoginPage__form"
-    >
-      <q-input
-        autofocus
-        filled
-        type="number"
-        v-model="password"
-        :label="$t('login.password')"
-        lazy-rules
-        :rules="[
-            val => val !== null && val !== '' || $t('login.rules.password'),
-            val => val >= 0 && val <= 9999 || $t('login.rules.enterFourNum'),
-            val => val.length === 4 || $t('login.rules.enterFourNum')
-          ]"
-      />
-      <div>
-        <q-btn :label="$t('btn.login')" type="submit" color="primary"/>
-        <q-btn :label="$t('btn.reset')" type="reset" color="primary" flat class="q-ml-sm" />
-      </div>
-    </q-form>
-  </div> -->
 </q-page>
 </template>
 
@@ -90,15 +67,27 @@ export default {
     console.log(this.password) // this dont call any method of the web3 object
   },
   methods: {
+    deleteNumber() {
+      this.password = this.password.slice(0, this.password.length - 1)
+      if (this.password.length === 0) {
+        document.getElementById("one").classList.remove('active')
+      } else if (this.password.length === 1) {
+        document.getElementById("two").classList.remove('active')
+      } else if (this.password.length === 2) {
+        document.getElementById("three").classList.remove("active");
+      } else if (this.password.length === 3) {
+        document.getElementById("four").classList.remove("active");
+      }
+    },
     authWaiter () {
       console.log(this.password)
-      if (this.password.length == 1) {
+      if (this.password.length === 1) {
         document.getElementById("one").classList.add('active')
-      } else if (this.password.length == 2) {
+      } else if (this.password.length === 2) {
          document.getElementById("two").classList.add("active");
-      } else if (this.password.length == 3) {
+      } else if (this.password.length === 3) {
          document.getElementById("three").classList.add("active");
-      } else if (this.password.length == 4) {
+      } else if (this.password.length === 4) {
         document.getElementById("four").classList.add("active");
         const formData = new FormData()
         formData.append('id', this.id)
