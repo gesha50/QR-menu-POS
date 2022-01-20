@@ -41,13 +41,9 @@
         <div class="row justify-center">
           <button class="btn-number" @click="resetWaiterData()">сброс</button>
           <button class="btn-number" @click="password += '0'; authWaiter()">0</button>
-<<<<<<< HEAD
-          <button class="btn-number relative-position	" @click="password = password.slice(0, password.length - 1)"><q-icon class="fas fa-backspace absolute-center"/></button>
-=======
           <button class="btn-number relative-position	" @click="deleteNumber">
             <q-icon class="fas fa-backspace" />
           </button>
->>>>>>> 68be1d9cb017ab988297338a72ad085b1c5bb225
         </div>
       </div>
       <router-link class="back q-py-sm q-px-lg" to="/">Назад</router-link>
