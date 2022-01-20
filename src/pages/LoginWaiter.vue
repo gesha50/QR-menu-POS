@@ -17,9 +17,9 @@
       </div>
       <div class="column pin-pad justify-center">
         <div class="pin-code row justify-center q-mb-md">
-          <span class="q-mr-sm one"></span>
-          <span class="q-mr-sm two"></span>
-          <span class="q-mr-sm three"></span>
+          <span class="q-mr-sm" id="one"></span>
+          <span class="q-mr-sm" id="two"></span>
+          <span class="q-mr-sm" id="three"></span>
           <span id="four"></span>
           <div class="displayNone">{{password}}</div>
         </div>
@@ -90,14 +90,15 @@ export default {
   },
   methods: {
     authWaiter () {
+      console.log(this.password)
       if (this.password.length == 1) {
-         document.getElementsByClassName("one").classList.add("active");
+        document.getElementById("one").classList.add('active')
       } else if (this.password.length == 2) {
-         document.getElementsByClassName("two").classList.add("active");
+         document.getElementById("two").classList.add("active");
       } else if (this.password.length == 3) {
-         document.getElementsByClassName("three").classList.add("active");
+         document.getElementById("three").classList.add("active");
       } else if (this.password.length == 4) {
-        document.getElementsByClassName("four").classList.add("active");
+        document.getElementById("four").classList.add("active");
         const formData = new FormData()
         formData.append('id', this.id)
         formData.append('password', this.password)
@@ -132,7 +133,7 @@ export default {
       } else {
         document.getElementsByClassName("pin-pad").classList.add("disabled");
       }
-      
+
     },
     resetWaiterData () {
       this.password = null
