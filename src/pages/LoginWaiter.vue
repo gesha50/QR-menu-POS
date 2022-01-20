@@ -127,6 +127,10 @@ export default {
     },
     resetWaiterData () {
       this.password = null
+      document.getElementById("one").classList.remove('active')
+      document.getElementById("two").classList.remove('active')
+      document.getElementById("three").classList.remove("active");
+      document.getElementById("four").classList.remove("active");
     },
   },
 }
