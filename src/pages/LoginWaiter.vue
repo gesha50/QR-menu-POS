@@ -12,8 +12,36 @@
       <h5 class="no-margin text-center">QR-Menu</h5>
     </div>
     <div class="bg">
-      <div class="header-block column justify-center q-mb-xl">
+      <div class="header-block column justify-center q-mb-md">
         <h3 class="no-margin text-center">Введите код</h3>
+      </div>
+      <div class="column pin-pad justify-center">
+        <div class="pin-code row justify-center q-mb-md">
+          <span class="q-mr-sm one"></span>
+          <span class="q-mr-sm two"></span>
+          <span class="q-mr-sm three"></span>
+          <span id="four"></span>
+          <div class="displayNone">{{password}}</div>
+        </div>
+        <div class="row justify-center q-mb-sm">
+          <button class="btn-number" @click="password += '1'; authWaiter()">1</button>
+          <button class="btn-number" @click="password += '2'; authWaiter()">2</button>
+          <button class="btn-number" @click="password += '3'; authWaiter()">3</button>
+        </div>
+        <div class="row justify-center q-mb-sm">
+          <button class="btn-number" @click="password += '4'; authWaiter()">4</button>
+          <button class="btn-number" @click="password += '5'; authWaiter()">5</button>
+          <button class="btn-number" @click="password += '6'; authWaiter()">6</button>
+        </div>
+        <div class="row justify-center q-mb-sm">
+          <button class="btn-number" @click="password += '7'; authWaiter()">7</button>
+          <button class="btn-number" @click="password += '8'; authWaiter()">8</button>
+          <button class="btn-number" @click="password += '9'; authWaiter()">9</button>
+        </div>
+        <div class="row justify-end">
+          <button class="btn-number" @click="password += '0'; authWaiter()">0</button>
+          <button class="btn-number relative-position	" @click="password = password.slice(0, password.length - 1)"><img class="absolute-center" width="18" height="18" src="../assets/img/remove.svg" alt=""></button>
+        </div>
       </div>
     </div>
   </div>
@@ -54,15 +82,26 @@ export default {
   data() {
     return {
       rest_id: null,
-      password: null
+      password: "",
     }
+  },
+  mounted () {
+    console.log(this.password) // this dont call any method of the web3 object
   },
   methods: {
     authWaiter () {
-      const formData = new FormData()
-      formData.append('id', this.id)
-      formData.append('password', this.password)
-      api.post('api/v2/staff/getStaffToken', formData)
+      if (this.password.length == 1) {
+         document.getElementsByClassName("one").classList.add("active");
+      } else if (this.password.length == 2) {
+         document.getElementsByClassName("two").classList.add("active");
+      } else if (this.password.length == 3) {
+         document.getElementsByClassName("three").classList.add("active");
+      } else if (this.password.length == 4) {
+        document.getElementsByClassName("four").classList.add("active");
+        const formData = new FormData()
+        formData.append('id', this.id)
+        formData.append('password', this.password)
+        api.post('api/v2/staff/getStaffToken', formData)
         .then(res=>{
           console.log(res.data)
           if (res.data.status) {
@@ -90,6 +129,10 @@ export default {
         .catch(e=>{
           console.log(e)
         })
+      } else {
+        document.getElementsByClassName("pin-pad").classList.add("disabled");
+      }
+      
     },
     resetWaiterData () {
       this.password = null
@@ -114,14 +157,51 @@ export default {
       width: 900px;
       background: rgba(255, 255, 255, 0.8);
       border-radius: 30px;
-      padding: 40px 50px 0 50px;
-      .header-block {
+      padding: 40px 50px 60px;
+    .header-block {
       h3 {
         font-family: 'Raleway',sans-serif;
         font-style: normal;
         font-weight: bold;
         font-size: 32px;
         line-height: 130%;
+      }
+    }
+    .pin-pad {
+      width: 180px;
+      margin: auto;
+      .pin-code {
+        span {
+          width: 15px;
+          height: 15px;
+          background: #F5F5F5;
+          border: 1px solid #B5B5B5;
+          box-sizing: border-box;
+          border-radius: 50%;
+        }
+        .active {
+          background: #B5B5B5;
+        }
+      }
+      .btn-number {
+        width: 50px;
+        height: 50px;
+        background: #EBEBEB;
+        border: 2px solid #D2D2D2;
+        border-radius: 50%;
+        font-family: 'Raleway',sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 130%;
+        margin-left: 10px;
+        cursor: pointer;
+        font-feature-settings: 'pnum' on, 'lnum' on;
+        color: #5B5B5B;
+        &:active {
+          background-color: rgba(85, 62, 62, 9%);
+          outline: 0;
+        }
       }
     }
   }
