@@ -1,16 +1,7 @@
 <template>
 <q-page>
   <div class="column justify-evenly items-center">
-    <div class="logo q-my-md">
-      <img
-        width="110"
-        height="110"
-        class="q-mb-sm"
-        src="../assets/img/1.svg"
-        alt="logo"
-      >
-      <h5 class="no-margin text-center">QR-Menu</h5>
-    </div>
+    <logo-top></logo-top>
     <div class="bg q-pb-lg">
       <div class="header-block column justify-center q-mb-lg">
         <h3 class="no-margin text-center">Список официантов</h3>
@@ -20,12 +11,15 @@
         </div>
       </div>
       <div class="scroll-bar scroll-y overflow-auto">
-        <div class="LoginPage row items-center">
-          <div v-for="(waiter, i) in filteredWaiters" :key="i" class="col-12 col-sm-6 col-md-4 waiters">
-            <router-link class="row items-center no-wrap bg-white q-pa-md" :to="'/restaurant/login/' + waiter.id">
-              <img width="65" height="65" src="https://toppng.com/uploads/preview/instagram-default-profile-picture-11562973083brycehrmyv.png" alt="waiter">
-              <span class="waiter-name q-ml-md">{{waiter.name}}</span>
-            </router-link>
+        <div class="LoginPage row justify-around items-center">
+          <div v-for="(waiter, i) in filteredWaiters" :key="i">
+            <waiter-card
+              :waiter="waiter"
+            ></waiter-card>
+<!--            <router-link class="row items-center no-wrap bg-white q-pa-md" :to="'/restaurant/login/' + waiter.id">-->
+<!--              <img width="65" height="65" src="https://toppng.com/uploads/preview/instagram-default-profile-picture-11562973083brycehrmyv.png" alt="waiter">-->
+<!--              <span class="waiter-name q-ml-md">{{waiter.name}}</span>-->
+<!--            </router-link>-->
           </div>
         </div>
       </div>
@@ -36,6 +30,8 @@
 
 <script>
 import {api} from "boot/axios";
+import LogoTop from "components/login/LogoTop";
+import WaiterCard from "components/login/WaiterCard";
 
 export default {
   name: "Waiters",
@@ -44,6 +40,10 @@ export default {
       searchText: '',
       waiters: [],
     }
+  },
+  components: {
+    LogoTop,
+    WaiterCard
   },
   mounted() {
     this.getAllWaiters()
@@ -80,18 +80,11 @@ export default {
 
 <style lang="scss" scoped>
 .q-page {
-  .logo {
-    h5 {
-      font-family: 'Raleway',sans-serif;
-      color: #ffffff;
-      font-weight: bold;
-    }
-  }
   .bg {
     width: 900px;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 30px;
-    padding: 40px 50px 0 50px;
+    padding: 20px 30px;
     .header-block {
       h3 {
         font-family: 'Raleway',sans-serif;
@@ -133,28 +126,7 @@ export default {
       display: none;
     }
     .LoginPage {
-      .waiters {
-        padding: 0 10px 10px 0;
-        a {
-          text-decoration: none;
-          border-radius: 13px;
-          img {
-            border-radius:50%;
-          }
-          .waiter-name {
-            font-family: 'Raleway',sans-serif;
-            font-style: normal;
-            font-weight: bold;
-            font-size: 20px;
-            line-height: 130%;
-            color: #1E1E1E;
-            height: 26px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          }
-        }
-      }
+
     }
   }
 }

@@ -1,16 +1,7 @@
 <template>
 <q-page>
   <div class="column justify-evenly items-center">
-    <div class="logo q-my-md">
-      <img
-      width="110"
-      height="110"
-      class="q-mb-sm"
-      src="../assets/img/1.svg"
-      alt="logo">
-      <h5 class="no-margin text-center">QR-Menu</h5>
-    </div>
-
+    <logo-top></logo-top>
     <div class="bg relative-position">
       <login-mode />
     </div>
@@ -22,11 +13,13 @@
 <script>
 
 import LoginMode from "components/login/LoginMode";
+import LogoTop from "components/login/LogoTop";
 
 export default {
   name: "Login",
   components: {
     LoginMode,
+    LogoTop
   },
   methods: {
 
@@ -36,13 +29,6 @@ export default {
 
 <style lang="scss">
 .q-page {
-  .logo {
-    h5 {
-      font-family: 'Raleway',sans-serif;
-      color: #ffffff;
-      font-weight: bold;
-    }
-  }
   .bg {
     width: 700px;
     background: rgba(255, 255, 255, 0.8);

@@ -33,3 +33,21 @@ export default defineComponent({
   },
 })
 </script>
+<style lang="scss">
+// >1440px
+@media (min-width: $breakpoint-md-max) {
+
+}
+// >1024px  <1439px
+@media (min-width: $breakpoint-sm-max) and (max-width: $breakpoint-md-max) {
+
+}
+// >600px and <1023px
+@media (min-width: $breakpoint-xs-max) and (max-width: $breakpoint-sm-max) {
+
+}
+// <599px
+@media (max-width: $breakpoint-xs-max) {
+
+}
+</style>

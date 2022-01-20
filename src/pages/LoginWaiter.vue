@@ -1,16 +1,7 @@
 <template>
 <q-page>
   <div class="column justify-evenly items-center">
-    <div class="logo q-my-md">
-      <img
-        width="110"
-        height="110"
-        class="q-mb-sm"
-        src="../assets/img/1.svg"
-        alt="logo"
-      >
-      <h5 class="no-margin text-center">QR-Menu</h5>
-    </div>
+    <logo-top></logo-top>
     <div class="bg">
       <div class="header-block column justify-center q-mb-md">
         <h3 class="no-margin text-center">Введите код</h3>
@@ -52,6 +43,7 @@
 
 <script>
 import {api} from "boot/axios";
+import LogoTop from "components/login/LogoTop";
 
 export default {
   name: "LoginWaiter",
@@ -62,8 +54,11 @@ export default {
       password: "",
     }
   },
+  components: {
+    LogoTop
+  },
   mounted () {
-    console.log(this.password) // this dont call any method of the web3 object
+    this.resetWaiterData()
   },
   methods: {
     deleteNumber() {
@@ -79,7 +74,6 @@ export default {
       }
     },
     authWaiter () {
-      console.log(this.password)
       if (this.password.length === 1) {
         document.getElementById("one").classList.add('active')
       } else if (this.password.length === 2) {
@@ -145,13 +139,6 @@ export default {
   display: none;
 }
 .q-page {
-  .logo {
-    h5 {
-      font-family: 'Raleway',sans-serif;
-      color: #ffffff;
-      font-weight: bold;
-    }
-  }
   .bg {
     width: 900px;
     background: rgba(255, 255, 255, 0.8);
