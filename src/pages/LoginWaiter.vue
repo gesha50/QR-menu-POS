@@ -43,6 +43,7 @@
           <button class="btn-number relative-position	" @click="password = password.slice(0, password.length - 1)"><img class="absolute-center" width="18" height="18" src="../assets/img/remove.svg" alt=""></button>
         </div>
       </div>
+      <router-link class="back q-py-sm q-px-lg" to="/">Назад</router-link>
     </div>
   </div>
   <!-- <div class="flex justify-center">
@@ -155,10 +156,23 @@ export default {
     }
   }
   .bg {
-      width: 900px;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 30px;
-      padding: 40px 50px 60px;
+    width: 900px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 30px;
+    padding: 40px 50px 60px;
+    .back {
+      font-family: "Raleway",sans-serif;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 120%;
+      text-align: center;
+      font-feature-settings: 'pnum' on, 'lnum' on;
+      color: #5B5B5B;
+      text-decoration: none;
+      background: #EBEBEB;
+      border-radius: 80px;
+    }
     .header-block {
       h3 {
         font-family: 'Raleway',sans-serif;
