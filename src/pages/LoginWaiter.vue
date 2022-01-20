@@ -38,7 +38,8 @@
           <button class="btn-number" @click="password += '8'; authWaiter()">8</button>
           <button class="btn-number" @click="password += '9'; authWaiter()">9</button>
         </div>
-        <div class="row justify-end">
+        <div class="row justify-center">
+          <button class="btn-number" @click="resetWaiterData()">сброс</button>
           <button class="btn-number" @click="password += '0'; authWaiter()">0</button>
           <button class="btn-number relative-position	" @click="deleteNumber">
             <q-icon class="fas fa-backspace" />
@@ -107,14 +108,14 @@ export default {
             this.$store.dispatch('settings/restaurantID', res.data.restaurant_id)
             this.$store.dispatch('settings/userAuth', [true, res.data.token])
             this.$router.push('/')
-          }
-          else {
+          } else {
             this.$q.notify({
               color: 'red-5',
               textColor: 'white',
               icon: 'warning',
               message: this.$t('login.failed')
             })
+            this.resetWaiterData()
           }
         })
         .catch(e=>{
@@ -126,7 +127,7 @@ export default {
 
     },
     resetWaiterData () {
-      this.password = null
+      this.password = ''
       document.getElementById("one").classList.remove('active')
       document.getElementById("two").classList.remove('active')
       document.getElementById("three").classList.remove("active");
