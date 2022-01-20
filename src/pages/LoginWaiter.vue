@@ -205,14 +205,35 @@ export default {
 }
 // >1024px  <1439px
 @media (min-width: $breakpoint-sm-max) and (max-width: $breakpoint-md-max) {
-
+  .q-page {
+    .bg {
+      width: 70%;
+    }
+  }
 }
 // >600px and <1023px
 @media (min-width: $breakpoint-xs-max) and (max-width: $breakpoint-sm-max) {
-
+.q-page {
+    .bg {
+      width: 70%;
+      .back {
+        margin-top: 30px;
+        display: block;
+      }
+    }
+  }
 }
 // <599px
 @media (max-width: $breakpoint-xs-max) {
-
+  .q-page {
+    .bg {
+      width: 90%;
+      padding: 30px 15px 45px;
+      .back {
+        margin-top: 30px;
+        display: block;
+      }
+    }
+  }
 }
 </style>
