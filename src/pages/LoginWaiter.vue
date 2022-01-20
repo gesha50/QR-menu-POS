@@ -23,27 +23,25 @@
           <span id="four"></span>
           <div class="displayNone">{{password}}</div>
         </div>
-        <div class="row justify-center q-mb-sm">
-          <button class="btn-number" @click="password += '1'; authWaiter()">1</button>
-          <button class="btn-number" @click="password += '2'; authWaiter()">2</button>
-          <button class="btn-number" @click="password += '3'; authWaiter()">3</button>
+        <div class="row justify-around q-mb-sm">
+          <q-btn size="lg" round color="white" text-color="black" @click="password += '1'; authWaiter()" label="1" />
+          <q-btn size="lg" round color="white" text-color="black" @click="password += '2'; authWaiter()" label="2" />
+          <q-btn size="lg" round color="white" text-color="black" @click="password += '3'; authWaiter()" label="3" />
         </div>
-        <div class="row justify-center q-mb-sm">
-          <button class="btn-number" @click="password += '4'; authWaiter()">4</button>
-          <button class="btn-number" @click="password += '5'; authWaiter()">5</button>
-          <button class="btn-number" @click="password += '6'; authWaiter()">6</button>
+        <div class="row justify-around q-mb-sm">
+          <q-btn size="lg" round color="white" text-color="black" @click="password += '4'; authWaiter()" label="4" />
+          <q-btn size="lg" round color="white" text-color="black" @click="password += '5'; authWaiter()" label="5" />
+          <q-btn size="lg" round color="white" text-color="black" @click="password += '6'; authWaiter()" label="6" />
         </div>
-        <div class="row justify-center q-mb-sm">
-          <button class="btn-number" @click="password += '7'; authWaiter()">7</button>
-          <button class="btn-number" @click="password += '8'; authWaiter()">8</button>
-          <button class="btn-number" @click="password += '9'; authWaiter()">9</button>
+        <div class="row justify-around q-mb-sm">
+          <q-btn size="lg" round color="white" text-color="black" @click="password += '7'; authWaiter()" label="7" />
+          <q-btn size="lg" round color="white" text-color="black" @click="password += '8'; authWaiter()" label="8" />
+          <q-btn size="lg" round color="white" text-color="black" @click="password += '9'; authWaiter()" label="9" />
         </div>
-        <div class="row justify-center">
-          <button class="btn-number" @click="resetWaiterData()">сброс</button>
-          <button class="btn-number" @click="password += '0'; authWaiter()">0</button>
-          <button class="btn-number relative-position	" @click="deleteNumber">
-            <q-icon class="fas fa-backspace" />
-          </button>
+        <div class="row justify-around">
+          <q-btn size="lg" class="resetBtn" round color="white" text-color="black" @click="resetWaiterData()" label="сброс" />
+          <q-btn size="lg" round color="white" text-color="black" @click="password += '0'; authWaiter()" label="0" />
+          <q-btn size="lg" round color="white" text-color="black" @click="deleteNumber" icon="fas fa-backspace" />
         </div>
       </div>
       <router-link class="back q-py-sm q-px-lg" to="/">Назад</router-link>
@@ -138,6 +136,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.resetBtn {
+  font-size: 15px !important;
+  padding: 0 4px;
+}
+
 .displayNone {
   display: none;
 }
@@ -177,7 +180,7 @@ export default {
       }
     }
     .pin-pad {
-      width: 180px;
+      width: 250px;
       margin: auto;
       .pin-code {
         span {
