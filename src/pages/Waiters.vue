@@ -11,8 +11,8 @@
       >
       <h5 class="no-margin text-center">QR-Menu</h5>
     </div>
-    <div class="bg">
-      <div class="header-block column justify-center q-mb-xl">
+    <div class="bg q-pb-lg">
+      <div class="header-block column justify-center q-mb-lg">
         <h3 class="no-margin text-center">Список официантов</h3>
         <div class="input-container q-mx-auto q-mt-md relative-position	">
           <img class="absolute" src="../assets/img/search.svg" alt="search">
@@ -21,7 +21,7 @@
       </div>
       <div class="scroll-bar scroll-y overflow-auto">
         <div class="LoginPage row items-center">
-          <div v-for="(waiter, i) in filteredWaiters" :key="i" class="col-6 col-md-4 waiters">
+          <div v-for="(waiter, i) in filteredWaiters" :key="i" class="col-12 col-sm-6 col-md-4 waiters">
             <router-link class="row items-center no-wrap bg-white q-pa-md" :to="'/restaurant/login/' + waiter.id">
               <img width="65" height="65" src="https://toppng.com/uploads/preview/instagram-default-profile-picture-11562973083brycehrmyv.png" alt="waiter">
               <span class="waiter-name q-ml-md">{{waiter.name}}</span>
@@ -101,7 +101,6 @@ export default {
         line-height: 130%;
       }
       .input-container {
-        width: 270px;
         img {
           width: 20px;
           height: 20px;
@@ -159,45 +158,23 @@ export default {
     }
   }
 }
-@media (max-width: 1040px) {
-  .q-page {
-    .bg {
-      width: 50%;
-    }
-  }
-}
-@media (max-width: 990px) {
-  .q-page {
-    .bg {
-      width: 60%;
-    }
-  }
-}
-@media (max-width: 770px) {
+@media (max-width: $breakpoint-sm-max) {
   .q-page {
     .bg {
       width: 70%;
-      padding: 50px 40px 0 40px;
+      padding: 15px 25px;
     }
   }
 }
-@media (max-width: 580px) {
+@media (max-width: $breakpoint-xs-max) {
   .q-page {
     .bg {
       width: 80%;
-      padding: 50px 40px 0 40px;
+      padding: 10px 20px;
     }
   }
-}
-@media (max-width: 500px) {
-  .q-page {
-    .bg {
-      width: 90%;
-      padding: 30px 20px 0 20px;
-      img.logo {
-        width: 120px;
-      }
-    }
+  .waiters {
+    padding: 0 0 10px 0 !important;
   }
 }
 </style>
