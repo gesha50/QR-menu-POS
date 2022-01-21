@@ -32,7 +32,7 @@
         :size="'md'"
         @click='$emit("openCloseNotifyDrawer", this.notifyDrawer)'
       >
-        <q-badge color="red" floating>{{ notificationsNumber }}</q-badge>
+        <q-badge v-if="notificationsNumber>0" color="red" floating>{{ notificationsNumber }}</q-badge>
       </q-btn>
       <q-btn v-if="isWaiterActive" to="/archive" class="q-mx-sm" round color="blue-grey-8" icon="far fa-folder-open" :size="'md'" />
       <q-btn to="/settings" round color="grey-7" icon="fas fa-cog" :size="'md'" />
@@ -76,7 +76,8 @@ export default {
         : []
     },
     notificationsNumber() {
-      return this.$store.getters['notify/notifications'].length
+      let arr = this.$store.getters['notify/notifications'].filter(el=> !el.isReading)
+      return arr.length
     }
   },
   methods: {

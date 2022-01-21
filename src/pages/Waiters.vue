@@ -16,10 +16,6 @@
             <waiter-card
               :waiter="waiter"
             ></waiter-card>
-<!--            <router-link class="row items-center no-wrap bg-white q-pa-md" :to="'/restaurant/login/' + waiter.id">-->
-<!--              <img width="65" height="65" src="https://toppng.com/uploads/preview/instagram-default-profile-picture-11562973083brycehrmyv.png" alt="waiter">-->
-<!--              <span class="waiter-name q-ml-md">{{waiter.name}}</span>-->
-<!--            </router-link>-->
           </div>
         </div>
       </div>

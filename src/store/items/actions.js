@@ -56,8 +56,16 @@ export function getTable({commit}) {
     })
 }
 
+export function setTimerStart({commit}, tableId) {
+  commit('setTimerStart', tableId)
+}
+
 export function getCategories ({commit}) {
-  api.get('api/categories')
+  api.get('api/categories', {
+    headers: {
+      Authorization: 'Bearer '+LocalStorage.getItem('userToken')
+    }
+  })
     .then(res => {
       commit('getCategories', res.data.categories)
     })
@@ -67,7 +75,11 @@ export function getCategories ({commit}) {
 }
 
 export function getItems ({commit}) {
-  api.get('api/menuItems')
+  api.get('api/menuItems', {
+    headers: {
+      Authorization: 'Bearer '+LocalStorage.getItem('userToken')
+    }
+  })
     .then(res => {
       commit('getItems', res.data.data)
     })

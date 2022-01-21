@@ -5,7 +5,7 @@
         :class="$q.dark.isActive ? 'text-white' : 'text-black'"
         :to="'/menu/'+table.id"
       >
-      <div :class="tableBackground(0)" class=" q-ma-md TableBlock">
+      <div :class="tableBackground(table.status)" class=" q-ma-md TableBlock">
         <div class="column justify-between full-height">
           <div class="flex justify-between">
             <div class="TableBlock__title">
@@ -45,10 +45,15 @@ export default defineComponent({
     },
   },
   created() {
-    if (0) {
+    if (this.table.status !== 0) {
       setInterval(this.tick, 1000);
     }
   },
+  // updated() {
+  //   if (this.table.status !== 0) {
+  //     setInterval(this.tick, 1000);
+  //   }
+  // },
   methods: {
     tick(){
       this.sec = this.sec + 1;
@@ -62,6 +67,13 @@ export default defineComponent({
       }
     },
     tableBackground(status) {
+      if (this.table.status !== 0) {
+        if (!this.table.isTimerStart) {
+          this.$store.dispatch('items/setTimerStart', this.table.id)
+          setInterval(this.tick, 1000);
+        }
+      }
+      console.log(status)
       if (status === 1) {
         return 'bg-green'
       }

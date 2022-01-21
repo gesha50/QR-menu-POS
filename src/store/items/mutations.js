@@ -136,10 +136,32 @@ const obj2 = {
     status: 0,
 }
 export function getTable (state, data) {
-  state.areasTablesObj = data.result
-  state.otherTables = data.otherTables
+  state.areasTablesObj = data.result.map(el=>{
+    el.tables.map(table =>{
+      table['status'] = 0
+      return table
+    })
+    return el
+  })
+  state.otherTables = data.otherTables.map(table =>{
+    table['status'] = 0
+    table['isTimerStart'] = false
+    return table
+  })
   state.firstScreenTables = translit(data.result[0].restoArea.name)
   console.log(state.firstScreenTables)
+}
+
+export function setTimerStart(state, tableId) {
+  state.areasTablesObj = state.areasTablesObj.map(data => {
+    data.tables.map(table=>{
+      if (table.id === tableId) {
+        table.isTimerStart = true
+      }
+      return table
+    })
+    return data
+  })
 }
 
 export function getCategories(state, data) {

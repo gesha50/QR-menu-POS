@@ -5,7 +5,7 @@
       :drawer="drawer"
       :notify-drawer="notifyDrawer"
       @openCloseDrawer="drawer = !drawer"
-      @openCloseNotifyDrawer="notifyDrawer = !notifyDrawer"
+      @openCloseNotifyDrawer="notifyDrawerClick"
     ></main-header>
     <cart-drawer
       v-if="routerContains === 'menu'"
@@ -35,7 +35,8 @@ export default defineComponent({
   data() {
     return {
       drawer: true,
-      notifyDrawer: false
+      notifyDrawer: false,
+      audioCallWaiter: new Audio(require('../assets/audio/call-waiter.mp3'))
     }
   },
   computed: {
@@ -63,7 +64,15 @@ export default defineComponent({
         })
       })
       channel.bind('callwaiter-event', (data) => {
-        console.log(data)
+        this.audioCallWaiterPlay()
+        let notify = {
+          icon: 'notifications_active',
+          label: 'Call Waiter',
+          description: `${data.msg} стол: ${data.table.name}`,
+          isReading: false,
+        }
+        this.$store.dispatch('notify/addNotify', notify)
+
         this.$q.notify({
           color: 'green-4',
           type: 'positive',
@@ -73,6 +82,17 @@ export default defineComponent({
           position: 'top'
         })
       });
+    },
+    audioCallWaiterPlay() {
+      this.audioCallWaiter.pause()
+      this.audioCallWaiter.currentTime = 0
+      this.audioCallWaiter.play()
+    },
+    notifyDrawerClick() {
+      this.notifyDrawer = !this.notifyDrawer
+      if (this.notifyDrawer) {
+        this.$store.dispatch('notify/seeAllNotify')
+      }
     }
   },
   components: {

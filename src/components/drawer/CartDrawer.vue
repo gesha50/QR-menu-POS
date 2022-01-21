@@ -143,6 +143,8 @@ export default defineComponent({
       },
       checkout() {
         console.log('checkout')
+        // post order in orders
+        // post order_at in tables table in DB
       },
     },
 })
