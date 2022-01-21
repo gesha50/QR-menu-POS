@@ -7,12 +7,12 @@ export default function () {
         description: 'fgecdhn vfecubhnkjefc vfe',
         isReading: false,
       },
-      {
-        icon: 'send',
-        label: 'Outbox',
-        description: 'fgecdhn vfecubhnkjefc vfe',
-        isReading: false,
-      },
+      // {
+      //   icon: 'send',
+      //   label: 'Outbox',
+      //   description: 'fgecdhn vfecubhnkjefc vfe',
+      //   isReading: false,
+      // },
     ]
   }
 }

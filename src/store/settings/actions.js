@@ -47,6 +47,7 @@ export function logoutWaiter ({ commit }, value) {
   LocalStorage.remove('restaurantName')
   LocalStorage.remove('userAuth')
   LocalStorage.remove('userToken')
+  LocalStorage.remove('owner_id')
   if (value) {
     // restaurant mode
     LocalStorage.remove('user_id')

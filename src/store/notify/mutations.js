@@ -1,6 +1,8 @@
 
 export function addNotify (state, notify) {
+  console.log(state.notifications)
   state.notifications = [...state.notifications, notify]
+  console.log(state.notifications)
 }
 
 export function seeAllNotify(state) {

@@ -83,6 +83,7 @@ export default defineComponent({
                 icon: 'cloud_done',
                 message: this.$t('login.success')
               })
+              this.$q.localStorage.set('owner_id', res.data.owner_id)
               this.$store.dispatch('settings/setRestaurantName', res.data.restaurant_name)
               this.$store.dispatch('settings/setIsRestaurant', false)
               this.$store.dispatch('settings/setUserID', this.waiter.user_id)

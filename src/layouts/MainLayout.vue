@@ -50,7 +50,7 @@ export default defineComponent({
   },
   methods: {
     connect() {
-      let channel = this.$pusher.subscribe('user.62')
+      let channel = this.$pusher.subscribe('user.' + this.$q.localStorage.getItem('owner_id'))
       console.log(channel)
       channel.bind('neworder-event',  (data) => {
         console.log(data)
@@ -65,6 +65,7 @@ export default defineComponent({
       })
       channel.bind('callwaiter-event', (data) => {
         this.audioCallWaiterPlay()
+        console.log(data)
         let notify = {
           icon: 'notifications_active',
           label: 'Call Waiter',
