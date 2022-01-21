@@ -35,16 +35,18 @@
           class="row"
           :name="translitName(area.restoArea.name)"
         >
-          <div class="col-3 row justify-around">
+          <div class="col-12 col-sm-2 col-md-1 q-mb-sm row justify-around">
             <take-away-block />
             <delivery-block />
           </div>
-          <table-block
+          <div class="col-12 col-sm-10 col-md-11 row ">
+            <table-block
             v-for="(table, index) in area.tables"
             :key="index"
             :table="table"
-            class="col-3"
+            class="col-12 col-sm-6 col-md-3"
           ></table-block>
+          </div>
         </q-tab-panel>
         <q-tab-panel v-if="otherTables" name="otherTables" class="row">
           <div class="col-3 row justify-around">

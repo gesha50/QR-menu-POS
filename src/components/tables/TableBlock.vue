@@ -1,5 +1,5 @@
 <template>
-    <div class="q-pa-md">
+    <div class="q-pa-md item">
       <router-link
         class="tableBlockLink"
         :class="$q.dark.isActive ? 'text-white' : 'text-black'"
@@ -111,4 +111,9 @@ export default defineComponent({
       text-align: left;
     }
   }
+@media (max-width: $breakpoint-xs-max) {
+  .item {
+    padding: 10px 0;
+  }
+}
 </style>
