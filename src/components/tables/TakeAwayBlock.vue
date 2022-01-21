@@ -29,6 +29,22 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
+  // <599px
+@media (max-width: $breakpoint-xs-max) {
+  .TakeAwayBlock {
+      width: 70px;
+      height: 70px;
+      padding: 0;
+      .q-btn {
+        width: 100%;
+        height: 100%;
+        min-width: 100%;
+        min-height: 100%;
+        .q-icon {
+            font-size: 40px;
+        }
+       }   
+    }
+}
 </style>

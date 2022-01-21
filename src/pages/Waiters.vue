@@ -12,7 +12,7 @@
       </div>
       <div class="scroll-bar scroll-y overflow-auto">
         <div class="LoginPage row justify-around items-center">
-          <div v-for="(waiter, i) in filteredWaiters" :key="i">
+          <div class="col-12 col-sm-6 col-md-4" v-for="(waiter, i) in filteredWaiters" :key="i">
             <waiter-card
               :waiter="waiter"
             ></waiter-card>
@@ -133,7 +133,7 @@ export default {
 @media (max-width: $breakpoint-sm-max) {
   .q-page {
     .bg {
-      width: 70%;
+      width: 90%;
       padding: 15px 25px;
     }
   }
