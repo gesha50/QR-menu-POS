@@ -1,6 +1,7 @@
 
 export function addNotify (state, notify) {
   state.notifications = [...state.notifications, notify]
+  localStorage.setItem('notify', JSON.stringify(state.notifications))
 }
 
 export function seeAllNotify(state) {

@@ -10,7 +10,7 @@
     class="bg-purple-1"
   >
     <q-scroll-area class="fit">
-      <q-list>
+      <q-list v-if="notifications !== null">
 
         <template v-for="(notify, index) in notifications" :key="index">
           <q-item clickable>
@@ -27,6 +27,9 @@
           <q-separator />
         </template>
 
+      </q-list>
+      <q-list v-else>
+        <h6 class="text-center q-py-xl no-margin">У вас нет уведомления</h6>
       </q-list>
     </q-scroll-area>
   </q-drawer>
@@ -45,7 +48,8 @@ export default defineComponent({
         return {
         }
     },
-    created() {},
+    created() {
+    },
     mounted() {},
     components: {},
     computed: {
@@ -53,10 +57,11 @@ export default defineComponent({
         return this.notifyDrawer
       },
       notifications() {
-        return this.$store.getters['notify/notifications']
+        return JSON.parse(localStorage.getItem("notify"));
       }
     },
-    methods: {},
+    methods: {
+    },
 })
 </script>
 

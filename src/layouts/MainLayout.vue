@@ -50,7 +50,7 @@ export default defineComponent({
   },
   methods: {
     connect() {
-      let channel = this.$pusher.subscribe('user.62')
+      let channel = this.$pusher.subscribe('user.64')
       console.log(channel)
       channel.bind('neworder-event',  (data) => {
         console.log(data)
