@@ -7,7 +7,8 @@
     side="right"
     overlay
     bordered
-    class="bg-purple-1"
+    :class="$q.dark.isActive? 'bg-blue-grey-10' : 'bg-blue-grey-1'"
+    class="bg-blue-grey-1"
   >
     <q-scroll-area class="fit">
       <q-list v-if="notifications !== null">
