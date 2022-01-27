@@ -11,10 +11,10 @@
     class="bg-blue-grey-1"
   >
     <q-scroll-area class="fit">
-      <q-list v-if="notifications !== null">
+      <q-list v-if="notifications.length">
 
         <template v-for="(notify, index) in notifications" :key="index">
-          <q-item clickable>
+          <q-item clickable @click='removeNotify(index)'>
             <q-item-section avatar>
               <q-icon :name="notify.icon" size="xl" />
             </q-item-section>
@@ -58,10 +58,14 @@ export default defineComponent({
         return this.notifyDrawer
       },
       notifications() {
-        return JSON.parse(localStorage.getItem("notify"));
+        // return JSON.parse(this.$q.localStorage.getItem("notify"));
+        return this.$store.getters['notify/notifications']
       }
     },
     methods: {
+      removeNotify(index) {
+        this.$store.dispatch('notify/removeNotify', [index])
+      }
     },
 })
 </script>
