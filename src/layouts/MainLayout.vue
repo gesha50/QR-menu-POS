@@ -1,5 +1,5 @@
 <template>
-  <q-layout :class="$q.dark.isActive? 'blue-grey-10' : 'layoutMy'" view="hHh lpr lfr">
+  <q-layout :class="$q.dark.isActive? '' : 'layoutMy'" view="hHh lpr lfr">
     <main-header
       :is-waiter-active="true"
       :drawer="drawer"
@@ -65,21 +65,21 @@ export default defineComponent({
       })
       channel.bind('callwaiter-event', (data) => {
         this.audioCallWaiterPlay()
-        console.log(data)
-        let notify = {
+        let message = `${data.msg}: ${data.table.restoarea.name} ${data.table.name}`
+        let notification = {
           icon: 'notifications_active',
           label: 'Call Waiter',
-          description: `${data.msg} стол: ${data.table.name}`,
+          description: message,
           isReading: false,
         }
-        this.$store.dispatch('notify/addNotify', notify)
+        this.$store.dispatch('notify/addNotify', notification)
 
         this.$q.notify({
           color: 'green-4',
           type: 'positive',
           textColor: 'white',
           icon: 'fas fa-running',
-          message: `${data.msg} стол: ${data.table.name}`,
+          message: message,
           position: 'top'
         })
       });
