@@ -94,7 +94,6 @@ export default defineComponent({
         }
     },
     created() {
-      console.log(this.cart)
     },
     updated() {
     },
@@ -116,6 +115,10 @@ export default defineComponent({
         return this.$route.path.split('/')[2]
       },
       cart() {
+        // let arrCartArray = JSON.parse(this.$q.localStorage.getItem("itemInCart"))
+        // console.log(arrCartArray[this.table_id])
+        // return this.$q.localStorage.getItem("itemInCart")
+        // return arrCartArray[this.table_id]
         return this.$store.getters['items/ItemsInCart'](this.table_id)
           ? this.$store.getters['items/ItemsInCart'](this.table_id)
           : []

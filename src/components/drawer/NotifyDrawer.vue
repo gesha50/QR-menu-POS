@@ -11,10 +11,10 @@
     class="bg-blue-grey-1"
   >
     <q-scroll-area class="fit">
-      <q-list>
+      <q-list v-if="notifications.length">
 
         <template v-for="(notify, index) in notifications" :key="index">
-          <q-item clickable>
+          <q-item clickable @click='removeNotify(index)'>
             <q-item-section avatar>
               <q-icon :name="notify.icon" size="xl" />
             </q-item-section>
@@ -28,6 +28,9 @@
           <q-separator />
         </template>
 
+      </q-list>
+      <q-list v-else>
+        <h6 class="text-center q-py-xl no-margin">У вас нет уведомления</h6>
       </q-list>
     </q-scroll-area>
   </q-drawer>
@@ -46,7 +49,8 @@ export default defineComponent({
         return {
         }
     },
-    created() {},
+    created() {
+    },
     mounted() {},
     components: {},
     computed: {
@@ -54,10 +58,15 @@ export default defineComponent({
         return this.notifyDrawer
       },
       notifications() {
+        // return JSON.parse(this.$q.localStorage.getItem("notify"));
         return this.$store.getters['notify/notifications']
       }
     },
-    methods: {},
+    methods: {
+      removeNotify(index) {
+        this.$store.dispatch('notify/removeNotify', [index])
+      }
+    },
 })
 </script>
 

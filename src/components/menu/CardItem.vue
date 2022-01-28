@@ -20,7 +20,7 @@
           alt=""
           class="CardItem__img full-width"
         >
-      </div>
+    </div>
     <div class="CardItem__footer q-px-lg q-py-md">
         <div class="CardItem__title">{{ item.name }}</div>
         <div class="row q-mt-sm">

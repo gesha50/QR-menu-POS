@@ -79,13 +79,14 @@ export function addItemInCart (state, data) {
       }
     }
   })
+  localStorage.setItem('itemInCart', JSON.stringify(state.carts))
 
   if (!isInCart) {
     itemInCart.counter = 1
     state.carts[data[1]].push(itemInCart)
+    localStorage.setItem('itemInCart', JSON.stringify(state.carts))
   }
 }
-
 export function changeOptionValue (state, arr) {
   // arr[0] - e.target.value;  arr[1] - item; arr[2] - option_id;
   arr[1].options.forEach(op=> {
@@ -105,6 +106,7 @@ export function increment (state, arr) {
       data.counter++
     }
   })
+  localStorage.setItem('itemInCart', JSON.stringify(state.carts))
 }
 
 export function decrement (state, arr) {
@@ -116,6 +118,7 @@ export function decrement (state, arr) {
       data.counter--
     }
   })
+  localStorage.setItem('itemInCart', JSON.stringify(state.carts))
 }
 
 export function removeFromCart (state, arr) {
@@ -124,17 +127,21 @@ export function removeFromCart (state, arr) {
     && JSON.stringify(arr[0].extras) === JSON.stringify(el.extras)
     && arr[0].variant.length === el.variant.length
     && arr[0].variant.every((elem, i) => elem === el.variant[i])))
+    localStorage.setItem('itemInCart', JSON.stringify(state.carts))
 }
+
 const obj1 = {
     id: 1,
     name: 'На вынос',
     status: 1,
 }
+
 const obj2 = {
     id: 2,
     name: 'Доставка',
     status: 0,
 }
+
 export function getTable (state, data) {
   state.areasTablesObj = data.result.map(el=>{
     el.tables.map(table =>{
