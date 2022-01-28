@@ -6,7 +6,7 @@ export default function () {
     firstScreenTables: '',
     categories: [],
     items: [],
-    carts: JSON.parse(localStorage.getItem("itemInCart")),
+    carts: JSON.parse(localStorage.getItem("itemInCart")) ? JSON.parse(localStorage.getItem("itemInCart")) : {},
     ItemsInCart: [],
   }
 }
