@@ -39,7 +39,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .Sidebar {
   position: fixed;
-  width: 8.333333%;
+  width: 110px;
   height: calc(100vh - 59px);
   overflow-y: auto;
 }

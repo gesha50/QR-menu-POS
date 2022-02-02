@@ -72,7 +72,7 @@
     <div class="absolute-bottom">
       <div class="totalPrice bg-grey-2 full-width row justify-between q-pa-md">
         <div class="totalPrice__title">Total Price:</div>
-        <div class="totalPrice__price">$ {{ totalPrice }}</div>
+        <div class="totalPrice__price">{{ totalPrice + ' ' + $t('valuta') }}</div>
       </div>
       <div class="checkout">
         <q-btn :disable="isCartEmpty" @click="checkout" class="full-width checkout__btn bg-amber-6" label="Finish Ordering" />
