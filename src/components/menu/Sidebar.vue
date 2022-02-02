@@ -43,4 +43,9 @@ export default defineComponent({
   height: calc(100vh - 59px);
   overflow-y: auto;
 }
+@media (max-width: $breakpoint-xs-max) {
+  .Sidebar {
+    width: 100px;  
+  }
+}
 </style>

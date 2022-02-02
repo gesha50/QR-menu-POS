@@ -2,7 +2,7 @@ import {api} from "boot/axios";
 import {LocalStorage} from "quasar";
 
 export function getOrders ({commit}) {
-    api.get('api/v2/vendor/orders', {
+    api.get('/api/v2/vendor/orders', {
       headers: {
         Authorization: 'Bearer '+LocalStorage.getItem('userToken')
       }

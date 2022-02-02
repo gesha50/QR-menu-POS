@@ -1,9 +1,9 @@
 <template>
 <div class="Menu row relative-position">
-  <div class="col-12" style="padding-right: 120px;">
+  <div class="col-12">
     <menu-list></menu-list>
   </div>
-  <div class="absolute-right" style="width: 120px;">
+  <div class="absolute-right">
     <sidebar></sidebar>
   </div>
 </div>
@@ -37,5 +37,18 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
+.col-12 {
+  padding-right: 120px;
+}
+.absolute-right {
+  width: 120px;
+}
+@media (max-width: $breakpoint-xs-max) {
+  .col-12 {
+    padding-right: 100px;
+  }
+  .absolute-right {
+    width: 100px;
+  }
+}
 </style>

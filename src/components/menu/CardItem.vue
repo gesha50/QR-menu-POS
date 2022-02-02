@@ -162,4 +162,66 @@ export default defineComponent({
     font-weight: 400;
   }
 }
+@media (max-width: $breakpoint-xs-max) {
+  .CardItem {
+    width: 50%;
+    padding: 0!important;
+    .CardItem__footer {
+      padding: 0 10px 10px;
+    }
+    &__inside {
+      border-radius: $borderRadius;
+      position: relative;
+    }
+    &__inCart {
+      position: absolute;
+      z-index: 1;
+      height: 170px;
+      width: 100%;
+      background: linear-gradient(145deg, transparent, transparent, $amber-8);
+    }
+    &__counter {
+      border-radius: 50%;
+      bottom: 10px;
+      right: 10px;
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      font-family: 'GSansReg';
+    }
+    &__title {
+      font-family: 'GSansReg';
+      font-size: 14px;
+      line-height: 1.2;
+      font-weight: 500;
+    }
+    &__forImg {
+      cursor: pointer;
+      width: 100%;
+      height: auto;
+    }
+    &__img {
+      border-radius: $borderRadius $borderRadius 0 0;
+      height: 100%;
+      object-fit: cover;
+    }
+    &__isActive {
+      & i {
+        font-size: 14px;
+      }
+    }
+    .CardItem__price {
+      margin: 0 0 0 5px;
+    }
+    &__price {
+      font-family: 'GSansReg';
+      font-size: 13px;
+      line-height: 1.2;
+      font-weight: 400;
+    }
+  }
+}
 </style>

@@ -62,4 +62,15 @@ export default defineComponent({
     height: 50px;
   }
 }
+@media (max-width: $breakpoint-xs-max) {
+  .CategoryBlock {
+    &__img {
+      width: 40px;
+      height: 40px;
+    }
+    .CategoryBlock__text {
+      font-size: 12px;
+    }
+  }
+}
 </style>

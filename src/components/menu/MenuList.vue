@@ -41,5 +41,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
+@media (max-width: $breakpoint-xs-max) {
+  .MenuList {
+    padding: 10px 5px;
+  }
+}
 </style>
