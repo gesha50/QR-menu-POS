@@ -4,7 +4,7 @@
     class="CardItem__inside q-ma-sm"
     :class="$q.dark.isActive ? 'bg-black' : 'bg-white'"
   >
-    <div @click="addItemInCart" class="CardItem__forImg full-width" style="user-select: none;">
+    <div @click="addItemInCart" class="CardItem__forImg" style="user-select: none;">
       <div v-if="itemInCart" class="CardItem__inCart">
         <div class="CardItem__counter bg-white text-amber-8">{{itemInCart}}</div>
       </div>
@@ -118,7 +118,7 @@ export default defineComponent({
   &__inCart {
     position: absolute;
     z-index: 1;
-    height: 200px;
+    height: 170px;
     width: 100%;
     background: linear-gradient(145deg, transparent, transparent, $amber-8);
   }
@@ -142,7 +142,8 @@ export default defineComponent({
   }
   &__forImg {
     cursor: pointer;
-    height: 200px;
+    width: 240px;
+    height: 170px;
   }
   &__img {
     border-radius: $borderRadius $borderRadius 0 0;

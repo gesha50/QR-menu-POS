@@ -1,6 +1,6 @@
 <template>
 <div class="Menu row relative-position">
-  <div class="col-11">
+  <div class="col-12" style="padding-right: 120px;">
     <menu-list></menu-list>
   </div>
   <div class="absolute-right" style="width: 120px;">
