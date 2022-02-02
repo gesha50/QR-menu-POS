@@ -52,8 +52,7 @@ export default defineComponent({
     this.connect()
   },
   unmounted() {
-    // this.$pusher.unsubscribe('user.' + this.$q.localStorage.getItem('owner_id'))
-    this.channel.cancelSubscription()
+    this.channel.unsubscribe('user.' + this.$q.localStorage.getItem('owner_id'))
   },
   methods: {
     connect() {
