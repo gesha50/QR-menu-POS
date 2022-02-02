@@ -33,6 +33,6 @@ export default defineComponent({
   right: 0;
   background: #000;
   opacity: .5;
-  z-index: 111;
+  z-index: 11111111;
 }
 </style>

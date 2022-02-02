@@ -3,14 +3,13 @@
   <q-drawer
     v-model="myDrawer"
     class="relative-position"
-    :width="380"
-    :breakpoint="500"
+    :breakpoint="599"
     :class="$q.dark.isActive ? 'bg-black' : 'bg-white'"
   >
     <q-scroll-area v-if="cart.length" class="fit q-pl-sm" style="">
       <q-list padding class="rounded-borders CartList">
         <template v-for="(Item, index) in cart" :key="index">
-          <q-item id="printMe" class="CartItem">
+          <q-item class="CartItem">
             <q-item-section top thumbnail class="q-ml-none">
               <img
                 class="CartItem__img"
@@ -27,7 +26,7 @@
             </q-item-section>
 
             <q-item-section>
-              <div class="row justify-between items-baseline">
+              <div class="row justify-between items-baseline no-wrap">
                 <q-item-label class="CartItem__title q-mb-md row" >{{ Item.name }}
                   <div
                     v-if="Item.variant.length"
@@ -150,9 +149,48 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@media print {
 
+// >1440px
+@media (min-width: $breakpoint-md-max) {
+  .CartDrawer {
+    .q-drawer-container {
+      .q-drawer {
+        width: 380px !important;
+      }
+    }
+  }
 }
+// >1024px  <1439px
+@media (min-width: $breakpoint-sm-max) and (max-width: $breakpoint-md-max) {
+  .CartDrawer {
+    .q-drawer-container {
+      .q-drawer {
+        width: 350px !important;
+      }
+    }
+  }
+}
+// >600px and <1023px
+@media (min-width: $breakpoint-xs-max) and (max-width: $breakpoint-sm-max) {
+  .CartDrawer {
+    .q-drawer-container {
+      .q-drawer {
+        width: 33% !important;
+      }
+    }
+  }
+}
+// <599px
+@media (max-width: $breakpoint-xs-max) {
+  .CartDrawer {
+    .q-drawer-container {
+      .q-drawer {
+        width: 80% !important;
+      }
+    }
+  }
+}
+
 .CartList {
   margin-bottom: 126px;
 }

@@ -8,6 +8,7 @@
       @openCloseNotifyDrawer="notifyDrawerClick"
     ></main-header>
     <cart-drawer
+      @click="closeCartDrawer($event)"
       v-if="routerContains === 'menu'"
       :drawer="drawer"
     ></cart-drawer>
@@ -17,7 +18,7 @@
     ></notify-drawer>
 
     <q-page-container>
-      <router-view />
+<!--      <router-view />-->
     </q-page-container>
 
   </q-layout>
@@ -55,6 +56,11 @@ export default defineComponent({
     this.channel.unsubscribe('user.' + this.$q.localStorage.getItem('owner_id'))
   },
   methods: {
+    closeCartDrawer(e) {
+      if (e.target.classList[0] === 'fullscreen') {
+        this.drawer = !this.drawer
+      }
+    },
     connect() {
       this.channel = this.$pusher.subscribe('user.' + this.$q.localStorage.getItem('owner_id'))
       console.log(this.channel)
