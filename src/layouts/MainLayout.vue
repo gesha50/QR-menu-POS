@@ -36,7 +36,10 @@ export default defineComponent({
     return {
       drawer: true,
       notifyDrawer: false,
-      audioCallWaiter: new Audio(require('../assets/audio/call-waiter.mp3'))
+      audioCallWaiter: new Audio(require('../assets/audio/call-waiter.mp3')),
+      audioNewOrder: new Audio(require('../assets/audio/new-order.mp3')),
+      audioChangeStatus: new Audio(require('../assets/audio/change-status.mp3')),
+      channel: null
     }
   },
   computed: {
@@ -48,46 +51,74 @@ export default defineComponent({
   created() {
     this.connect()
   },
+  unmounted() {
+    // this.$pusher.unsubscribe('user.' + this.$q.localStorage.getItem('owner_id'))
+    this.channel.cancelSubscription()
+  },
   methods: {
     connect() {
-      let channel = this.$pusher.subscribe('user.' + this.$q.localStorage.getItem('owner_id'))
-      console.log(channel)
-      channel.bind('neworder-event',  (data) => {
-        console.log(data)
-        this.$q.notify({
-          color: 'green-4',
-          type: 'positive',
-          textColor: 'white',
-          icon: 'fas fa-cart-arrow-down',
-          message: data.message,
-          position: 'top'
-        })
+      this.channel = this.$pusher.subscribe('user.' + this.$q.localStorage.getItem('owner_id'))
+      console.log(this.channel)
+      this.channel.bind('neworder-event',  (data) => {
+        this.eventNewOrder(data)
       })
-      channel.bind('callwaiter-event', (data) => {
-        this.audioCallWaiterPlay()
-        let message = `${data.msg}: ${data.table.restoarea.name} ${data.table.name}`
-        let notification = {
-          icon: 'notifications_active',
-          label: 'Call Waiter',
-          description: message,
-          isReading: false,
-        }
-        this.$store.dispatch('notify/addNotify', notification)
-
-        this.$q.notify({
-          color: 'green-4',
-          type: 'positive',
-          textColor: 'white',
-          icon: 'fas fa-running',
-          message: message,
-          position: 'top'
-        })
+      this.channel.bind('callwaiter-event', (data) => {
+        this.eventCallWaiter(data)
+      });
+      this.channel.bind('change-status', (data) => {
+        this.eventChangeStatus(data)
       });
     },
-    audioCallWaiterPlay() {
-      this.audioCallWaiter.pause()
-      this.audioCallWaiter.currentTime = 0
-      this.audioCallWaiter.play()
+    eventNewOrder(data) {
+      console.log(data)
+      let message = `Сумма: ${data.order.order_price + this.$t('valuta')}, Стол: ${data.order.table.name}`
+      this.playAudio(this.audioNewOrder)
+      this.addNotify('fas fa-cart-arrow-down','New Order', message)
+      this.showNotify('fas fa-cart-arrow-down', message)
+    },
+    eventCallWaiter(data) {
+      let message = `${data.msg}: ${data.table.restoarea.name} ${data.table.name}`
+      this.playAudio(this.audioCallWaiter)
+      this.addNotify('fas fa-running','Call Waiter', message)
+      this.showNotify('fas fa-running', message)
+
+    },
+    eventChangeStatus(data){
+      console.log(data)
+      let icon = 'fas fa-exchange-alt'
+      let restAreaName = ''
+      if (!isNaN(data.order.tableassigned[0].restoarea)) {
+        restAreaName = data.order.tableassigned[0].restoarea.name
+      }
+      let table = data.order.tableassigned[0].name
+      let message = `table: ${restAreaName} ${table}, status: ${data.status}`
+      this.showNotify(icon, message)
+      this.playAudio(this.audioChangeStatus)
+      this.addNotify(icon,'Change Status', message)
+    },
+    addNotify(icon, label, message) {
+      let notification = {
+        icon: icon,
+        label: label,
+        description: message,
+        isReading: false,
+      }
+      this.$store.dispatch('notify/addNotify', notification)
+    },
+    showNotify (icon, message) {
+      this.$q.notify({
+        color: 'green-4',
+        type: 'positive',
+        textColor: 'white',
+        icon: icon,
+        message: message,
+        position: 'top'
+      })
+    },
+    playAudio(audio) {
+      audio.pause()
+      audio.currentTime = 0
+      audio.play()
     },
     notifyDrawerClick() {
       this.notifyDrawer = !this.notifyDrawer

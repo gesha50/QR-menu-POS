@@ -35,12 +35,27 @@
           <q-td key="actions" :props="props">
 
             <template v-for="(action, i) in props.row.actions" :key="i">
-              <q-badge v-if="action === 'действий не требуется'" >
+              <div v-if="action === 'действий не требуется'" >
                 действий не требуется
-              </q-badge>
-              <q-badge v-else color="accent">
+              </div>
+              <q-btn size="sm" class="q-mr-sm" color="red-7" v-else-if="action === 'rejected_by_restaurant'" >
+                отменить
+              </q-btn>
+              <q-btn size="sm" color="green-7" v-else-if="action === 'accepted_by_restaurant'" >
+                принять
+              </q-btn>
+              <q-btn size="sm" color="blue-7" v-else-if="action === 'prepared'" >
+                готовый
+              </q-btn>
+              <q-btn size="sm" color="blue-9" v-else-if="action === 'delivered'" >
+                доставленный
+              </q-btn>
+              <q-btn size="sm" color="orange-7" v-else-if="action === 'closed'" >
+                закрыто
+              </q-btn>
+              <q-btn size="sm" v-else color="accent">
                 {{ action }}
-              </q-badge>
+              </q-btn>
             </template>
           </q-td>
         </q-tr>
@@ -56,24 +71,29 @@ export default defineComponent({
     name: "Orders",
     data() {
         return {
+          intervalID: null
         }
     },
     created() {
       this.$store.dispatch('orders/getOrders')
     },
     mounted() {
-      setTimeout(()=>{
+      this.intervalID = setInterval(()=>{
+        console.log('server get orders')
         this.$store.dispatch('orders/getOrders')
+        console.log(this.rows)
       }, 10000)
     },
-    components: {},
+    unmounted() {
+      clearInterval(this.intervalID)
+    },
+  components: {},
     computed: {
       columns() {
         return this.$store.getters['orders/columns']
       },
       rows() {
         return this.$store.getters['orders/rows']
-        // console.log(this.$store.getters['orders/rows']);
       }
     },
     methods: {},

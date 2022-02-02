@@ -21,12 +21,7 @@ export default {
     },
   computed: {
       isActive() {
-        console.log(this.archive_data.ID)
-        console.log(this.CurrentActive)
-        if (this.CurrentActive === this.archive_data.ID) {
-          return true
-        }
-        return false
+        return this.CurrentActive === this.archive_data.ID;
       }
   }
 }

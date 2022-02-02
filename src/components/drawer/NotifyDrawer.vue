@@ -30,7 +30,7 @@
 
       </q-list>
       <q-list v-else>
-        <h6 class="text-center q-py-xl no-margin">У вас нет уведомления</h6>
+        <h6 class="text-center q-py-xl no-margin">У вас нет уведомлений</h6>
       </q-list>
     </q-scroll-area>
   </q-drawer>

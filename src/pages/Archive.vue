@@ -18,7 +18,7 @@
           <q-tab-panels v-model="tab" class="text-white">
             <q-tab-panel class="tab-panel" name="mails">
               <div class="search-form">
-                <input type="text" placeholder="Search Order ID end Customers">
+                <input v-model="searchText" type="text" placeholder="Search Order ID or price">
                 <img src="../assets/img/icons_search.svg" alt="search">
               </div>
               <div class="tabel-block">
@@ -27,7 +27,7 @@
                   <p>Date</p>
                   <p>Total Sales</p>
                 </div>
-                <div class="tabel-body" v-for="(row, index) in rows" :key="index">
+                <div class="tabel-body" v-for="(row, index) in filteredRows" :key="index">
                   <archive-list
                     :CurrentActive="CurrentActive"
                     :archive_data="row"
@@ -68,6 +68,7 @@ export default defineComponent({
     name: "Archive",
     data() {
       return {
+        searchText: '',
         CurrentActive: null,
         id: null,
         restaurantName: this.$q.localStorage.getItem('restaurantName'),
@@ -88,6 +89,17 @@ export default defineComponent({
     computed: {
       rows() {
         return this.$store.getters['archive/rows']
+      },
+      filteredRows() {
+        console.log(this.rows)
+        if (this.searchText) {
+          return this.rows.filter(el=>{
+            let ID = el.ID.toString()
+            let price = el.price.toString()
+            return ID.includes(this.searchText) || price.includes(this.searchText)
+          })
+        }
+        return this.rows
       },
     },
     methods: {

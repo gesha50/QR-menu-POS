@@ -79,13 +79,12 @@ export function addItemInCart (state, data) {
       }
     }
   })
-  localStorage.setItem('itemInCart', JSON.stringify(state.carts))
 
   if (!isInCart) {
     itemInCart.counter = 1
     state.carts[data[1]].push(itemInCart)
-    localStorage.setItem('itemInCart', JSON.stringify(state.carts))
   }
+  localStorage.setItem('itemInCart', JSON.stringify(state.carts))
 }
 export function changeOptionValue (state, arr) {
   // arr[0] - e.target.value;  arr[1] - item; arr[2] - option_id;
@@ -128,18 +127,6 @@ export function removeFromCart (state, arr) {
     && arr[0].variant.length === el.variant.length
     && arr[0].variant.every((elem, i) => elem === el.variant[i])))
     localStorage.setItem('itemInCart', JSON.stringify(state.carts))
-}
-
-const obj1 = {
-    id: 1,
-    name: 'На вынос',
-    status: 1,
-}
-
-const obj2 = {
-    id: 2,
-    name: 'Доставка',
-    status: 0,
 }
 
 export function getTable (state, data) {
