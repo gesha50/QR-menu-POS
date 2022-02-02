@@ -3,7 +3,8 @@
   <q-drawer
     v-model="myDrawer"
     class="relative-position"
-    :breakpoint="599"
+    width="380"
+
     :class="$q.dark.isActive ? 'bg-black' : 'bg-white'"
   >
     <q-scroll-area v-if="cart.length" class="fit q-pl-sm" style="">
@@ -165,7 +166,7 @@ export default defineComponent({
   .CartDrawer {
     .q-drawer-container {
       .q-drawer {
-        width: 350px !important;
+        width: 380px !important;
       }
     }
   }
@@ -175,7 +176,7 @@ export default defineComponent({
   .CartDrawer {
     .q-drawer-container {
       .q-drawer {
-        width: 33% !important;
+        width: 50% !important;
       }
     }
   }
