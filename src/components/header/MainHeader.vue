@@ -118,7 +118,10 @@ export default {
 // >600px and <1023px
 @media (min-width: $breakpoint-xs-max) and (max-width: $breakpoint-sm-max) {
   .q-field {
-    display: none;
+    width: 140px;
+  }
+  .cartBtn-mobile {
+    font-size: 12px;
   }
 }
 // <599px

@@ -1,6 +1,6 @@
 <template>
 <div class="MenuList q-pa-md">
-    <div class="row justify-around">
+    <div class="row">
       <card-item
         v-for="(item, index) in filteredItems"
         :key="index"

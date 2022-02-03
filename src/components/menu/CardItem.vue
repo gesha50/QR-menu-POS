@@ -1,5 +1,5 @@
 <template>
-<div class="CardItem q-pa-md">
+<div class="CardItem">
   <div
     class="CardItem__inside q-ma-sm"
     :class="$q.dark.isActive ? 'bg-black' : 'bg-white'"
@@ -21,7 +21,7 @@
           class="CardItem__img full-width"
         >
     </div>
-    <div class="CardItem__footer q-px-lg q-py-md">
+    <div class="CardItem__footer q-px-sm q-py-sm">
         <div class="CardItem__title">{{ item.name }}</div>
         <div class="row q-mt-sm">
           <div class="CardItem__isActive column justify-center">
@@ -111,14 +111,17 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import "../../css/var";
 .CardItem {
+  width: 25%;
   &__inside {
     border-radius: $borderRadius;
     position: relative;
   }
   &__inCart {
     position: absolute;
+    right: 0;
+    bottom: 6px;
     z-index: 1;
-    height: 170px;
+    height: 100%;
     width: 100%;
     background: linear-gradient(145deg, transparent, transparent, $amber-8);
   }
@@ -142,8 +145,9 @@ export default defineComponent({
   }
   &__forImg {
     cursor: pointer;
-    width: 240px;
-    height: 170px;
+    width: 100%;
+    height: auto;
+    position: relative;
   }
   &__img {
     border-radius: $borderRadius $borderRadius 0 0;
@@ -162,6 +166,19 @@ export default defineComponent({
     font-weight: 400;
   }
 }
+@media (min-width: $breakpoint-sm-max) and (max-width: $breakpoint-md-max) {
+.CardItem {
+    width: 33.3%;
+    padding: 0!important;
+   }
+}
+// >600px and <1023px
+@media (min-width: $breakpoint-xs-max) and (max-width: $breakpoint-sm-max) {
+   .CardItem {
+    width: 33.3%;
+    padding: 0!important;
+   }
+}
 @media (max-width: $breakpoint-xs-max) {
   .CardItem {
     width: 50%;
@@ -173,22 +190,15 @@ export default defineComponent({
       border-radius: $borderRadius;
       position: relative;
     }
-    &__inCart {
-      position: absolute;
-      z-index: 1;
-      height: 170px;
-      width: 100%;
-      background: linear-gradient(145deg, transparent, transparent, $amber-8);
-    }
     &__counter {
       border-radius: 50%;
       bottom: 10px;
       right: 10px;
       position: absolute;
-      width: 30px;
-      height: 30px;
+      width: 20px;
+      height: 20px;
       text-align: center;
-      font-size: 20px;
+      font-size: 14px;
       font-weight: 700;
       font-family: 'GSansReg';
     }
@@ -202,6 +212,7 @@ export default defineComponent({
       cursor: pointer;
       width: 100%;
       height: auto;
+      position: relative;
     }
     &__img {
       border-radius: $borderRadius $borderRadius 0 0;
