@@ -88,3 +88,7 @@ export function getItems ({commit}) {
     })
 }
 
+export function setSearchItemInMenu ({commit}, val) {
+  commit('setSearchItemInMenu', val)
+}
+

@@ -8,5 +8,6 @@ export default function () {
     items: [],
     carts: JSON.parse(localStorage.getItem("itemInCart")) ? JSON.parse(localStorage.getItem("itemInCart")) : {},
     ItemsInCart: [],
+    searchItemInMenu: '',
   }
 }

@@ -178,3 +178,7 @@ export function getItems (state, data) {
     return obj
   })
 }
+
+export function setSearchItemInMenu(state, val) {
+  state.searchItemInMenu = val
+}

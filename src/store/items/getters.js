@@ -29,4 +29,8 @@ export function carts (state) {
   return  state.carts
 }
 
+export function searchItemInMenu (state) {
+  return state.searchItemInMenu
+}
+
 
