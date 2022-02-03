@@ -4,10 +4,17 @@
       <q-toolbar-title class="row">
         <Logo/>
       </q-toolbar-title>
-      <q-input v-if="isMenuActive" dense standout="bg-grey-6 text-white" v-model="text" class="q-mr-md input-desktop">
+      <q-input
+        v-if="isMenuActive"
+        dense
+        standout="bg-grey-6 text-white"
+        class="q-mr-md input-desktop"
+        :model-value="searchItemInMenu"
+        @update:model-value="searchItem($event)"
+      >
         <template v-slot:prepend>
-          <q-icon v-if="text === ''" name="search" />
-          <q-icon v-else name="clear" class="cursor-pointer" @click="text = ''" />
+          <q-icon v-if="searchItemInMenu === ''" name="search" />
+          <q-icon v-else name="clear" class="cursor-pointer" @click="searchItem('')" />
         </template>
       </q-input>
       <q-btn
@@ -58,13 +65,16 @@ export default {
   },
   data() {
     return {
-      text: '',
+
     }
   },
-   components: {
+  components: {
       Logo
     },
   computed: {
+    searchItemInMenu() {
+      return this.$store.getters['items/searchItemInMenu']
+    },
     isMenuActive() {
       return this.$route.path.split('/')[1] === 'menu'
     },
@@ -82,6 +92,9 @@ export default {
     }
   },
   methods: {
+    searchItem(val){
+      this.$store.dispatch('items/setSearchItemInMenu', val)
+    },
     logout() {
       this.$store.dispatch('settings/logoutWaiter', this.$store.getters['settings/getIsRestaurant'])
       if (this.$store.getters['settings/getIsRestaurant']) {
@@ -113,7 +126,7 @@ export default {
 }
 // >1024px  <1439px
 @media (min-width: $breakpoint-sm-max) and (max-width: $breakpoint-md-max) {
-  
+
 }
 // >600px and <1023px
 @media (min-width: $breakpoint-xs-max) and (max-width: $breakpoint-sm-max) {
