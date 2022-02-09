@@ -1,55 +1,85 @@
 <template>
 <div class="DialogVariantsExtras">
   <q-dialog ref="dialog" @hide="onDialogHide">
-    <q-card class="q-dialog-plugin">
-      <div class="row">
-        <div class="col-6">
+    <q-card class="q-dialog-plugin q-pt-sm q-pb-lg">
+      <div class="row q-pa-lg">
+        <div class="col-12">
           <div v-if="item.options.length" class="q-gutter-sm">
             <div
               v-for="(op, inx) in item.options"
               :key="inx"
               class=""
             >
-              <div class="">{{op.name}}: {{op.value}}</div>
-              <div
-                v-for="(optionName, ind) in op.options.split(',')"
-                :key="ind"
-                class=""
-              >
-                {{optionName}}
-                <input
-                  type="radio"
-                  :checked="optionName === op.value"
-                  :value="optionName"
-                  @change="changeOptions($event, op)"
-                >
-              </div>
+              <div class="name">{{op.name}}:</div>
+                <div>
+                  <q-btn-toggle
+                    padding="12px 41px"
+                    v-model="model"
+                    color="blue-grey-1"
+                    text-color="grey-7"
+                    toggle-color="red-5"
+                    toggle-text-color="white"
+                    unelevated
+                    rounded
+                    :options="[
+                      {label: 'M', value: 'M'},
+                      {label: 'L', value: 'L'},
+                      {label: 'XL', value: 'XL'},
+                    ]"
+                  />
+                </div>
             </div>
           </div>
         </div>
-        <div class="col-6">
-          <div class="">Extra</div>
+
+        <div class="col-12 q-mt-lg">
+          <div class="name">Temprature:</div>
+          <div class="q-pt-sm">
+            <div>
+              <q-btn-toggle
+                padding="10px 30px"
+                v-model="temprature"
+                color="blue-grey-1"
+                text-color="grey-7"
+                toggle-color="red-5"
+                toggle-text-color="white"
+                unelevated
+                rounded
+                :options="[
+                  {label: 'Hot', value: 'hot'},
+                  {label: 'Warm', value: 'warm'},
+                ]"
+              />
+            </div>
+          </div>
+        </div>
+        <div v-if="item.options.length" class="col-12 q-mt-lg">
+          <div class="extra">Extra:</div>
           <div
             v-for="(extra, i) in item.extras"
             :key="i"
-            class=""
+            class="extra-section"
           >
             <q-toggle
-              size="xl"
+              class="toggle-btn"
+              size="60px"
+              color="red"
+              height="150px"
               v-model="extraArr"
               :val="extra.id"
               :label="extra.name"
-              left-label
+              right-label
+              icon-color="white"
             />
-            <div class="">+ {{ extra.price + ' ' + $t('valuta') }} </div>
+            <div class="extra-price"><strong>+ {{ extra.price + ' ' + $t('valuta') }} </strong></div>
           </div>
         </div>
       </div>
 
       <!-- buttons example -->
-      <q-card-actions align="right">
-        <q-btn color="red" label="Отмена" @click="onCancelClick" />
-        <q-btn :disable="isChooseVariant" color="green" label="Добавить в заказ" @click="onOKClick" />
+      <q-card-actions align="center">
+        <q-btn flat text-color="grey-7" size="md" label="Отмена" @click="onCancelClick" />
+        <q-btn :disable="isChooseVariant" rounded text-color="white" size="md" class="order-qbtn" label="Добавить в заказ" @click="onOKClick" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -58,6 +88,7 @@
 
 <script>
 import { defineComponent } from 'vue';
+import { ref } from 'vue';
 
 export default defineComponent({
     name: "DialogVariantsExtras",
@@ -68,9 +99,11 @@ export default defineComponent({
     data() {
         return {
           extraArr: [],
+          model: ref('m'),
+          temprature:ref('hot')
         }
     },
-    created() {},
+     created() {},
     mounted() {},
     components: {},
     computed: {
@@ -129,6 +162,55 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
+.q-dialog-plugin{
+  width: 330px;
+  border-radius: 15px !important;
+}
+.name{
+  font-size: 20px;
+  font-weight: bold;
+}
+.toggle-btn{
+  height: 50px;
+  padding: 0px;
+}
+.extra{
+  font-size: 20px;
+  font-weight: bold;
+}
+.extra-section{
+  margin-left: -19px;
+  display: flex;
+  justify-content: space-between
+}
+.extra-price{
+  margin-top: 19px;
+}
+.order-qbtn{
+  background-color: #07C900;
+  padding: 10px 20px 10px 20px;
+}
+.q-toggle__inner{
+  width: 1.65em;
+}
+.q-toggle__track{
+  height: 0.50em;
+  border-radius: 25px;
+} 
+.q-toggle__thumb {
+    top: 0.35em;
+    left: 0.32em;
+    width: 0.45em;
+    height: 0.45em;
+    color:white ;
+}
+.q-toggle__inner--truthy .q-toggle__thumb {
+    left: 0.87em;
+}
+.q-toggle__label{
+  font-weight: bold;
+  margin-left: -7px;
+  margin-top: 6px;
+}
 </style>
