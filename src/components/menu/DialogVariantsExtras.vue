@@ -121,7 +121,7 @@ export default defineComponent({
     },
     methods: {
       changeOptions(e, op) {
-        this.$store.dispatch('items/changeOptionValue', [e.target, this.item, op.id])
+        this.$store.dispatch('items/changeOptionValue', [e, this.item, op.id])
       },
       // following method is REQUIRED
       // (don't change its name --> "show")
