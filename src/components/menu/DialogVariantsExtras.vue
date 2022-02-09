@@ -8,29 +8,14 @@
             <div
               v-for="(op, inx) in item.options"
               :key="inx"
-              class=""
             >
               <div class="name">{{op.name}}:</div>
-              <!-- <div
-                v-for="(optionName, ind) in op.options.split(',')"
-                :key="ind"
-                class=""
-              >
-                {{optionName}}
-                <input
-                  type="checkbox"
-                  :checked="optionName === op.value"
-                  :value="optionName"
-                  @change="changeOptions($event, op)"
-                >
-              </div> -->
               <div class="q-pt-sm toggle-options">
                 <div class="toggle-btn-inner" v-for="(optionName, ind) in op.options.split(',')"
                   :key="ind">
                     <q-btn-toggle
-                      class="something"
                       padding="12px 41px"
-                      v-model="model"
+                      v-model="sizeModel"
                       color="blue-grey-1"
                       text-color="grey-7"
                       toggle-color="red-5"
@@ -77,7 +62,7 @@
             <q-toggle
               class="toggle-btn"
               size="60px"
-              color="red"
+              color="red-5"
               height="150px"
               v-model="extraArr"
               :val="extra.id"
@@ -113,7 +98,7 @@ export default defineComponent({
     data() {
         return {
           extraArr: [],
-          model: ref('m'),
+          sizeModel: ref('m'),
           temprature:ref('hot')
         }
     },
@@ -136,7 +121,6 @@ export default defineComponent({
     },
     methods: {
       changeOptions(e, op) {
-        console.log(e, op)
         this.$store.dispatch('items/changeOptionValue', [e.target, this.item, op.id])
       },
       // following method is REQUIRED
@@ -157,7 +141,6 @@ export default defineComponent({
         this.$emit('hide')
       },
       onOKClick () {
-        console.log(this.item, this.table_id, this.extraArr)
         // on OK, it is REQUIRED to
         // emit "ok" event (with optional payload)
         // before hiding the QDialog
@@ -217,6 +200,9 @@ export default defineComponent({
 }
 .extra-price{
   margin-top: 19px;
+}
+.q-toggle__inner--truthy .q-toggle__track{
+  opacity: 1;
 }
 .order-qbtn{
   background-color: #07C900;
