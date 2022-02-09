@@ -22,13 +22,9 @@
     "build-win": "quasar build -m electron -T win32"
   },
   "dependencies": {
-    "-": "^0.0.1",
     "@quasar/extras": "^1.0.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "http": "^0.0.1-security",
-    "js": "^0.1.0",
-    "parser": "^0.1.4",
     "print-js": "^1.6.0",
     "pusher-js": "^7.0.3",
     "quasar": "^2.0.0",
