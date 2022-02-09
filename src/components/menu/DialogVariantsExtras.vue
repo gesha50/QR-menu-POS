@@ -182,8 +182,17 @@ export default defineComponent({
 .toggle-options{
   display: flex;
 }
-.toggle-btn-inner :first-child{
-  border-radius: 25px 0 0 25px;
+.toggle-btn-inner {
+  &:first-child{
+    .q-btn-group {
+      border-radius: 25px 0 0 25px;
+    }
+  }
+  &:last-child{
+    .q-btn-group {
+      border-radius: 0 25px 25px 0;
+    }
+  }
 }
 .q-dialog-plugin{
   width: 330px;
