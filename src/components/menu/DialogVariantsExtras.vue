@@ -11,27 +11,41 @@
               class=""
             >
               <div class="name">{{op.name}}:</div>
-                <div>
-                  <q-btn-toggle
-                    padding="12px 41px"
-                    v-model="model"
-                    color="blue-grey-1"
-                    text-color="grey-7"
-                    toggle-color="red-5"
-                    toggle-text-color="white"
-                    unelevated
-                    rounded
-                    :options="[
-                      {label: 'M', value: 'M'},
-                      {label: 'L', value: 'L'},
-                      {label: 'XL', value: 'XL'},
-                    ]"
-                  />
+              <!-- <div
+                v-for="(optionName, ind) in op.options.split(',')"
+                :key="ind"
+                class=""
+              >
+                {{optionName}}
+                <input
+                  type="checkbox"
+                  :checked="optionName === op.value"
+                  :value="optionName"
+                  @change="changeOptions($event, op)"
+                >
+              </div> -->
+              <div class="q-pt-sm toggle-options">
+                <div class="toggle-btn-inner" v-for="(optionName, ind) in op.options.split(',')"
+                  :key="ind">
+                    <q-btn-toggle
+                      class="something"
+                      padding="12px 41px"
+                      v-model="model"
+                      color="blue-grey-1"
+                      text-color="grey-7"
+                      toggle-color="red-5"
+                      toggle-text-color="white"
+                      @update:model-value="changeOptions($event, op)"
+                      unelevated
+                      :options="[
+                        {label: optionName, value: optionName},
+                      ]"
+                    />
+                  </div>
                 </div>
             </div>
           </div>
         </div>
-
         <div class="col-12 q-mt-lg">
           <div class="name">Temprature:</div>
           <div class="q-pt-sm">
@@ -122,7 +136,8 @@ export default defineComponent({
     },
     methods: {
       changeOptions(e, op) {
-        this.$store.dispatch('items/changeOptionValue', [e.target.value, this.item, op.id])
+        console.log(e, op)
+        this.$store.dispatch('items/changeOptionValue', [e.target, this.item, op.id])
       },
       // following method is REQUIRED
       // (don't change its name --> "show")
@@ -142,6 +157,7 @@ export default defineComponent({
         this.$emit('hide')
       },
       onOKClick () {
+        console.log(this.item, this.table_id, this.extraArr)
         // on OK, it is REQUIRED to
         // emit "ok" event (with optional payload)
         // before hiding the QDialog
@@ -163,6 +179,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+.toggle-options{
+  display: flex;
+}
+.toggle-btn-inner :first-child{
+  border-radius: 25px 0 0 25px;
+}
 .q-dialog-plugin{
   width: 330px;
   border-radius: 15px !important;
