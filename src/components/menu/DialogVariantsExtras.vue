@@ -1,21 +1,21 @@
 <template>
 <div class="DialogVariantsExtras">
   <q-dialog ref="dialog" @hide="onDialogHide">
-    <q-card class="q-dialog-plugin q-pt-sm q-pb-lg">
+    <q-card class="q-pt-sm q-pb-lg">
       <div class="row q-pa-lg">
         <div class="col-12">
-          <div v-if="item.options.length" class="q-gutter-sm">
+          <div v-if="item.has_variants" class="q-gutter-sm">
             <div
               v-for="(op, inx) in item.options"
               :key="inx"
             >
-              <div class="name">{{op.name}}:</div>
-              <div class="q-pt-sm toggle-options">
+              <div class="name">{{op.name}}: {{ op.value }}</div>
+              <div class="q-pt-sm row justify-center">
                 <div class="toggle-btn-inner" v-for="(optionName, ind) in op.options.split(',')"
                   :key="ind">
                     <q-btn-toggle
-                      padding="12px 41px"
-                      v-model="sizeModel"
+                      padding="10px 25px"
+                      :model-value="op.value"
                       color="blue-grey-1"
                       text-color="grey-7"
                       toggle-color="red-5"
@@ -31,28 +31,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12 q-mt-lg">
-          <div class="name">Temprature:</div>
-          <div class="q-pt-sm">
-            <div>
-              <q-btn-toggle
-                padding="10px 30px"
-                v-model="temprature"
-                color="blue-grey-1"
-                text-color="grey-7"
-                toggle-color="red-5"
-                toggle-text-color="white"
-                unelevated
-                rounded
-                :options="[
-                  {label: 'Hot', value: 'hot'},
-                  {label: 'Warm', value: 'warm'},
-                ]"
-              />
-            </div>
-          </div>
-        </div>
-        <div v-if="item.options.length" class="col-12 q-mt-lg">
+        <div v-if="item.extras.length" class="col-12 q-mt-lg">
           <div class="extra">Extra:</div>
           <div
             v-for="(extra, i) in item.extras"
@@ -108,11 +87,13 @@ export default defineComponent({
     computed: {
       isChooseVariant() {
         let isEmptyValue = false
-        this.item.options.forEach(op=>{
-          if (op.value === '') {
-            isEmptyValue = true
-          }
-        })
+        if (this.item.has_variants) {
+          this.item.options.forEach(op=>{
+            if (op.value === '') {
+              isEmptyValue = true
+            }
+          })
+        }
         return isEmptyValue
       },
       table_id() {
@@ -121,6 +102,7 @@ export default defineComponent({
     },
     methods: {
       changeOptions(e, op) {
+        console.log(e)
         this.$store.dispatch('items/changeOptionValue', [e, this.item, op.id])
       },
       // following method is REQUIRED
@@ -178,7 +160,6 @@ export default defineComponent({
   }
 }
 .q-dialog-plugin{
-  width: 330px;
   border-radius: 15px !important;
 }
 .name{
@@ -214,7 +195,7 @@ export default defineComponent({
 .q-toggle__track{
   height: 0.50em;
   border-radius: 25px;
-} 
+}
 .q-toggle__thumb {
     top: 0.35em;
     left: 0.32em;

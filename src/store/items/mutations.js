@@ -1,4 +1,5 @@
 import {translit} from 'assets/functions/translit'
+import {isSameArrs} from "assets/functions/isSameArrs";
 
 export function changeCategory (state,id) {
   state.activeCategoryID = id
@@ -42,37 +43,31 @@ export function addItemInCart (state, data) {
   let isInCart = false
   state.carts[data[1]].forEach(el => {
     if (el.id === itemInCart.id) {
+      let isSameExtras = false
+      let isSameVariant = false
       // if extra or variant choose
-      if (itemInCart.extras.length || itemInCart.variant.length) {
-          if (itemInCart.extras.length) {
-            // sort from 0 to 99999
-            itemInCart.extras.sort(function (a, b) {
-              return a - b;
-            });
-            // sort from 0 to 9999999
-            el.extras.sort(function (a, b) {
-              return a - b;
-            });
-            if (JSON.stringify(itemInCart.extras) === JSON.stringify(el.extras)) {
-              isInCart = true
-              // el.counter++
-            }
-          }
-          let isSameVariant = true
-          if (itemInCart.variant.length) {
-             isSameVariant = (itemInCart.variant.length === el.variant.length) && itemInCart.variant.every((elem, i)=> {
-                return elem === el.variant[i];
-             })
-            if (!isSameVariant) {
-              isInCart = false
-            }
-          }
-          if (isInCart && isSameVariant) {
-            el.counter++
-          }
+      if (el.extras.length === 0 && el.variant.length === 0) {
+        isInCart = true
+        el.counter++
       } else {
-        console.log(el.extras.length)
-        if (el.extras.length === 0 && el.variant.length === 0){
+        if (itemInCart.extras.length === 0 && el.extras.length === 0) {
+          isSameExtras = true
+        } else {
+          if (itemInCart.extras.length && el.extras.length) {
+            isSameExtras = isSameArrs(itemInCart.extras, el.extras)
+          }
+        }
+        if (itemInCart.variant.length) {
+          isSameVariant = (itemInCart.variant.length === el.variant.length) && itemInCart.variant.every((elem, i)=> {
+            return elem === el.variant[i];
+          })
+          // console.log(isSameVariant)
+          if (!isSameVariant) {
+            isInCart = false
+          }
+        }
+
+        if (isSameVariant && isSameExtras) {
           isInCart = true
           el.counter++
         }
