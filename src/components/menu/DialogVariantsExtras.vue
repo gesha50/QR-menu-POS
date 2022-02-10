@@ -2,7 +2,7 @@
 <div class="DialogVariantsExtras">
   <q-dialog ref="dialog" @hide="onDialogHide">
     <q-card class="q-pt-sm q-pb-lg">
-      <div class="row q-pa-lg">
+      <div class="q-pa-lg">
         <div class="col-12">
           <div v-if="item.has_variants" class="q-gutter-sm">
             <div
@@ -31,8 +31,8 @@
             </div>
           </div>
         </div>
-        <div v-if="item.extras.length" class="col-12 q-mt-lg">
-          <div class="extra">Extra:</div>
+        <div v-if="item.extras.length" class="col-12" :class="{'q-mt-lg': item.has_variants}">
+          <div class="extra">Extra</div>
           <div
             v-for="(extra, i) in item.extras"
             :key="i"
@@ -76,9 +76,7 @@ export default defineComponent({
     },
     data() {
         return {
-          extraArr: [],
-          sizeModel: ref('m'),
-          temprature:ref('hot')
+          extraArr: []
         }
     },
      created() {},
