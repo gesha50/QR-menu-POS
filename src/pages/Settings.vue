@@ -8,8 +8,17 @@
     <!-- tab -->
     <div class="container q-mb-lg">
       <div class="text-h5 q-mb-md q-mt-md"><strong>Настройки</strong></div>
+      <div class="q-pa-md xs">
+        <q-btn
+          dense
+          round
+          unelevated
+          color="accent"
+          icon="chevron_left"
+          @click="open('left')" />
+      </div>
       <div class="row">
-        <div class="q-mr-md col-4 tab-contents">
+        <div class="q-mr-md col-4  tab-contents md">
           <q-tabs
             v-model="tab"
             class="text-grey tab-elements"
@@ -23,7 +32,7 @@
             <q-tab class="q-mt-sm" name="security" icon="security" label="Безопасность" />
           </q-tabs>
         </div>
-        <div class="q-ml-md col-7">
+        <div class="q-ml-md col-lg-7 col-md-7 col-xs-12">
           <q-tab-panels
             class="tab-contents"
             v-model="tab"
@@ -86,23 +95,6 @@
             <q-tab-panel name="theme">
               <div>
                 <div class="text-h5 q-mb-md q-mt-sm"><strong>Внешний вид</strong></div>
-                <div v-for="(item, i) in items"
-                  :key="i">
-                  <div class="flex justify-between"
-                  >
-                    <div class="q-mt-lg tab-content-name"><strong>{{item.label}}</strong></div>
-                    <q-toggle
-                      class="toggle-btn"
-                      size="60px"
-                      color="red-5"
-                      height="150px"
-                      :val="item.id"
-                      v-model="item.toggle"
-                      icon-color="white"
-                    />
-                    </div>
-                      <hr class="description-underline">
-                  </div>
                   <q-card-actions class="save-qbtn" align="center">
                       <q-btn text-color="white" label="Сохранить извеления"/>
                   </q-card-actions>
@@ -138,6 +130,25 @@
         </div>
       </div>
     </div>
+    <!-- dialog for mobile -->
+    <div>
+      <q-dialog v-model="dialog" :position="position">
+            <q-card class="tab-mobile">
+              <q-tabs
+                v-model="tab"
+                class="text-grey tab-elements"
+                inline-label
+                active-color="red-5"
+                vertical
+              >
+                <q-tab class="q-mt-lg" name="profile" icon="mail" label="Профиль" />
+                <q-tab class="q-mt-sm" name="notifications" icon="notifications" label="Уведавления" />
+                <q-tab class="q-mt-sm" name="theme" icon="alarm" label="Внешний вид" />
+                <q-tab class="q-mt-sm" name="security" icon="security" label="Безопасность" />
+              </q-tabs>
+            </q-card>
+          </q-dialog>
+    </div>
   </q-page>
 </template>
 
@@ -148,7 +159,16 @@ import { ref } from 'vue'
 export default defineComponent({
   name: "Settings",
   data() {
+    const dialog = ref(false)
+    const position = ref('top')
     return {
+      dialog,
+      position,
+
+      open(pos) {
+        position.value = pos
+        dialog.value = true
+      },
       tab: ref('notifications'),
       items:[
         {
@@ -217,9 +237,14 @@ export default defineComponent({
 
 <style lang="scss">
 .container{
-  width: 80%;
+  width: 90%;
   margin-right: auto;
   margin-left: auto;
+}
+@media (min-width: 718px) {
+  .container{
+    width: 80%;
+  }
 }
 .tab-contents{
   position: relative;
@@ -227,6 +252,9 @@ export default defineComponent({
   background-color: #fff;
   border-radius: 15px;
   text-align: start;
+  .row, .column, .flex {
+    flex-wrap: nowrap;
+  }
 }
 .tab-elements{
   .flex-center, .justify-center {
@@ -245,6 +273,11 @@ export default defineComponent({
 }
 .tab-content-name{
   font-size: 15px;
+}
+.tab-mobile{
+  border-radius: 0 20px 20px 0;
+  width: 300px;
+  height: 500px;
 }
 .description-underline{
   opacity: 0.1;
