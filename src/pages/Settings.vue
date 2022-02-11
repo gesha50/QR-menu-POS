@@ -1,20 +1,177 @@
 <template>
   <q-page class="">
-    <div class="flex flex-center">
+    <div class="flex flex-center hidden">
       <q-select @update:model-value="changedLang" filled v-model="lang" :options="options" />
       <q-btn @click="toggleDarkMode" />
     </div>
     <q-btn v-if="isRestaurant" @click="logout" :label="$t('settings.exit_restaurant_mode')" />
+    <!-- tab -->
+    <div class="container q-mb-lg">
+      <div class="text-h5 q-mb-md q-mt-md"><strong>Настройки</strong></div>
+      <div class="row">
+        <div class="q-mr-md col-4 tab-contents">
+          <q-tabs
+            v-model="tab"
+            class="text-grey tab-elements"
+            inline-label
+            active-color="red-5"
+            vertical
+          >
+            <q-tab class="q-mt-lg" name="profile" icon="mail" label="Профиль" />
+            <q-tab class="q-mt-sm" name="notifications" icon="notifications" label="Уведавления" />
+            <q-tab class="q-mt-sm" name="theme" icon="alarm" label="Внешний вид" />
+            <q-tab class="q-mt-sm" name="security" icon="security" label="Безопасность" />
+          </q-tabs>
+        </div>
+        <div class="q-ml-md col-7">
+          <q-tab-panels
+            class="tab-contents"
+            v-model="tab"
+            animated
+            vertical
+          >
+          <!-- profile -->
+            <q-tab-panel name="profile">
+              <div>
+                <div class="text-h5 q-mb-md q-mt-sm"><strong>Профиль</strong></div>
+                <div v-for="(item, i) in items"
+                  :key="i">
+                  <div class="flex justify-between"
+                  >
+                    <div class="q-mt-lg tab-content-name"><strong>{{item.label}}</strong></div>
+                    <q-toggle
+                      class="toggle-btn"
+                      size="60px"
+                      color="red-5"
+                      height="150px"
+                      :val="item.id"
+                      v-model="item.toggle"
+                      icon-color="white"
+                    />
+                    </div>
+                      <hr class="description-underline">
+                  </div>
+                  <q-card-actions class="save-qbtn" align="center">
+                      <q-btn text-color="white" label="Сохранить извеления"/>
+                  </q-card-actions>
+               </div>
+            </q-tab-panel>
+          <!-- notifications -->
+            <q-tab-panel name="notifications">
+              <div>
+                <div class="text-h5 q-mb-md q-mt-sm"><strong>Уведавления</strong></div>
+                <div v-for="(item, i) in items"
+                  :key="i">
+                  <div class="flex justify-between"
+                  >
+                    <div class="q-mt-lg tab-content-name"><strong>{{item.label}}</strong></div>
+                    <q-toggle
+                      class="toggle-btn"
+                      size="60px"
+                      color="red-5"
+                      height="150px"
+                      :val="item.id"
+                      v-model="item.toggle"
+                      icon-color="white"
+                    />
+                    </div>
+                      <hr class="description-underline">
+                  </div>
+                  <q-card-actions class="save-qbtn" align="center">
+                      <q-btn text-color="white" label="Сохранить извеления"/>
+                  </q-card-actions>
+               </div>
+            </q-tab-panel>
+          <!-- theme -->
+            <q-tab-panel name="theme">
+              <div>
+                <div class="text-h5 q-mb-md q-mt-sm"><strong>Внешний вид</strong></div>
+                <div v-for="(item, i) in items"
+                  :key="i">
+                  <div class="flex justify-between"
+                  >
+                    <div class="q-mt-lg tab-content-name"><strong>{{item.label}}</strong></div>
+                    <q-toggle
+                      class="toggle-btn"
+                      size="60px"
+                      color="red-5"
+                      height="150px"
+                      :val="item.id"
+                      v-model="item.toggle"
+                      icon-color="white"
+                    />
+                    </div>
+                      <hr class="description-underline">
+                  </div>
+                  <q-card-actions class="save-qbtn" align="center">
+                      <q-btn text-color="white" label="Сохранить извеления"/>
+                  </q-card-actions>
+               </div>
+            </q-tab-panel>
+          <!-- security -->
+            <q-tab-panel name="security">
+              <div>
+                <div class="text-h5 q-mb-md q-mt-sm"><strong>Безопасность</strong></div>
+                <div v-for="(item, i) in items"
+                  :key="i">
+                  <div class="flex justify-between"
+                  >
+                    <div class="q-mt-lg tab-content-name"><strong>{{item.label}}</strong></div>
+                    <q-toggle
+                      class="toggle-btn"
+                      size="60px"
+                      color="red-5"
+                      height="150px"
+                      :val="item.id"
+                      v-model="item.toggle"
+                      icon-color="white"
+                    />
+                    </div>
+                      <hr class="description-underline">
+                  </div>
+                  <q-card-actions class="save-qbtn" align="center">
+                      <q-btn text-color="white" label="Сохранить извеления"/>
+                  </q-card-actions>
+               </div>
+            </q-tab-panel>
+          </q-tab-panels>
+        </div>
+      </div>
+    </div>
   </q-page>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import { ref } from 'vue'
 
 export default defineComponent({
   name: "Settings",
   data() {
     return {
+      tab: ref('notifications'),
+      items:[
+        {
+          id: 1,
+          label: "Новое сообщение",
+          toggle: false,
+        },
+        {
+          id: 2,
+          label: "Еженедельный отчет",
+          toggle: true,
+        },
+        {
+          id:3,
+          label:"Успешный платеж",
+          toggle:true,
+        },
+         {
+          id:3,
+          label:"Оповещение о выставлении счетов",
+          toggle:true,
+        }
+      ],
       lang: this.$store.getters["settings/getLang"],
       options: [
         'en-US',
@@ -58,6 +215,76 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
-
+<style lang="scss">
+.container{
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+}
+.tab-contents{
+  position: relative;
+  height: 600px !important;
+  background-color: #fff;
+  border-radius: 15px;
+  text-align: start;
+}
+.tab-elements{
+  .flex-center, .justify-center {
+      padding-left: 15px;
+      text-transform: none;
+      justify-content: initial;
+  }
+  .q-tab__label{
+    font-weight: bold;
+    font-size: 15px;
+  }
+}
+.q-tabs--vertical .q-tab__indicator {
+  width: 4.5px;
+  border-radius: 20px 0 0 20px;
+}
+.tab-content-name{
+  font-size: 15px;
+}
+.description-underline{
+  opacity: 0.1;
+  margin: 0;
+  margin-top: 9px;
+}
+.q-toggle__inner--truthy .q-toggle__track{
+  opacity: 1;
+}
+.q-toggle__inner{
+  width: 1.65em;
+}
+.q-toggle__track{
+  height: 0.50em;
+  border-radius: 25px;
+} 
+.q-toggle__thumb {
+  top: 0.35em;
+  left: 0.32em;
+  width: 0.45em;
+  height: 0.45em;
+  color:white !important;
+}
+.q-toggle__inner--truthy .q-toggle__thumb {
+  left: 0.87em;
+}
+.q-toggle__inner--indet .q-toggle__thumb {
+  left: 0.32em; 
+}
+.q-btn{
+  text-transform: none;
+}
+.save-qbtn .q-btn{
+  height: 46px;
+  border-radius: 15px;
+  background-color: #07C900;
+  width: 95%;
+  font-size: 17px;
+  font-weight: 550;
+  position: absolute;
+  bottom: 20px;
+}
 </style>
