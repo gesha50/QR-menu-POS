@@ -1,7 +1,7 @@
 
 export function addNotify (state, notify) {
   console.log(state.notifications)
-  state.notifications = [...state.notifications, notify]
+  state.notifications = [notify, ...state.notifications]
   localStorage.setItem('notify', JSON.stringify(state.notifications))
 }
 
