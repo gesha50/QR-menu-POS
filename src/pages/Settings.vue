@@ -8,7 +8,7 @@
     <!-- tab -->
     <div class="container q-mb-lg">
       <div class="text-h5 q-mb-md q-mt-md"><strong>Настройки</strong></div>
-      <div class="q-pa-md xs">
+      <div class="q-pa-md lt-sm">
         <q-btn
           dense
           round
@@ -18,7 +18,7 @@
           @click="open('left')" />
       </div>
       <div class="row">
-        <div class="q-mr-md col-4  tab-contents md">
+        <div class="q-mr-md col-lg-4 col-md-4 col-xs-4 gt-xs tab-contents">
           <q-tabs
             v-model="tab"
             class="text-grey tab-elements"
@@ -32,7 +32,7 @@
             <q-tab class="q-mt-sm" name="security" icon="security" label="Безопасность" />
           </q-tabs>
         </div>
-        <div class="q-ml-md col-lg-7 col-md-7 col-xs-12">
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
           <q-tab-panels
             class="tab-contents"
             v-model="tab"
