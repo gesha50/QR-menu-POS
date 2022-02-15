@@ -38,6 +38,10 @@
             </q-tab-panel>
 
             <q-tab-panel class="tab-panel" name="alarms">
+              <div class="search-form">
+                <input v-model="searchText" type="text" placeholder="Search Order ID or price">
+                <img src="../assets/img/icons_search.svg" alt="search">
+              </div>
               <div class="tabel-block">
                 <div class="tabel-head">
                   <p>Order ID</p>
@@ -46,7 +50,9 @@
                 </div>
                 <div class="tabel-body" v-for="(row, index) in isActiveRows" :key="index">
                   <archive-list
+                    :CurrentActive="CurrentActive"
                     :archive_data="row"
+                    @addToCheck="addToCheck"
                   />
                 </div>
               </div>
@@ -114,7 +120,14 @@ export default defineComponent({
         return this.rows
       },
       isActiveRows() {
-         return this.rows.filter(function(row) {
+        if(this.searchText){
+          return this.rows.filter(el=>{
+            let ID = el.ID.toString()
+            let price = el.price.toString()
+            return ID.includes(this.searchText) || price.includes(this.searchText)
+          })
+        }
+        return this.rows.filter(function(row) {
             if(row.status !== 'Closed'){
                 return row
             }
