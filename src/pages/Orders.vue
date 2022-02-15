@@ -38,22 +38,53 @@
               <div v-if="action === 'действий не требуется'" >
                 действий не требуется
               </div>
-              <q-btn size="sm" class="q-mr-sm" color="red-7" v-else-if="action === 'rejected_by_restaurant'" >
+              <q-btn
+                size="sm"
+                class="q-mr-sm"
+                color="red-7"
+                v-else-if="action === 'rejected_by_restaurant'"
+                @click="changeStatus(props.row, action)"
+              >
                 отменить
               </q-btn>
-              <q-btn size="sm" color="green-7" v-else-if="action === 'accepted_by_restaurant'" >
+              <q-btn
+                size="sm"
+                color="green-7"
+                v-else-if="action === 'accepted_by_restaurant'"
+                @click="changeStatus(props.row, action)"
+              >
                 принять
               </q-btn>
-              <q-btn size="sm" color="blue-7" v-else-if="action === 'prepared'" >
+              <q-btn
+                size="sm"
+                color="blue-7"
+                v-else-if="action === 'prepared'"
+                @click="changeStatus(props.row, action)"
+              >
                 готовый
               </q-btn>
-              <q-btn size="sm" color="blue-9" v-else-if="action === 'delivered'" >
+              <q-btn
+                size="sm"
+                color="blue-9"
+                v-else-if="action === 'delivered'"
+                @click="changeStatus(props.row, action)"
+              >
                 доставленный
               </q-btn>
-              <q-btn size="sm" color="orange-7" v-else-if="action === 'closed'" >
+              <q-btn
+                size="sm"
+                color="orange-7"
+                v-else-if="action === 'closed'"
+                @click="changeStatus(props.row, action)"
+              >
                 закрыто
               </q-btn>
-              <q-btn size="sm" v-else color="accent">
+              <q-btn
+                size="sm"
+                v-else
+                color="accent"
+                @click="changeStatus(props.row, action)"
+              >
                 {{ action }}
               </q-btn>
             </template>
@@ -66,6 +97,8 @@
 
 <script>
 import { defineComponent } from 'vue';
+import {api} from "boot/axios";
+import {LocalStorage} from "quasar";
 
 export default defineComponent({
     name: "Orders",
@@ -96,7 +129,28 @@ export default defineComponent({
         return this.$store.getters['orders/rows']
       }
     },
-    methods: {},
+    methods: {
+      changeStatus(order, alias) {
+        console.log(order)
+        api.get(`/api/v3/vendor/updatestatus/${alias}/${order.ID}`, {
+          headers: {
+            Authorization: 'Bearer '+LocalStorage.getItem('userToken')
+          }
+        })
+          .then((res) => {
+            console.log(res.data)
+            this.$store.dispatch('orders/getOrders')
+          })
+          .catch(() => {
+            $q.notify({
+              color: 'negative',
+              position: 'top',
+              message: 'Loading failed',
+              icon: 'report_problem'
+            })
+          })
+      }
+    },
 })
 </script>
 
