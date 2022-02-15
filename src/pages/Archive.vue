@@ -38,7 +38,18 @@
             </q-tab-panel>
 
             <q-tab-panel class="tab-panel" name="alarms">
-
+              <div class="tabel-block">
+                <div class="tabel-head">
+                  <p>Order ID</p>
+                  <p>Date</p>
+                  <p>Total Sales</p>
+                </div>
+                <div class="tabel-body" v-for="(row, index) in isActiveRows" :key="index">
+                  <archive-list
+                    :archive_data="row"
+                  />
+                </div>
+              </div>
             </q-tab-panel>
 
             <q-tab-panel class="tab-panel" name="movies">
@@ -63,6 +74,7 @@ import { defineComponent } from 'vue';
 import { ref } from 'vue'
 import PrintSidebar from "components/menu/PrintSidebar";
 import ArchiveList from "components/tables/ArchiveList";
+import { searchItemInMenu } from 'src/store/items/getters';
 
 export default defineComponent({
     name: "Archive",
@@ -101,6 +113,17 @@ export default defineComponent({
         }
         return this.rows
       },
+      isActiveRows() {
+         return this.rows.filter(function(row) {
+            if(row.status !== 'Closed'){
+                return row
+            }
+            else{
+              return false
+            }
+         })
+      },
+
     },
     methods: {
       addToCheck(data) {
