@@ -91,12 +91,13 @@ export default defineComponent({
     eventChangeStatus(data){
       console.log(data)
       let icon = 'fas fa-exchange-alt'
-      let restAreaName = ''
-      if (!isNaN(data.order.tableassigned[0].restoarea)) {
+      let restAreaName = '-'
+      let table = '-'
+      if (data.order.tableassigned.length) {
         restAreaName = data.order.tableassigned[0].restoarea.name
+        table = data.order.tableassigned[0].name
       }
-      let table = data.order.tableassigned[0].name
-      let message = `table: ${restAreaName} ${table}, status: ${data.status}`
+      let message = `zone:  ${restAreaName}, table: ${table}, status: ${data.status}`
       this.showNotify(icon, message)
       this.playAudio(this.audioChangeStatus)
       this.addNotify(icon,'Change Status', message)

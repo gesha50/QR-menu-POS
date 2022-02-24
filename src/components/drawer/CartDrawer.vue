@@ -69,7 +69,24 @@
           </q-item>
       </q-list>
     </q-scroll-area>
-    <div class="absolute-bottom">
+    <div class="absolute-bottom relative-position">
+      <q-icon
+        v-if="!isComment"
+        @click="addComment"
+        size="xl"
+        style="top: -50px; right: 15px; cursor:pointer;"
+        class="absolute"
+        name="add_comment"
+        color="blue-grey-3"
+      />
+      <q-icon
+        v-else
+        size="xl"
+        style="top: -50px; right: 15px; cursor:pointer;"
+        class="absolute"
+        name="mark_chat_read"
+        color="light-green-14"
+      />
       <div class="totalPrice bg-grey-2 full-width row justify-between q-pa-md">
         <div class="totalPrice__title">Total Price:</div>
         <div class="totalPrice__price">{{ totalPrice + ' ' + $t('valuta') }}</div>
@@ -79,18 +96,24 @@
       </div>
     </div>
   </q-drawer>
+  <dialog-add-comment
+    ref="commentDialog"
+    @addComment="addCommentSucceess"
+  ></dialog-add-comment>
 </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import {items} from "src/store/items/getters";
+import DialogAddComment from "components/menu/DialogAddComment";
 
 export default defineComponent({
     name: "CartDrawer",
     props: ['drawer'],
     data() {
         return {
-
+          isComment: false
         }
     },
     created() {
@@ -100,7 +123,9 @@ export default defineComponent({
     mounted() {
 
     },
-    components: {},
+    components: {
+      DialogAddComment
+    },
     computed: {
       isCartEmpty() {
         return this.cart.length <= 0;
@@ -131,6 +156,12 @@ export default defineComponent({
       },
     },
     methods: {
+      addComment () {
+        this.$refs.commentDialog.show()
+      },
+      addCommentSucceess() {
+        this.isComment = true
+      },
       decrement(item) {
         this.$store.dispatch('items/decrement', [item, this.cart, this.table_id])
       },
@@ -141,8 +172,40 @@ export default defineComponent({
         this.$store.dispatch('items/removeFromCart', [item, this.cart, this.table_id])
       },
       checkout() {
-        console.log('checkout')
+        let items = []
+        this.cart.forEach(el=>{
+          let extras = []
+          el.extras.forEach(extra => {
+            extras.push({'id':extra.id})
+          })
+          items.push({
+            'id': el.id,
+            'qty': el.counter,
+            'variant': el.variant,
+            'promo_count': 0,
+            'extrasSelected': extras
+          })
+        })
+
         // post order in orders
+        let obj = {
+          'vendor_id': this.$q.localStorage.getItem('restaurantID'),
+          'delivery_method': 'dinein',
+          'payment_method': 'cod',
+          'deliveryAreaId': 0,
+          'coupon_code': null,
+          'items': items,
+          'dinein_table_id': this.table_id,
+          'phone': null,
+          // 'address_id': null,
+          // 'timeslot': null,
+          // 'comment': null,
+          // 'stripe_token': null,
+          // 'customFields': 'client_name',
+        }
+        console.log(obj)
+        this.$store.dispatch('items/addOrder', obj)
+
         // post order_at in tables table in DB
       },
     },

@@ -1,6 +1,6 @@
 <template>
   <q-page class="">
-    <div class="flex flex-center hidden">
+    <div class="flex flex-center">
       <q-select @update:model-value="changedLang" filled v-model="lang" :options="options" />
       <q-btn @click="toggleDarkMode" />
     </div>
@@ -293,7 +293,7 @@ export default defineComponent({
 .q-toggle__track{
   height: 0.50em;
   border-radius: 25px;
-} 
+}
 .q-toggle__thumb {
   top: 0.35em;
   left: 0.32em;
@@ -305,7 +305,7 @@ export default defineComponent({
   left: 0.87em;
 }
 .q-toggle__inner--indet .q-toggle__thumb {
-  left: 0.32em; 
+  left: 0.32em;
 }
 .q-btn{
   text-transform: none;

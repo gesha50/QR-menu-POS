@@ -25,7 +25,11 @@
         :color="cart.length ? 'red-5' : 'grey-6'"
         :label="`Items in Cart (${cart.length})`"
         @click='$emit("openCloseDrawer", this.drawer)'
-      />
+      >
+        <q-badge v-if="cart.length>0" class="mobile-only" color="white" text-color="black" floating>
+          {{ cart.length }}
+        </q-badge>
+      </q-btn>
       <q-btn v-if="isWaiterActive" to="/orders" class="q-mr-sm text-blue-grey-9 q-btn-item-mobile" round color="amber-5" icon="fas fa-concierge-bell" :size="'md'" />
       <q-btn
         v-if="isWaiterActive"

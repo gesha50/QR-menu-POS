@@ -57,6 +57,7 @@ export default defineComponent({
     mounted() {
       if (this.item.variants.length) {
         this.item.variants.forEach(variant => {
+          console.log(variant)
           console.log(JSON.parse(variant.options))
         })
       }
