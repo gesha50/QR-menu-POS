@@ -71,21 +71,22 @@
     </q-scroll-area>
     <div class="absolute-bottom relative-position">
       <q-icon
-        v-if="!isComment"
+        v-if="comment"
+        @click="addComment"
+        size="xl"
+        style="top: -50px; right: 15px; cursor:pointer;"
+        class="absolute"
+        name="mark_chat_read"
+        color="light-green-14"
+      />
+      <q-icon
+        v-else
         @click="addComment"
         size="xl"
         style="top: -50px; right: 15px; cursor:pointer;"
         class="absolute"
         name="add_comment"
         color="blue-grey-3"
-      />
-      <q-icon
-        v-else
-        size="xl"
-        style="top: -50px; right: 15px; cursor:pointer;"
-        class="absolute"
-        name="mark_chat_read"
-        color="light-green-14"
       />
       <div class="totalPrice bg-grey-2 full-width row justify-between q-pa-md">
         <div class="totalPrice__title">Total Price:</div>
@@ -147,6 +148,11 @@ export default defineComponent({
           ? this.$store.getters['items/ItemsInCart'](this.table_id)
           : []
       },
+      comment() {
+        return this.$store.getters['items/comment'](this.table_id)
+          ? this.$store.getters['items/comment'](this.table_id)
+          : ''
+      },
       totalPrice() {
         let total = 0
         for (let i=0; i<this.cart.length;++i) {
@@ -159,10 +165,12 @@ export default defineComponent({
       },
     },
     methods: {
-      addComment () {
+      addComment() {
+        console.log(this.comment)
         this.$refs.commentDialog.show()
       },
-      addCommentSuccess() {
+      addCommentSuccess(comment) {
+        this.$store.dispatch('items/changeComment', [this.table_id, comment])
         this.isComment = true
       },
       decrement(item) {
@@ -201,11 +209,11 @@ export default defineComponent({
           'items': items,
           'dinein_table_id': this.table_id,
           'phone': null,
-          // 'address_id': null,
-          // 'timeslot': null,
-          // 'comment': null,
-          // 'stripe_token': null,
-          // 'customFields': 'client_name',
+          'comment': this.comment,
+          'address_id': null,
+          'timeslot': null,
+          'stripe_token': null,
+          'customFields': 'client_name',
         }
         console.log(obj)
         api.post('api/v2/client/orders/store', obj,{

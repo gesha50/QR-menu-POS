@@ -177,3 +177,14 @@ export function getItems (state, data) {
 export function setSearchItemInMenu(state, val) {
   state.searchItemInMenu = val
 }
+
+export function changeComment(state, arr) {
+  // arr[0] - table_id; arr[1] - comment
+  state.comments[arr[0]] = arr[1]
+  localStorage.setItem('comments', JSON.stringify(state.comments))
+}
+
+export function deleteComment(state, table_id) {
+  state.comments[table_id] = ''
+  localStorage.setItem('comments', JSON.stringify(state.comments))
+}

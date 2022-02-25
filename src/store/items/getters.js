@@ -33,4 +33,12 @@ export function searchItemInMenu (state) {
   return state.searchItemInMenu
 }
 
+export function comments (state) {
+  return  state.comments
+}
+
+export const comment = state => id => {
+  return state.comments[id]
+}
+
 

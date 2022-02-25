@@ -4,17 +4,23 @@
     <q-card class="q-pt-sm q-pb-lg">
       <div class="row justify-center full-width">
         <q-input
+          autofocus
           class="q-ma-sm q-mb-lg"
           style="width: 300px;"
           label="Comment to Kitchen"
           :model-value="comment"
           @update:model-value="changeComment($event)"
-        />
+          @keydown.enter.prevent="onOKClick"
+        >
+          <template v-slot:append>
+            <q-icon name="close" @click="deleteComment" class="cursor-pointer" />
+          </template>
+        </q-input>
       </div>
       <!-- buttons example -->
       <q-card-actions align="center">
         <q-btn flat text-color="grey-7" size="md" label="Отмена" @click="onCancelClick" />
-        <q-btn :disable="comment.length === 0" rounded text-color="white" size="md" class="order-qbtn" label="Добавить комментарий" @click="onOKClick" />
+        <q-btn rounded text-color="white" size="md" class="order-qbtn" label="Добавить комментарий" @click="onOKClick" />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -26,20 +32,31 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: "DialogAddComment",
-    emits: ['ok', 'hide'],
+    emits: ['ok', 'hide', 'addComment'],
     data() {
         return {
-          comment: ''
+
         }
     },
     created() {},
     mounted() {},
     components: {},
-    computed: {},
+    computed: {
+      comment() {
+        return this.$store.getters['items/comment'](this.table_id)
+          ? this.$store.getters['items/comment'](this.table_id)
+          : ''
+      },
+      table_id() {
+        return this.$route.path.split('/')[2]
+      },
+    },
     methods: {
       changeComment(e) {
-        console.log(e)
-        this.comment = e
+        this.$store.dispatch('items/changeComment', [this.table_id, e])
+      },
+      deleteComment() {
+        this.$store.dispatch('items/deleteComment', this.table_id)
       },
       // following method is REQUIRED
       // (don't change its name --> "show")

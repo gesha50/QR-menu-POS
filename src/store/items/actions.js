@@ -91,3 +91,10 @@ export function setSearchItemInMenu ({commit}, val) {
   commit('setSearchItemInMenu', val)
 }
 
+export function changeComment({commit}, arr) {
+  commit('changeComment', arr)
+}
+
+export function deleteComment({commit}, table_id) {
+  commit('deleteComment', table_id)
+}
