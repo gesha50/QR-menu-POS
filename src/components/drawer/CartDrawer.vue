@@ -92,13 +92,13 @@
         <div class="totalPrice__price">{{ totalPrice + ' ' + $t('valuta') }}</div>
       </div>
       <div class="checkout">
-        <q-btn :disable="isCartEmpty" @click="checkout" class="full-width checkout__btn bg-amber-6" label="Finish Ordering" />
+        <q-btn :loading="cartLoader" :disable="isCartEmpty" @click="checkout" class="full-width checkout__btn bg-amber-6" label="Finish Ordering" />
       </div>
     </div>
   </q-drawer>
   <dialog-add-comment
     ref="commentDialog"
-    @addComment="addCommentSucceess"
+    @addComment="addCommentSuccess"
   ></dialog-add-comment>
 </div>
 </template>
@@ -106,14 +106,17 @@
 <script>
 import { defineComponent } from 'vue';
 import {items} from "src/store/items/getters";
+import { api } from 'boot/axios'
 import DialogAddComment from "components/menu/DialogAddComment";
+import {LocalStorage} from "quasar";
 
 export default defineComponent({
     name: "CartDrawer",
     props: ['drawer'],
     data() {
         return {
-          isComment: false
+          isComment: false,
+          cartLoader: false
         }
     },
     created() {
@@ -159,7 +162,7 @@ export default defineComponent({
       addComment () {
         this.$refs.commentDialog.show()
       },
-      addCommentSucceess() {
+      addCommentSuccess() {
         this.isComment = true
       },
       decrement(item) {
@@ -172,6 +175,7 @@ export default defineComponent({
         this.$store.dispatch('items/removeFromCart', [item, this.cart, this.table_id])
       },
       checkout() {
+        this.cartLoader = true
         let items = []
         this.cart.forEach(el=>{
           let extras = []
@@ -204,9 +208,29 @@ export default defineComponent({
           // 'customFields': 'client_name',
         }
         console.log(obj)
-        this.$store.dispatch('items/addOrder', obj)
-
-        // post order_at in tables table in DB
+        api.post('api/v2/client/orders/store', obj,{
+          headers: {
+            Authorization: 'Bearer '+LocalStorage.getItem('userToken')
+          }
+        })
+          .then(res => {
+            console.log(res.data)
+            // post order_at in tables table in DB
+            api.get('api/v3/vendor/order-table/'+this.table_id)
+              .then(res=>{
+                console.log(res.data)
+                this.cartLoader = false
+                this.$router.push('/')
+              })
+              .catch(e=>{
+                console.log(e)
+                this.cartLoader = false
+              })
+          })
+          .catch(e=>{
+            console.log(e)
+            this.cartLoader = false
+          })
       },
     },
 })

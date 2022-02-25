@@ -5,7 +5,7 @@
         :class="$q.dark.isActive ? 'text-white' : 'text-black'"
         :to="'/menu/'+table.id"
       >
-      <div :class="tableBackground(table.status)" class=" q-ma-md TableBlock">
+      <div :class="tableBackground(status)" class=" q-ma-md TableBlock">
         <div class="column justify-between full-height">
           <div class="flex justify-between">
             <div class="TableBlock__title">
@@ -15,7 +15,13 @@
               <time>{{time}}</time>
             </div>
           </div>
-          <div class="TableBlock__footer">
+          <div v-if="cart.length>1" class="TableBlock__footer">
+            Ordered {{ cart.length }} items
+          </div>
+          <div v-else-if="cart.length===1" class="TableBlock__footer">
+            Ordered {{ cart.length }} item
+          </div>
+          <div v-else class="TableBlock__footer">
             No Order
           </div>
         </div>
@@ -33,7 +39,8 @@ export default defineComponent({
     return {
       sec: 0,
       min: 0,
-      hrs: 0
+      hrs: 0,
+      status: 0
     }
   },
   props: {
@@ -41,13 +48,19 @@ export default defineComponent({
   },
   computed: {
     time() {
-      return `${this.hrs > 9 ? this.hrs : "0" + this.hrs}:${this.min > 9 ? this.min : "0" + this.min}:${this.sec > 9 ? this.sec : "0" + this.sec}`
+      return `${this.hrs > 9 ? this.hrs : '0'+this.hrs}:${this.min > 9 ? this.min : '0'+this.min}:${this.sec > 9 ? this.sec : '0'+this.sec}`
+    },
+    cart() {
+      return this.$store.getters['items/ItemsInCart'](this.table.id)
+        ? this.$store.getters['items/ItemsInCart'](this.table.id)
+        : []
     },
   },
-  created() {
-    if (this.table.status !== 0) {
+   created() {
+    if (this.status !== 0) {
       setInterval(this.tick, 1000);
     }
+    this.getDifferenceTime()
   },
   // updated() {
   //   if (this.table.status !== 0) {
@@ -67,7 +80,7 @@ export default defineComponent({
       }
     },
     tableBackground(status) {
-      if (this.table.status !== 0) {
+      if (this.status !== 0) {
         if (!this.table.isTimerStart) {
           this.$store.dispatch('items/setTimerStart', this.table.id)
           setInterval(this.tick, 1000);
@@ -87,6 +100,37 @@ export default defineComponent({
         return 'bg-black'
       }
       return 'bg-white'
+    },
+    getDifferenceTime() {
+      if (this.table.order_at) {
+        this.status = 1
+
+        let orderDate = this.table.order_at.split(' ')
+        let orderTime = orderDate[1].split(':')
+
+        let date = new Date().toString()
+        let time = date.split(' ')
+        let curTime = time[4].split(':')
+
+        this.hrs = curTime[0] - orderTime[0]
+        if (curTime[1] > orderTime[1]) {
+          this.min = curTime[1] - orderTime[1]
+        } else {
+          this.min = curTime[1] - orderTime[1] + 60
+        }
+        if (curTime[2] > orderTime[2]) {
+          this.sec = curTime[2] - orderTime[2]
+        } else {
+          this.sec = curTime[2] - orderTime[2] + 60
+        }
+        console.log(this.hrs)
+        if (this.hrs > 6 || this.hrs < 0) {
+          this.status = 0
+          this.hrs = 0
+          this.min = 0
+          this.sec = 0
+        }
+      }
     }
   }
 })

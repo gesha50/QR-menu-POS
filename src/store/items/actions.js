@@ -48,7 +48,6 @@ export function getTable({commit}) {
     }
   })
     .then(res => {
-      console.log(res.data)
       commit('getTable', res.data)
     })
     .catch(e=>{
@@ -90,21 +89,5 @@ export function getItems ({commit}) {
 
 export function setSearchItemInMenu ({commit}, val) {
   commit('setSearchItemInMenu', val)
-}
-
-export function addOrder({commit}, obj) {
-  api.post('api/v2/client/orders/store', obj,{
-    headers: {
-      Authorization: 'Bearer '+LocalStorage.getItem('userToken')
-    }
-  })
-    .then(res => {
-      console.log(res.data)
-      // commit('addOrder', obj)
-    })
-    .catch(e=>{
-      console.log(e)
-      console.log(LocalStorage.getItem('userToken'))
-    })
 }
 
