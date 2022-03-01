@@ -11,5 +11,5 @@ export default function () {
     searchItemInMenu: '',
     comments: JSON.parse(localStorage.getItem("comments")) ? JSON.parse(localStorage.getItem("comments")) : {},
 
-}
+  }
 }

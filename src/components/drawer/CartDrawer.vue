@@ -213,7 +213,7 @@ export default defineComponent({
           'address_id': null,
           'timeslot': null,
           'stripe_token': null,
-          'customFields': 'client_name',
+          // 'customFields': 'client_name',
         }
         console.log(obj)
         api.post('api/v2/client/orders/store', obj,{
