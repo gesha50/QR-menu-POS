@@ -57,16 +57,9 @@ export default defineComponent({
     },
   },
   created() {
-    if (this.status !== 0) {
-      setInterval(this.tick, 1000);
-    }
+    this.interval()
     this.getDifferenceTime()
   },
-  // updated() {
-  //   if (this.table.status !== 0) {
-  //     setInterval(this.tick, 1000);
-  //   }
-  // },
   methods: {
     interval() {
       if (this.status !== 0) {
