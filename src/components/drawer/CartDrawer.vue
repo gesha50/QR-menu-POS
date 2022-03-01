@@ -208,11 +208,11 @@ export default defineComponent({
           'coupon_code': null,
           'items': items,
           'dinein_table_id': this.table_id,
-         'phone': null,
-         'comment': this.comment,
-         // 'address_id': null,
-         // 'timeslot': null,
-         // 'stripe_token': null,
+          'phone': null,
+          'comment': this.comment,
+          'address_id': null,
+          'timeslot': null,
+          'stripe_token': null,
           // 'customFields': 'client_name',
         }
         console.log(obj)
