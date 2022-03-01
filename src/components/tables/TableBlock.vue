@@ -57,16 +57,11 @@ export default defineComponent({
     },
   },
   created() {
-    if (this.status !== 0) {
-      setInterval(this.tick, 1000);
-    }
     this.getDifferenceTime()
   },
-  // updated() {
-  //   if (this.table.status !== 0) {
-  //     setInterval(this.tick, 1000);
-  //   }
-  // },
+  mounted () {
+    this.interval()
+  },
   methods: {
     interval() {
       if (this.status !== 0) {
@@ -85,13 +80,8 @@ export default defineComponent({
       }
     },
     tableBackground(status) {
-      if (this.status !== 0) {
-        if (!this.table.isTimerStart) {
-          this.$store.dispatch('items/setTimerStart', this.table.id)
-          setInterval(this.tick, 1000);
-        }
-      }
-      console.log(status)
+
+      // console.log(status)
       if (status === 1) {
         return 'bg-green'
       }
@@ -128,7 +118,6 @@ export default defineComponent({
         } else {
           this.sec = curTime[2] - orderTime[2] + 60
         }
-        console.log(this.hrs)
         if (this.hrs > 6 || this.hrs < 0) {
           this.status = 0
           this.hrs = 0
@@ -138,9 +127,6 @@ export default defineComponent({
       }
     }
   },
-  mounted () {
-    this.interval()
-  }
 })
 </script>
 
