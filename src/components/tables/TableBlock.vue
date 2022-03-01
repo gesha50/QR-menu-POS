@@ -56,7 +56,7 @@ export default defineComponent({
         : []
     },
   },
-   created() {
+  created() {
     if (this.status !== 0) {
       setInterval(this.tick, 1000);
     }
@@ -68,7 +68,12 @@ export default defineComponent({
   //   }
   // },
   methods: {
-    tick(){
+    interval() {
+      if (this.status !== 0) {
+        setInterval(this.tick, 1000);
+      }
+    },
+    tick() {
       this.sec = this.sec + 1;
       if (this.sec >= 60) {
         this.sec = 0;
@@ -132,6 +137,9 @@ export default defineComponent({
         }
       }
     }
+  },
+  mounted () {
+    this.interval()
   }
 })
 </script>
