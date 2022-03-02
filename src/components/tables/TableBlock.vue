@@ -5,7 +5,7 @@
         :class="$q.dark.isActive ? 'text-white' : 'text-black'"
         :to="'/menu/'+table.id"
       >
-      <div :class="tableBackground(status)" class=" q-ma-md TableBlock">
+      <div :class="tableBackground(status, time)" class=" q-ma-md TableBlock">
         <div class="column justify-between full-height">
           <div class="flex justify-between">
             <div class="TableBlock__title">
@@ -79,9 +79,12 @@ export default defineComponent({
         }
       }
     },
-    tableBackground(status) {
-
-      // console.log(status)
+    tableBackground(status, time) {
+      if (parseInt(time.replaceAll(":","")) >= '020000') {
+        return 'bg-red'
+      } else if (parseInt(time.replaceAll(":","")) >= '003000') {
+        return 'bg-orange'
+      }
       if (status === 1) {
         return 'bg-green'
       }
