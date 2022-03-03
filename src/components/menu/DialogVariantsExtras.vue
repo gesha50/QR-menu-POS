@@ -66,7 +66,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { ref } from 'vue';
+import {getVariant} from "assets/functions/getVariant";
 
 export default defineComponent({
     name: "DialogVariantsExtras",
@@ -100,7 +100,6 @@ export default defineComponent({
     },
     methods: {
       changeOptions(e, op) {
-        console.log(e)
         this.$store.dispatch('items/changeOptionValue', [e, this.item, op.id])
       },
       // following method is REQUIRED
@@ -127,7 +126,9 @@ export default defineComponent({
         this.$emit('ok')
         // or with payload: this.$emit('ok', { ... })
 
-        this.$store.dispatch('items/addItemInCart', [this.item, this.table_id, this.extraArr])
+        this.$store.dispatch('items/addItemInCart', [
+          this.item, this.table_id, this.extraArr, getVariant(this.item)
+        ])
 
         // then hiding dialog
         this.hide()

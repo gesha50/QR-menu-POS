@@ -81,9 +81,9 @@ export default defineComponent({
     },
     tableBackground(status, time) {
       if (parseInt(time.replaceAll(":","")) >= '020000') {
-        return 'bg-red'
+        status = 3
       } else if (parseInt(time.replaceAll(":","")) >= '003000') {
-        return 'bg-orange'
+        status = 2
       }
       if (status === 1) {
         return 'bg-green'

@@ -193,7 +193,7 @@ export default defineComponent({
           items.push({
             'id': el.id,
             'qty': el.counter,
-            'variant': el.variant,
+            'variant': el.variant_id,
             'promo_count': 0,
             'extrasSelected': extras
           })

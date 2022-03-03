@@ -15,13 +15,14 @@ export function createCartForCurrentTable (state, table_id) {
 }
 
 export function addItemInCart (state, data) {
-  // data[0] - item; data[1] - table_id; data[2] - extraArr;
+  // data[0] - item; data[1] - table_id; data[2] - extraArr; data[3] - variant_id
   let itemInCart = {
     id: data[0].id,
     name: data[0].name,
     counter: 0,
     price: data[0].price,
     image: data[0].image,
+    variant_id: data[3]
     // variant
     // extras
   }
@@ -61,10 +62,6 @@ export function addItemInCart (state, data) {
           isSameVariant = (itemInCart.variant.length === el.variant.length) && itemInCart.variant.every((elem, i)=> {
             return elem === el.variant[i];
           })
-          // console.log(isSameVariant)
-          if (!isSameVariant) {
-            isInCart = false
-          }
         }
 
         if (isSameVariant && isSameExtras) {
