@@ -111,6 +111,9 @@ export default defineComponent({
         let time = date.split(' ')
         let curTime = time[4].split(':')
 
+        console.log(orderTime)
+        console.log(curTime)
+
         this.hrs = curTime[0] - orderTime[0]
         if (curTime[1] > orderTime[1]) {
           this.min = curTime[1] - orderTime[1]
