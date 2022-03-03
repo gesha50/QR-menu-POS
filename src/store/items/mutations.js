@@ -22,7 +22,7 @@ export function addItemInCart (state, data) {
     counter: 0,
     price: data[0].price,
     image: data[0].image,
-    variant_id: data[3] ? data[3] : null
+    variant_id: data[3] ? data[3] : {}
     // variant
     // extras
   }

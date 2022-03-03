@@ -61,6 +61,7 @@ export default defineComponent({
   },
   mounted () {
     this.interval()
+    console.log(this.table)
   },
   methods: {
     interval() {

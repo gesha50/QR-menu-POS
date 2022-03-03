@@ -79,8 +79,7 @@
 import { defineComponent } from 'vue';
 import { ref } from 'vue'
 import PrintSidebar from "components/menu/PrintSidebar";
-import ArchiveList from "components/tables/ArchiveList";
-import { searchItemInMenu } from 'src/store/items/getters';
+import ArchiveList from "components/archive/ArchiveList";
 
 export default defineComponent({
     name: "Archive",
