@@ -96,7 +96,7 @@
         <q-btn
           :loading="cartLoader"
           :disable="isCartEmpty"
-          @click="checkout"
+          @click="sendToCook"
           class="full-width checkout__btn bg-amber-6"
           label="Send to COOK"
         />
@@ -193,7 +193,7 @@ export default defineComponent({
       removeFromCart(item) {
         this.$store.dispatch('items/removeFromCart', [item, this.cart, this.table_id])
       },
-      checkout() {
+      sendToCook() {
         this.cartLoader = true
         let items = []
         this.cart.forEach(el=>{
