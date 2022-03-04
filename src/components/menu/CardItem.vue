@@ -54,15 +54,6 @@ export default defineComponent({
         }
     },
     created() {},
-    mounted() {
-      if (this.item.variants.length) {
-        this.item.variants.forEach(variant => {
-          console.log(variant)
-          console.log(JSON.parse(variant.options))
-        })
-      }
-      console.log(this.item.options.length)
-    },
     components: {
       DialogVariantsExtras,
     },

@@ -20,9 +20,9 @@ export function addItemInCart (state, data) {
     id: data[0].id,
     name: data[0].name,
     counter: 0,
-    price: data[0].price,
+    price: data[3] ? data[3].price : data[0].price,
     image: data[0].image,
-    variant_id: data[3] ? data[3] : []
+    variant_id: data[3] ? data[3].id : []
     // variant
     // extras
   }
