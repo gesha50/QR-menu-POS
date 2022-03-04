@@ -9,8 +9,12 @@ export function changeCategory (state,id) {
 }
 
 export function createCartForCurrentTable (state, table_id) {
-  if (!state.carts[table_id]) {
-    state.carts[table_id] = []
+  if (!state.carts[table_id] || state.carts[table_id]==={}) {
+    state.carts[table_id] = {
+      status: 0,
+      curCart: [],
+      allCart: [],
+    }
   }
 }
 
@@ -42,12 +46,12 @@ export function addItemInCart (state, data) {
     return isInExtra
   })
   let isInCart = false
-  state.carts[data[1]].forEach(el => {
+  state.carts[data[1]].curCart.forEach(el => {
     if (el.id === itemInCart.id) {
       let isSameExtras = false
       let isSameVariant = false
       // if extra or variant choose
-      if (el.extras.length === 0 && el.variant.length === 0) {
+      if (el.extras.length === 0 && el.variant.length === 0 && itemInCart.extras.length === 0 && el.extras.length === 0) {
         isInCart = true
         el.counter++
       } else {
@@ -58,6 +62,9 @@ export function addItemInCart (state, data) {
             isSameExtras = isSameArrs(itemInCart.extras, el.extras)
           }
         }
+        if (itemInCart.variant.length === 0 && el.variant.length === 0) {
+          isSameVariant = true
+        }
         if (itemInCart.variant.length) {
           isSameVariant = (itemInCart.variant.length === el.variant.length) && itemInCart.variant.every((elem, i)=> {
             return elem === el.variant[i];
@@ -65,6 +72,7 @@ export function addItemInCart (state, data) {
         }
 
         if (isSameVariant && isSameExtras) {
+          console.log('111')
           isInCart = true
           el.counter++
         }
@@ -74,7 +82,7 @@ export function addItemInCart (state, data) {
 
   if (!isInCart) {
     itemInCart.counter = 1
-    state.carts[data[1]].push(itemInCart)
+    state.carts[data[1]].curCart.push(itemInCart)
   }
   localStorage.setItem('itemInCart', JSON.stringify(state.carts))
 }
@@ -89,7 +97,7 @@ export function changeOptionValue (state, arr) {
 
 export function increment (state, arr) {
   // arr[0] - item; arr[1] - cart; arr[2] - table_id;
-  state.carts[arr[2]].forEach(data => {
+  state.carts[arr[2]].curCart.forEach(data => {
     if (arr[0].id === data.id
       && JSON.stringify(arr[0].extras) === JSON.stringify(data.extras)
       && arr[0].variant.every((elem, i) => elem === data.variant[i])
@@ -102,7 +110,7 @@ export function increment (state, arr) {
 
 export function decrement (state, arr) {
   // arr[0] - item; arr[1] - cart; arr[2] - table_id;
-  state.carts[arr[2]].forEach(data => {
+  state.carts[arr[2]].curCart.forEach(data => {
     if (arr[0].id === data.id
       && JSON.stringify(arr[0].extras) === JSON.stringify(data.extras)
       && arr[0].variant.every((elem, i) => elem === data.variant[i])) {
@@ -114,7 +122,7 @@ export function decrement (state, arr) {
 
 export function removeFromCart (state, arr) {
   // arr[0] - item; arr[1] - cart; arr[2] - table_id;
-  state.carts[arr[2]] = state.carts[arr[2]].filter(el => !(el.id === arr[0].id
+  state.carts[arr[2]].curCart = state.carts[arr[2]].curCart.filter(el => !(el.id === arr[0].id
     && JSON.stringify(arr[0].extras) === JSON.stringify(el.extras)
     && arr[0].variant.length === el.variant.length
     && arr[0].variant.every((elem, i) => elem === el.variant[i])))

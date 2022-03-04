@@ -6,10 +6,14 @@ export default function () {
     firstScreenTables: '',
     categories: [],
     items: [],
-    carts: JSON.parse(localStorage.getItem("itemInCart")) ? JSON.parse(localStorage.getItem("itemInCart")) : {},
+    carts: JSON.parse(localStorage.getItem("itemInCart"))
+      ? JSON.parse(localStorage.getItem("itemInCart"))
+      : {},
     ItemsInCart: [],
     searchItemInMenu: '',
-    comments: JSON.parse(localStorage.getItem("comments")) ? JSON.parse(localStorage.getItem("comments")) : {},
+    comments: JSON.parse(localStorage.getItem("comments"))
+      ? JSON.parse(localStorage.getItem("comments"))
+      : {},
 
   }
 }
