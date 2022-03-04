@@ -93,7 +93,13 @@
         <div class="totalPrice__price">{{ totalPrice + ' ' + $t('valuta') }}</div>
       </div>
       <div class="checkout">
-        <q-btn :loading="cartLoader" :disable="isCartEmpty" @click="checkout" class="full-width checkout__btn bg-amber-6" label="Finish Ordering" />
+        <q-btn
+          :loading="cartLoader"
+          :disable="isCartEmpty"
+          @click="checkout"
+          class="full-width checkout__btn bg-amber-6"
+          label="Send to COOK"
+        />
       </div>
     </div>
   </q-drawer>
@@ -145,6 +151,11 @@ export default defineComponent({
       },
       cart() {
         return this.$store.getters['items/ItemsInCart'](this.table_id)
+          ? this.$store.getters['items/ItemsInCart'](this.table_id).curCart
+          : []
+      },
+      fullCart() {
+        return this.$store.getters['items/ItemsInCart'](this.table_id)
           ? this.$store.getters['items/ItemsInCart'](this.table_id)
           : []
       },
@@ -161,7 +172,7 @@ export default defineComponent({
               total += ex.price * this.cart[i].counter
             })
         }
-        return total
+        return total.toFixed(2)
       },
     },
     methods: {

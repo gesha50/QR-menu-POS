@@ -74,8 +74,8 @@ export default defineComponent({
         return this.$route.path.split('/')[2]
       },
       cart() {
-        return this.$store.getters['items/ItemsInCart'](this.table_id)
-          ? this.$store.getters['items/ItemsInCart'](this.table_id)
+        return this.$store.getters['items/ItemsInCart'](this.table_id).curCart
+          ? this.$store.getters['items/ItemsInCart'](this.table_id).curCart
           : []
       },
       itemInCart() {

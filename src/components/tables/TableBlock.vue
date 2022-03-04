@@ -52,7 +52,7 @@ export default defineComponent({
     },
     cart() {
       return this.$store.getters['items/ItemsInCart'](this.table.id)
-        ? this.$store.getters['items/ItemsInCart'](this.table.id)
+        ? this.$store.getters['items/ItemsInCart'](this.table.id).curCart
         : []
     },
   },

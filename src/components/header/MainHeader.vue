@@ -87,7 +87,7 @@ export default {
     },
     cart() {
       return this.$store.getters['items/ItemsInCart'](this.table_id)
-        ? this.$store.getters['items/ItemsInCart'](this.table_id)
+        ? this.$store.getters['items/ItemsInCart'](this.table_id).curCart
         : []
     },
     notificationsNumber() {
