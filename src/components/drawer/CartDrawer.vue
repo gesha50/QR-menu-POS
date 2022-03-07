@@ -244,7 +244,8 @@ export default defineComponent({
                 console.log(res.data)
                 this.$store.dispatch('items/orderBlocked')
                 this.cartLoader = false
-                this.$router.push('/')
+                // this.$router.push('/')
+                window.location.href = "/"
               })
               .catch(e=>{
                 console.log(e)
