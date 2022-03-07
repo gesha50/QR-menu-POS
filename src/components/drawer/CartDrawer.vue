@@ -239,7 +239,8 @@ export default defineComponent({
               .then(res=>{
                 console.log(res.data)
                 this.cartLoader = false
-                this.$router.push('/')
+                // this.$router.push('/')
+                window.location.href = "/"
               })
               .catch(e=>{
                 console.log(e)
