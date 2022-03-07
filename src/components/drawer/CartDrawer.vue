@@ -235,9 +235,14 @@ export default defineComponent({
           .then(res => {
             console.log(res.data)
             // post order_at in tables table in DB
-            api.get('api/v3/vendor/order-table/'+this.table_id)
+            api.get('api/v3/vendor/order-table/'+this.table_id, {
+              headers: {
+                Authorization: 'Bearer '+LocalStorage.getItem('userToken')
+              }
+            })
               .then(res=>{
                 console.log(res.data)
+                this.$store.dispatch('items/orderBlocked')
                 this.cartLoader = false
                 this.$router.push('/')
               })
