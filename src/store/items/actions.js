@@ -13,6 +13,10 @@ export function addItemInCart ({commit}, data) {
   commit('addItemInCart', data)
 }
 
+export function orderBlocked({commit}, arr) {
+  commit('orderBlocked', arr)
+}
+
 export function changeOptionValue ({commit}, arr) {
   commit('changeOptionValue', arr)
 }

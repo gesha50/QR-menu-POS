@@ -94,11 +94,26 @@
       </div>
       <div class="checkout">
         <q-btn
+          v-if="cartStatus===0"
           :loading="cartLoader"
           :disable="isCartEmpty"
           @click="sendToCook"
           class="full-width checkout__btn bg-amber-6"
           label="Send to COOK"
+        />
+        <q-btn
+          v-else-if="cartStatus===1"
+          :disable="isCartEmpty"
+          :loading="cartLoader"
+          @click="sendToCook"
+          class="full-width checkout__btn bg-amber-7"
+          label="Order more"
+        />
+        <q-btn
+          v-if="cartStatus!==0"
+          @click="closeTable"
+          class="full-width checkout__btn bg-red-6"
+          label="Close table"
         />
       </div>
     </div>
@@ -159,6 +174,11 @@ export default defineComponent({
           ? this.$store.getters['items/ItemsInCart'](this.table_id)
           : []
       },
+      cartStatus() {
+        return this.$store.getters['items/ItemsInCart'](this.table_id)
+          ? this.$store.getters['items/ItemsInCart'](this.table_id).status
+          : []
+      },
       comment() {
         return this.$store.getters['items/comment'](this.table_id)
           ? this.$store.getters['items/comment'](this.table_id)
@@ -176,6 +196,9 @@ export default defineComponent({
       },
     },
     methods: {
+      closeTable() {
+        console.log('closeTable')
+      },
       addComment() {
         console.log(this.comment)
         this.$refs.commentDialog.show()
@@ -235,17 +258,16 @@ export default defineComponent({
           .then(res => {
             console.log(res.data)
             // post order_at in tables table in DB
-            api.get('api/v3/vendor/order-table/'+this.table_id, {
+            api.get('api/v3/vendor/order-table/'+this.table_id,{
               headers: {
                 Authorization: 'Bearer '+LocalStorage.getItem('userToken')
               }
             })
               .then(res=>{
                 console.log(res.data)
-                this.$store.dispatch('items/orderBlocked')
+                this.$store.dispatch('items/orderBlocked', [this.table_id, this.totalPrice])
                 this.cartLoader = false
                 // this.$router.push('/')
-                window.location.href = "/"
               })
               .catch(e=>{
                 console.log(e)

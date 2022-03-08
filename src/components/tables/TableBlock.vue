@@ -100,7 +100,6 @@ export default defineComponent({
       return 'bg-white'
     },
     getDifferenceTime() {
-      console.log('stol order_at '+this.table.order_at);
       if (this.table.order_at) {
         this.status = 1
 
@@ -111,23 +110,16 @@ export default defineComponent({
         let time = date.split(' ')
         let curTime = time[4].split(':')
 
-        console.log(curTime)
-        console.log( orderTime)
-
         this.hrs = curTime[0] - orderTime[0]
         if (curTime[1] >= orderTime[1]) {
           this.min = curTime[1] - orderTime[1]
-          console.log('ok1')
         } else {
           this.hrs = this.hrs - 1
           this.min = curTime[1] - orderTime[1] + 60
-          console.log('ok2')
         }
         if (curTime[2] > orderTime[2]) {
           this.sec = curTime[2] - orderTime[2]
-          console.log('ok3')
         } else {
-          console.log('ok4')
           this.sec = curTime[2] - orderTime[2] + 60
         }
         if (this.hrs > 6 || this.hrs < 0) {
@@ -135,7 +127,6 @@ export default defineComponent({
           this.hrs = 0
           this.min = 0
           this.sec = 0
-          console.log('ok5');
         }
       }
     }

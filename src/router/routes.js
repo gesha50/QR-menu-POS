@@ -51,7 +51,8 @@ const routes = [
     component: () => import('layouts/LoginLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Waiters.vue'), name: 'restaurant' },
-      { path: 'login/:id', component: () => import('pages/LoginWaiter.vue'), props: true }
+      { path: 'login/:id', component: () => import('pages/LoginWaiter.vue'), props: true },
+      { path: 'settings', component: () => import('pages/RestaurantSettings.vue'), name: 'restaurant.settings' },
     ],
     meta: {
       middleware: [

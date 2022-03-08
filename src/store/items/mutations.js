@@ -86,6 +86,27 @@ export function addItemInCart (state, data) {
   }
   localStorage.setItem('itemInCart', JSON.stringify(state.carts))
 }
+
+export function orderBlocked(state, arr) {
+  let table_id = arr[0]
+  let totalPrice = arr[1]
+  if (!state.carts[table_id].allCart.length) {
+    // first order part go to kitchen
+    state.carts[table_id].status = 1
+    state.carts[table_id].allCart = [...state.carts[table_id].curCart]
+    state.carts[table_id].curCart = []
+    state.carts[table_id].priceBefore = totalPrice
+  } else {
+    // if have order something else
+    // state.carts[table_id].status = 2
+    state.carts[table_id].priceBefore = state.carts[table_id].priceBefore + totalPrice
+    // unite 2 array in one
+    state.carts[table_id].allCart = [state.carts[table_id].allCart, ...state.carts[table_id].curCart]
+    state.carts[table_id].curCart = []
+  }
+  localStorage.setItem('itemInCart', JSON.stringify(state.carts))
+}
+
 export function changeOptionValue (state, arr) {
   // arr[0] - e.target.value;  arr[1] - item; arr[2] - option_id;
   arr[1].options.forEach(op=> {

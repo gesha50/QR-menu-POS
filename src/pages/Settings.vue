@@ -1,10 +1,10 @@
 <template>
   <q-page class="">
-    <div class="flex flex-center">
-      <q-select @update:model-value="changedLang" filled v-model="lang" :options="options" />
-      <q-btn @click="toggleDarkMode" />
-    </div>
-    <q-btn v-if="isRestaurant" @click="logout" :label="$t('settings.exit_restaurant_mode')" />
+<!--    <div class="flex flex-center">-->
+<!--      <q-select @update:model-value="changedLang" filled v-model="lang" :options="options" />-->
+<!--      <q-btn @click="toggleDarkMode" />-->
+<!--    </div>-->
+
     <!-- tab -->
     <div class="container q-mb-lg">
       <div class="text-h5 q-mb-md q-mt-md"><strong>Настройки</strong></div>
@@ -200,14 +200,7 @@ export default defineComponent({
       ]
     }
   },
-  computed: {
-    isRestaurant() {
-      if (this.$store.getters["settings/auth"].loggedIn || !this.$store.getters["settings/owner"].loggedIn) {
-        return false
-      }
-      return true
-    },
-  },
+  computed: {},
   created() {
     console.log('work')
     if (this.$q.localStorage.getItem('currentLang')) {
@@ -227,10 +220,6 @@ export default defineComponent({
       this.$i18n.locale = val
       this.$store.dispatch('settings/setLang', val)
     },
-    logout() {
-      this.$store.dispatch('settings/logoutOwner', this.$store.getters['settings/getIsRestaurant'])
-      this.$router.push('/login')
-    }
   },
 })
 </script>
