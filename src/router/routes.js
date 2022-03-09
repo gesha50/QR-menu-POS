@@ -52,13 +52,7 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/Waiters.vue'), name: 'restaurant' },
       { path: 'login/:id', component: () => import('pages/LoginWaiter.vue'), props: true },
-      {
-        path: 'settings',
-        component: () => import('layouts/RestaurantSettings.vue'), name: 'restaurant.settings',
-        children: [
-          { path: '', component: () => import('pages/RestaurantSettings.vue') }
-        ]
-      }
+      { path: 'settings', component: () => import('pages/RestaurantSettings.vue'), name: 'restaurant.settings'}
     ],
     meta: {
       middleware: [
