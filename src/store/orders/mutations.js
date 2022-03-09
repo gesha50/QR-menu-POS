@@ -7,7 +7,7 @@ export function getOrders (state, data) {
     rowObj.table = order.table_id
     rowObj.items = order.items.length
     rowObj.price = order.order_price
-    rowObj.status = order.last_status.length ? order.last_status[0].name : 'waiting'
+    rowObj.status = order.last_status.length ? order.last_status[0].alias : 'waiting'
     rowObj.actions = order.actions.buttons.length ? order.actions.buttons : ['действий не требуется']
     state.rows.push(rowObj)
   })
