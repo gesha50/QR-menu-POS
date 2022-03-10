@@ -33,4 +33,19 @@ export default {
   table: {
     OtherTables: 'Boshqa Jadvallar',
   },
+  status: {
+    just_created: 'faqat',
+    accepted_by_admin: 'qabul qilindi',
+    accepted_by_restaurant: 'qabul qilindi',
+    assigned_to_driver: 'kuryerga topshirildi',
+    prepared: 'tayyor',
+    picked_up: 'olingan',
+    delivered: 'yetkazib berildi',
+    rejected_by_admin: 'rad etildi',
+    rejected_by_restaurant: 'rad etildi',
+    updated: 'yangilangan',
+    closed: 'yopiq',
+    rejected_by_driver: 'rad etildi',
+    accepted_by_driver: 'qabul qilindi'
+  },
 }

@@ -28,9 +28,12 @@
               {{ props.row.price }}
           </q-td>
           <q-td key="status" :props="props">
-            <q-badge color="teal">
-              {{ props.row.status }}
-            </q-badge>
+            <q-badge
+              class="q-pa-sm"
+              color="accent"
+              rounded
+              :label="$t(`status.${props.row.status}`)"
+            />
           </q-td>
           <q-td key="actions" :props="props">
 
