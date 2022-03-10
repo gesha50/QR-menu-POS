@@ -57,11 +57,11 @@
                   </div>
                   <div class="row justify-center">
                     <label class="select-image cursor-pointer text-center inline-block bg-red-5 relative-position q-py-sm q-px-lg q-my-sm rounded-borders text-white text-weight-medium" for="my-file">Select Image</label>
-                    <input type="file" accept="image/*" @change="previewImage" class="input-none" id="my-file">
+                    <input type="file" accept="image/*" @change="previewImage" ref="file" class="input-none" id="my-file">
                   </div>
                 </div>
                 <q-card-actions class="no-shadow" align="center">
-                  <q-btn class="bg-light-green-14 no-shadow q-pa-md" text-color="white" label="Сохранить"/>
+                  <q-btn @click="saveImg" class="bg-light-green-14 no-shadow q-pa-md" text-color="white" label="Сохранить"/>
                 </q-card-actions>
               </div>
             </q-tab-panel>
@@ -91,6 +91,7 @@
 
 <script>
 import {defineComponent, ref} from 'vue';
+import {LocalStorage} from "quasar";
 
 export default defineComponent({
   name: "RestaurantSettings",
@@ -120,11 +121,29 @@ export default defineComponent({
     },
   },
   methods: {
+    saveImg() {
+      let data = new FormData()
+      data.append('image', this.image)
+      console.log(this.preview)
+      console.log(this.image)
+      this.$api.post('api/v3/vendor/posts/image', data, {
+        headers: {
+          Authorization: 'Bearer ' + LocalStorage.getItem('ownerToken')
+        }
+      })
+      .then(res=>{
+        console.log(res.data)
+      })
+      .catch(e=>{
+        console.log(e)
+      })
+    },
     logout() {
       this.$store.dispatch('settings/logoutOwner', this.$store.getters['settings/getIsRestaurant'])
       this.$router.push('/login')
     },
     previewImage: function(event) {
+      this.img = this.$refs.file.files[0]
       var input = event.target;
       if (input.files) {
         var reader = new FileReader();
