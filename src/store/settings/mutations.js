@@ -8,6 +8,10 @@ export function restaurantID (state, value) {
   state.restaurantID = value
 }
 
+export function changeBackgroundImagePath (state, path) {
+  state.backgroundImagePath = path
+}
+
 export function userAuth (state, arr) {
   state.user.loggedIn = arr[0]
   state.user.token = arr[1]
