@@ -101,7 +101,7 @@ export function orderBlocked(state, arr) {
     // state.carts[table_id].status = 2
     state.carts[table_id].priceBefore = Number(state.carts[table_id].priceBefore) + Number(totalPrice)
     // unite 2 array in one
-    state.carts[table_id].allCart = [state.carts[table_id].allCart, ...state.carts[table_id].curCart]
+    state.carts[table_id].allCart = [...state.carts[table_id].allCart, ...state.carts[table_id].curCart]
     state.carts[table_id].curCart = []
   }
   localStorage.setItem('itemInCart', JSON.stringify(state.carts))

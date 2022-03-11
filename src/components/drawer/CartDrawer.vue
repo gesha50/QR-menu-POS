@@ -109,10 +109,9 @@
           class="full-width checkout__btn bg-amber-7"
           label="Order more"
         />
-      </div>
-      <div class="checkout">
         <q-btn
           v-if="cartStatus > 0"
+          :loading="closeLoader"
           @click="closeTable"
           class="full-width checkout__btn bg-red-6"
           label="Close table"
@@ -140,7 +139,8 @@ export default defineComponent({
     data() {
         return {
           isComment: false,
-          cartLoader: false
+          cartLoader: false,
+          closeLoader: false
         }
     },
     created() {
@@ -171,9 +171,9 @@ export default defineComponent({
           ? this.$store.getters['items/ItemsInCart'](this.table_id).curCart
           : []
       },
-      fullCart() {
+      allCart() {
         return this.$store.getters['items/ItemsInCart'](this.table_id)
-          ? this.$store.getters['items/ItemsInCart'](this.table_id)
+          ? this.$store.getters['items/ItemsInCart'](this.table_id).allCart
           : []
       },
       cartStatus() {
@@ -199,6 +199,21 @@ export default defineComponent({
     },
     methods: {
       closeTable() {
+        this.closeLoader = true
+        api.get('api/v3/vendor/checkout-table/'+this.table_id,{
+          headers: {
+            Authorization: 'Bearer '+LocalStorage.getItem('userToken')
+          }
+        })
+          .then(res=>{
+            console.log(res.data)
+            this.closeLoader = false
+            this.$router.push('/')
+          })
+          .catch(e=>{
+            console.log(e)
+            this.closeLoader = false
+          })
         console.log('closeTable')
       },
       addComment() {
@@ -251,7 +266,7 @@ export default defineComponent({
           'stripe_token': null,
           // 'customFields': 'client_name',
         }
-        console.log(obj)
+        // console.log(obj)
         api.post('api/v2/client/orders/store', obj,{
           headers: {
             Authorization: 'Bearer '+LocalStorage.getItem('userToken')
