@@ -99,7 +99,7 @@ export function orderBlocked(state, arr) {
   } else {
     // if have order something else
     // state.carts[table_id].status = 2
-    state.carts[table_id].priceBefore = state.carts[table_id].priceBefore + totalPrice
+    state.carts[table_id].priceBefore = Number(state.carts[table_id].priceBefore) + Number(totalPrice)
     // unite 2 array in one
     state.carts[table_id].allCart = [state.carts[table_id].allCart, ...state.carts[table_id].curCart]
     state.carts[table_id].curCart = []

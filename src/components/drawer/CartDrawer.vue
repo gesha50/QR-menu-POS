@@ -109,8 +109,10 @@
           class="full-width checkout__btn bg-amber-7"
           label="Order more"
         />
+      </div>
+      <div class="checkout">
         <q-btn
-          v-if="cartStatus!==0"
+          v-if="cartStatus > 0"
           @click="closeTable"
           class="full-width checkout__btn bg-red-6"
           label="Close table"
