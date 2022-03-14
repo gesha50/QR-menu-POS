@@ -9,6 +9,10 @@ export function createCartForCurrentTable({commit}, table_id) {
   commit('createCartForCurrentTable', table_id)
 }
 
+export function removeAllFromCart({commit}, table_id) {
+  commit('removeAllFromCart', table_id)
+}
+
 export function addItemInCart ({commit}, data) {
   commit('addItemInCart', data)
 }

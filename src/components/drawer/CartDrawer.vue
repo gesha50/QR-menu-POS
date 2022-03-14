@@ -7,8 +7,20 @@
 
     :class="$q.dark.isActive ? 'bg-black' : 'bg-white'"
   >
-    <q-scroll-area v-if="cart.length" class="fit q-pl-sm" style="">
+    <q-scroll-area v-if="cart.length || allCart.length" class="fit q-pl-sm" style="">
       <q-list padding class="rounded-borders CartList">
+        <q-item class="bg-grey-4 justify-between" v-if="allCart.length" >
+            <div class="">
+              <q-item-section>Заказ в работе</q-item-section>
+              <q-item-section style="margin-left: 0;" >Товаров: {{ allCart.length }}</q-item-section>
+              <q-item-section style="margin-left: 0;" >
+                Сумма: {{ priceBefore.toFixed(2) + ' ' + $t('valuta') }}
+              </q-item-section>
+            </div>
+            <div class="column justify-center">
+              <q-btn round color="warning" text-color="white" icon="edit" />
+            </div>
+        </q-item>
         <template v-for="(Item, index) in cart" :key="index">
           <q-item class="CartItem">
             <q-item-section top thumbnail class="q-ml-none">
@@ -111,6 +123,7 @@
         />
         <q-btn
           v-if="cartStatus > 0"
+          :disable="!isCartEmpty"
           :loading="closeLoader"
           @click="closeTable"
           class="full-width checkout__btn bg-red-6"
@@ -143,13 +156,6 @@ export default defineComponent({
           closeLoader: false
         }
     },
-    created() {
-    },
-    updated() {
-    },
-    mounted() {
-
-    },
     components: {
       DialogAddComment
     },
@@ -181,6 +187,11 @@ export default defineComponent({
           ? this.$store.getters['items/ItemsInCart'](this.table_id).status
           : []
       },
+      priceBefore() {
+        return this.$store.getters['items/ItemsInCart'](this.table_id)
+          ? this.$store.getters['items/ItemsInCart'](this.table_id).priceBefore
+          : 0
+      },
       comment() {
         return this.$store.getters['items/comment'](this.table_id)
           ? this.$store.getters['items/comment'](this.table_id)
@@ -194,6 +205,8 @@ export default defineComponent({
               total += ex.price * this.cart[i].counter
             })
         }
+        console.log(this.priceBefore)
+        total = total + Number(this.priceBefore)
         return total.toFixed(2)
       },
     },
@@ -207,6 +220,8 @@ export default defineComponent({
         })
           .then(res=>{
             console.log(res.data)
+            console.log(this.table_id)
+            this.$store.dispatch('items/removeAllFromCart', this.table_id)
             this.closeLoader = false
             this.$router.push('/')
           })
@@ -344,7 +359,7 @@ export default defineComponent({
 }
 
 .CartList {
-  margin-bottom: 126px;
+  margin-bottom: 236px;
 }
 .q-drawer {
   position: fixed !important;
