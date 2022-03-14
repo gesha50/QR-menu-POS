@@ -8,7 +8,7 @@
     :class="$q.dark.isActive ? 'bg-black' : 'bg-white'"
   >
     <q-scroll-area v-if="cart.length || allCart.length" class="fit q-pl-sm" style="">
-      <q-list padding class="rounded-borders">
+      <q-list v-if="allCart.length" padding class="rounded-borders">
         <q-item class="bg-grey-4 justify-between" >
           <div class="">
             <q-item-section>Заказ в работе</q-item-section>
