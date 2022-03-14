@@ -8,19 +8,78 @@
     :class="$q.dark.isActive ? 'bg-black' : 'bg-white'"
   >
     <q-scroll-area v-if="cart.length || allCart.length" class="fit q-pl-sm" style="">
-      <q-list padding class="rounded-borders CartList">
-        <q-item class="bg-grey-4 justify-between" v-if="allCart.length" >
-            <div class="">
-              <q-item-section>Заказ в работе</q-item-section>
-              <q-item-section style="margin-left: 0;" >Товаров: {{ allCart.length }}</q-item-section>
-              <q-item-section style="margin-left: 0;" >
-                Сумма: {{ priceBefore.toFixed(2) + ' ' + $t('valuta') }}
-              </q-item-section>
-            </div>
-            <div class="column justify-center">
-              <q-btn round color="warning" text-color="white" icon="edit" />
-            </div>
+      <q-list padding class="rounded-borders">
+        <q-item class="bg-grey-4 justify-between" >
+          <div class="">
+            <q-item-section>Заказ в работе</q-item-section>
+            <q-item-section style="margin-left: 0;" >Товаров: {{ allCart.length }}</q-item-section>
+            <q-item-section style="margin-left: 0;" >
+              Сумма: {{ priceBefore.toFixed(2) + ' ' + $t('valuta') }}
+            </q-item-section>
+          </div>
+          <div class="column justify-center">
+            <q-btn
+              @click="isAllCartShow = !isAllCartShow"
+              round
+              color="warning"
+              text-color="white"
+              :icon="isAllCartShow ? 'keyboard_arrow_down' : 'keyboard_arrow_up'"
+            />
+          </div>
         </q-item>
+        <div class="bg-grey-3 transitionCart" :class="{ 'close': !isAllCartShow }">
+          <template v-for="(Item, index) in allCart" :key="index">
+            <q-item class="CartItem">
+              <q-item-section top thumbnail class="q-ml-none">
+                <img
+                  class="CartItem__img"
+                  v-if="Item.image"
+                  :src="`${url}/uploads/restorants/${Item.image}_large.jpg`"
+                  alt=""
+                >
+                <img
+                  class="CartItem__img"
+                  v-else
+                  :src="require(`../../assets/img/menu-item/default.jpg`)"
+                  alt=""
+                >
+              </q-item-section>
+
+              <q-item-section>
+                <div class="row justify-between items-baseline no-wrap">
+                  <q-item-label class="CartItem__title q-mb-md row" >{{ Item.name }}
+                    <div
+                      v-if="Item.variant.length"
+                      class="q-ml-sm text-green"
+                      style="font-size: 14px"
+                    >
+                      {{ '('+ Item.variant +')' }}
+                    </div>
+                  </q-item-label>
+                  <q-icon @click="removeFromCart(Item)" color="red" name="fas fa-trash-alt" style="cursor:not-allowed;" />
+                </div>
+                <div class="row justify-between">
+                  <q-btn-group rounded outline class=" CountersBtn items-center">
+                    <q-btn :disable="true" flat @click="decrement(Item)" class="CountersBtn__dec" icon="fas fa-minus" />
+                    <div class="CountersBtn__counter q-mx-md">{{ Item.counter}}</div>
+                    <q-btn :disable="true" flat @click="increment(Item)" class="CountersBtn__inc" icon="fas fa-plus" />
+                  </q-btn-group>
+                  <div class="CountersBtn__price">{{$t('valuta') + ' ' + Item.price }}</div>
+                </div>
+                <div v-if="Item.extras && Item.extras.length" class="CartItem__extra q-mt-md ">
+                  <div class="" v-for="(extra, ind) in Item.extras" :key="ind">
+                    <div class="row justify-between">
+                      <div class="CartItem__extraTitle">{{extra.name}}</div>
+                      <div class="CartItem__extraPrice">{{$t('valuta') + ' ' + extra.price}}</div>
+                    </div>
+                  </div>
+                </div>
+              </q-item-section>
+            </q-item>
+          </template>
+        </div>
+      </q-list>
+      <q-list padding class="rounded-borders CartList">
         <template v-for="(Item, index) in cart" :key="index">
           <q-item class="CartItem">
             <q-item-section top thumbnail class="q-ml-none">
@@ -153,7 +212,8 @@ export default defineComponent({
         return {
           isComment: false,
           cartLoader: false,
-          closeLoader: false
+          closeLoader: false,
+          isAllCartShow: false
         }
     },
     components: {
@@ -316,6 +376,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+.close {
+  height: 0;
+  transform: scaleY(0);
+}
+
+.transitionCart {
+  transition: transform 0.2s;
+  transform-origin: top;
+}
 
 // >1440px
 @media (min-width: $breakpoint-md-max) {
