@@ -23,4 +23,7 @@ export function getRestaurant (state) {
   return state.restaurant
 }
 
+export function backgroundImagePath (state) {
+  return state.backgroundImagePath
+}
 

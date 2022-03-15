@@ -9,6 +9,10 @@ export function restaurantID ({ commit }, value) {
   commit('restaurantID', value)
 }
 
+export function changeBackgroundImagePath ({ commit }, path) {
+  commit('changeBackgroundImagePath', path)
+}
+
 export function userAuth ({ commit }, arr) {
   LocalStorage.set('userAuth', arr[0])
   LocalStorage.set('userToken', arr[1])

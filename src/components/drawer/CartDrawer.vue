@@ -4,10 +4,80 @@
     v-model="myDrawer"
     class="relative-position"
     width="380"
-
     :class="$q.dark.isActive ? 'bg-black' : 'bg-white'"
   >
-    <q-scroll-area v-if="cart.length" class="fit q-pl-sm" style="">
+    <q-scroll-area v-if="cart.length || allCart.length" class="fit q-pl-sm" style="">
+      <q-list v-if="allCart.length" padding class="rounded-borders">
+        <q-item class="bg-grey-4 justify-between" >
+          <div class="">
+            <q-item-section>Заказ в работе</q-item-section>
+            <q-item-section style="margin-left: 0;" >Товаров: {{ allCart.length }}</q-item-section>
+            <q-item-section style="margin-left: 0;" >
+              Сумма: {{ priceBefore.toFixed(2) + ' ' + $t('valuta') }}
+            </q-item-section>
+          </div>
+          <div class="column justify-center">
+            <q-btn
+              @click="isAllCartShow = !isAllCartShow"
+              round
+              color="warning"
+              text-color="white"
+              :icon="isAllCartShow ? 'keyboard_arrow_down' : 'keyboard_arrow_up'"
+            />
+          </div>
+        </q-item>
+        <div class="bg-grey-3 transitionCart" :class="{ 'close': !isAllCartShow }">
+          <template v-for="(Item, index) in allCart" :key="index">
+            <q-item class="CartItem">
+              <q-item-section top thumbnail class="q-ml-none">
+                <img
+                  class="CartItem__img"
+                  v-if="Item.image"
+                  :src="`${url}/uploads/restorants/${Item.image}_large.jpg`"
+                  alt=""
+                >
+                <img
+                  class="CartItem__img"
+                  v-else
+                  :src="require(`../../assets/img/menu-item/default.jpg`)"
+                  alt=""
+                >
+              </q-item-section>
+
+              <q-item-section>
+                <div class="row justify-between items-baseline no-wrap">
+                  <q-item-label class="CartItem__title q-mb-md row" >{{ Item.name }}
+                    <div
+                      v-if="Item.variant.length"
+                      class="q-ml-sm text-green"
+                      style="font-size: 14px"
+                    >
+                      {{ '('+ Item.variant +')' }}
+                    </div>
+                  </q-item-label>
+                  <q-icon @click="removeFromCart(Item)" color="red" name="fas fa-trash-alt" style="cursor:not-allowed;" />
+                </div>
+                <div class="row justify-between">
+                  <q-btn-group rounded outline class=" CountersBtn items-center">
+                    <q-btn :disable="true" flat @click="decrement(Item)" class="CountersBtn__dec" icon="fas fa-minus" />
+                    <div class="CountersBtn__counter q-mx-md">{{ Item.counter}}</div>
+                    <q-btn :disable="true" flat @click="increment(Item)" class="CountersBtn__inc" icon="fas fa-plus" />
+                  </q-btn-group>
+                  <div class="CountersBtn__price">{{$t('valuta') + ' ' + Item.price }}</div>
+                </div>
+                <div v-if="Item.extras && Item.extras.length" class="CartItem__extra q-mt-md ">
+                  <div class="" v-for="(extra, ind) in Item.extras" :key="ind">
+                    <div class="row justify-between">
+                      <div class="CartItem__extraTitle">{{extra.name}}</div>
+                      <div class="CartItem__extraPrice">{{$t('valuta') + ' ' + extra.price}}</div>
+                    </div>
+                  </div>
+                </div>
+              </q-item-section>
+            </q-item>
+          </template>
+        </div>
+      </q-list>
       <q-list padding class="rounded-borders CartList">
         <template v-for="(Item, index) in cart" :key="index">
           <q-item class="CartItem">
@@ -110,7 +180,9 @@
           label="Order more"
         />
         <q-btn
-          v-if="cartStatus!==0"
+          v-if="cartStatus > 0"
+          :disable="!isCartEmpty"
+          :loading="closeLoader"
           @click="closeTable"
           class="full-width checkout__btn bg-red-6"
           label="Close table"
@@ -138,15 +210,10 @@ export default defineComponent({
     data() {
         return {
           isComment: false,
-          cartLoader: false
+          cartLoader: false,
+          closeLoader: false,
+          isAllCartShow: false
         }
-    },
-    created() {
-    },
-    updated() {
-    },
-    mounted() {
-
     },
     components: {
       DialogAddComment
@@ -169,15 +236,20 @@ export default defineComponent({
           ? this.$store.getters['items/ItemsInCart'](this.table_id).curCart
           : []
       },
-      fullCart() {
+      allCart() {
         return this.$store.getters['items/ItemsInCart'](this.table_id)
-          ? this.$store.getters['items/ItemsInCart'](this.table_id)
+          ? this.$store.getters['items/ItemsInCart'](this.table_id).allCart
           : []
       },
       cartStatus() {
         return this.$store.getters['items/ItemsInCart'](this.table_id)
           ? this.$store.getters['items/ItemsInCart'](this.table_id).status
           : []
+      },
+      priceBefore() {
+        return this.$store.getters['items/ItemsInCart'](this.table_id)
+          ? this.$store.getters['items/ItemsInCart'](this.table_id).priceBefore
+          : 0
       },
       comment() {
         return this.$store.getters['items/comment'](this.table_id)
@@ -192,11 +264,30 @@ export default defineComponent({
               total += ex.price * this.cart[i].counter
             })
         }
+        console.log(this.priceBefore)
+        total = total + Number(this.priceBefore)
         return total.toFixed(2)
       },
     },
     methods: {
       closeTable() {
+        this.closeLoader = true
+        api.get('api/v3/vendor/checkout-table/'+this.table_id,{
+          headers: {
+            Authorization: 'Bearer '+LocalStorage.getItem('userToken')
+          }
+        })
+          .then(res=>{
+            console.log(res.data)
+            console.log(this.table_id)
+            this.$store.dispatch('items/removeAllFromCart', this.table_id)
+            this.closeLoader = false
+            this.$router.push('/')
+          })
+          .catch(e=>{
+            console.log(e)
+            this.closeLoader = false
+          })
         console.log('closeTable')
       },
       addComment() {
@@ -249,7 +340,7 @@ export default defineComponent({
           'stripe_token': null,
           // 'customFields': 'client_name',
         }
-        console.log(obj)
+        // console.log(obj)
         api.post('api/v2/client/orders/store', obj,{
           headers: {
             Authorization: 'Bearer '+LocalStorage.getItem('userToken')
@@ -283,7 +374,16 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" >
+.close {
+  height: 0;
+  transform: scaleY(0);
+}
+
+.transitionCart {
+  transition: transform 0.2s;
+  transform-origin: top;
+}
 
 // >1440px
 @media (min-width: $breakpoint-md-max) {
@@ -310,7 +410,7 @@ export default defineComponent({
   .CartDrawer {
     .q-drawer-container {
       .q-drawer {
-        width: 50% !important;
+        //width: 50% !important;
       }
     }
   }
@@ -327,11 +427,15 @@ export default defineComponent({
 }
 
 .CartList {
-  margin-bottom: 126px;
+  margin-bottom: 236px;
 }
-.q-drawer {
-  position: fixed !important;
-  overflow-y: auto;
+.CartDrawer {
+  .q-drawer-container {
+    .q-drawer {
+      position: fixed !important;
+      overflow-y: auto;
+    }
+  }
 }
 .CartItem {
   &__img {

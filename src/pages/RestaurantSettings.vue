@@ -34,7 +34,6 @@
             animated
             vertical
           >
-           <!-- settings -->
             <q-tab-panel name="settings">
               <div>
                 <div class="text-h5 q-mb-md q-mt-sm"><strong>Настройки</strong></div>
@@ -46,7 +45,6 @@
                 />
               </div>
             </q-tab-panel>
-            <!-- design -->
             <q-tab-panel name="design" class="no-padding">
               <div class="q-pa-md">
                 <div class="text-h5 q-mb-md q-mt-sm"><strong>Дизайн</strong></div>
@@ -56,13 +54,37 @@
                     <template v-if="preview">
                       <img :src="preview" class="img-fluid default-image" />
                     </template>
-                    <img class="default-image" v-else src="../assets/img/background/bg-login.jpg">
+                    <img class="default-image" v-else :src="backgroundImagePath">
                   </div>
                   <div class="row justify-center">
-                    <label class="select-image cursor-pointer text-center inline-block bg-red-5 relative-position q-py-sm q-px-lg q-my-sm rounded-borders text-white text-weight-medium" for="my-file">Select Image</label>
+                    <label for="my-file">
+                      <q-badge
+                        class="cursor-pointer q-pa-md q-mt-md"
+                        style="font-size: 17px; font-weight: 500;"
+                        color="red-5"
+                        label="Select Image"
+                      />
+                    </label>
                     <input type="file" accept="image/*" @change="previewImage" ref="file" class="input-none" id="my-file">
                   </div>
                 </div>
+                <q-card-actions class="no-shadow" align="center">
+                  <q-btn
+                    :loading="isImgSend"
+                    type="submit"
+                    class="bg-light-green-14 no-shadow q-pa-md"
+                    text-color="white"
+                    label="Сохранить"
+                  />
+                  <q-btn
+                    v-if="!isImageDefault"
+                    :loading="isImgSend"
+                    class="bg-yellow-5 no-shadow q-pa-md"
+                    label="Картинка по умолчанию"
+                    @click="defaultBackgroundImage"
+                  />
+                </q-card-actions>
+                </form>
               </div>
                 <div class="full-width bg-white container-btn">
                   <q-card-actions class="save-qbtn q-pb-md" align="center">
@@ -105,6 +127,7 @@ export default defineComponent({
     const dialog = ref(false)
     const position = ref('top')
       return {
+        isImgSend: false,
         preview: null,
         image: null,
         preview_list: [],
@@ -122,16 +145,33 @@ export default defineComponent({
   mounted() {},
   components: {},
   computed: {
+    isImageDefault() {
+      return this.backgroundImagePath === process.env.API + '/storage/pos/background/bg-login.jpg';
+
+    },
     isRestaurant() {
       return !(this.$store.getters["settings/auth"].loggedIn || !this.$store.getters["settings/owner"].loggedIn);
     },
+    backgroundImagePath() {
+      return this.$store.getters['settings/backgroundImagePath']
+    },
   },
   methods: {
+    defaultBackgroundImage() {
+      this.isImgSend = true
+
+      this.$q.localStorage.remove('backgroundImgPath')
+      this.$store.dispatch(
+        'settings/changeBackgroundImagePath',
+        process.env.API + '/storage/pos/background/bg-login.jpg'
+      )
+
+      this.isImgSend = false
+    },
     saveImg() {
+      this.isImgSend = true
       let data = new FormData()
       data.append('image', this.image)
-      console.log(this.preview)
-      console.log(this.image)
       this.$api.post('api/v3/vendor/posts/image', data, {
         headers: {
           Authorization: 'Bearer ' + LocalStorage.getItem('ownerToken')
@@ -139,9 +179,16 @@ export default defineComponent({
       })
       .then(res=>{
         console.log(res.data)
+        this.$q.localStorage.set('backgroundImgPath', res.data.image)
+        this.$store.dispatch(
+          'settings/changeBackgroundImagePath',
+          process.env.API + '/' + this.$q.localStorage.getItem('backgroundImgPath')
+        )
+        this.isImgSend = false
       })
       .catch(e=>{
         console.log(e)
+        this.isImgSend = false
       })
     },
     logout() {

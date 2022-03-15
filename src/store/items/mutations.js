@@ -14,8 +14,20 @@ export function createCartForCurrentTable (state, table_id) {
       status: 0,
       curCart: [],
       allCart: [],
+      priceBefore: 0
     }
   }
+  localStorage.setItem('itemInCart', JSON.stringify(state.carts))
+}
+
+export function removeAllFromCart (state, table_id) {
+  state.carts[table_id] = {
+    status: 0,
+    curCart: [],
+    allCart: [],
+    priceBefore: 0
+  }
+  localStorage.setItem('itemInCart', JSON.stringify(state.carts))
 }
 
 export function addItemInCart (state, data) {
@@ -26,7 +38,7 @@ export function addItemInCart (state, data) {
     counter: 0,
     price: data[3] ? data[3].price : data[0].price,
     image: data[0].image,
-    variant_id: data[3] ? data[3].id : []
+    variant_id: data[3] ? data[3].id : null
     // variant
     // extras
   }
@@ -72,7 +84,6 @@ export function addItemInCart (state, data) {
         }
 
         if (isSameVariant && isSameExtras) {
-          console.log('111')
           isInCart = true
           el.counter++
         }
@@ -95,13 +106,49 @@ export function orderBlocked(state, arr) {
     state.carts[table_id].status = 1
     state.carts[table_id].allCart = [...state.carts[table_id].curCart]
     state.carts[table_id].curCart = []
-    state.carts[table_id].priceBefore = totalPrice
+    state.carts[table_id].priceBefore = Number(totalPrice)
   } else {
     // if have order something else
-    // state.carts[table_id].status = 2
-    state.carts[table_id].priceBefore = state.carts[table_id].priceBefore + totalPrice
+    state.carts[table_id].priceBefore = Number(state.carts[table_id].priceBefore) + Number(totalPrice)
     // unite 2 array in one
-    state.carts[table_id].allCart = [state.carts[table_id].allCart, ...state.carts[table_id].curCart]
+    // state.carts[table_id].allCart = [...state.carts[table_id].allCart, ...state.carts[table_id].curCart]
+    state.carts[table_id].curCart.forEach(curCartObj=>{
+      let isInCart = false
+      state.carts[table_id].allCart.forEach(allCartObj=>{
+        if (curCartObj.id === allCartObj.id) {
+          if (curCartObj.variant_id
+            || allCartObj.variant_id
+            || curCartObj.extras.length
+            || allCartObj.extras.length) {
+
+            // is same variant
+            let isSameVariant = true
+            if (curCartObj.variant_id || allCartObj.variant_id) {
+              isSameVariant = curCartObj.variant_id === allCartObj.variant_id;
+            }
+
+            // is same extra
+            let isSameExtras = true
+            if (curCartObj.extras.length || allCartObj.extras.length) {
+              isSameExtras = false
+              if (curCartObj.extras.length && allCartObj.extras.length) {
+                isSameExtras = isSameArrs(curCartObj.extras, allCartObj.extras)
+              }
+            }
+            if (isSameVariant && isSameExtras) {
+              isInCart = true
+              allCartObj.counter++
+            }
+          } else {
+            isInCart = true
+            allCartObj.counter++
+          }
+        }
+      })
+      if (!isInCart) {
+        state.carts[table_id].allCart.push(curCartObj)
+      }
+    })
     state.carts[table_id].curCart = []
   }
   localStorage.setItem('itemInCart', JSON.stringify(state.carts))

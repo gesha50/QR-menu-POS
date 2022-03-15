@@ -2,7 +2,7 @@
   <q-layout :class="$q.dark.isActive? 'blue-grey-10' : 'layoutMy'" view="hHh lpr lfr">
     <q-page-container
       class="loginLayout-bg"
-      :style="backgroundImagePath"
+      :style="backgroundImagePathStyle"
     >
       <router-view />
     </q-page-container>
@@ -14,24 +14,25 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: "LoginLayout",
-  mounted() {
-    if (this.$q.localStorage.has('isRestaurant')) {
-      // this.getImage()
-    }
-  },
   data() {
     return {
-      backgroundImagePath: 'background: url('+require(`../assets/img/background/bg-login.jpg`)+');'
+
     }
   },
-  methods: {
-    getImage() {
-      this.$api.get('')
-      .then(res=>{
-        if (res.data.path) {
-          this.backgroundImagePath = res.data.path
-        }
-      })
+  computed: {
+    backgroundImagePath() {
+      return this.$store.getters['settings/backgroundImagePath']
+    },
+    backgroundImagePathStyle(){
+      return 'background: url('+this.backgroundImagePath+');'
+    }
+  },
+  mounted() {
+    if (this.$q.localStorage.has('backgroundImgPath')) {
+      this.$store.dispatch(
+        'settings/changeBackgroundImagePath',
+        process.env.API + '/' + this.$q.localStorage.getItem('backgroundImgPath')
+      )
     }
   },
 })

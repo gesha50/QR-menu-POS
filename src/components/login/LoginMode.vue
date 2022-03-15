@@ -61,7 +61,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" >
+<style lang="scss" scoped>
 .white {
   background-color: #ffffff;
   border-radius: 25px;

@@ -6,6 +6,7 @@ export default function () {
     isRestaurant: 'Choose mode',
     restaurant: '',
     restaurantID: null,
+    backgroundImagePath: process.env.API + '/storage/pos/background/bg-login.jpg',
     owner: {
       email: null,
       loggedIn: false,

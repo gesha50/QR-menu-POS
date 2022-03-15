@@ -2,7 +2,7 @@
   <div class="tabel-body-box" :class="{'bg-grey-4': isActive }" @click="addToCheck">
     <p>#{{ archive_data.ID }}</p>
     <p>{{ archive_data.created_at }}</p>
-    <p>{{ archive_data.price }}</p>
+    <p>{{ archive_data.price + ' ' + $t('valuta') }}</p>
   </div>
 </template>
 

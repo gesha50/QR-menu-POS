@@ -15,7 +15,16 @@
           </q-tabs>
         </div>
         <div class="root">
-          <q-tab-panels v-model="tab" class="text-white">
+          <div
+            v-if="!isLoadingOrders"
+            class="flex justify-center"
+            style="height: 100vh;"
+          >
+            <loader-x-l
+              style="margin-top: 100px;"
+            />
+          </div>
+          <q-tab-panels v-else v-model="tab" class="text-white">
             <q-tab-panel class="tab-panel" name="mails">
               <div class="search-form">
                 <input v-model="searchText" type="text" placeholder="Search Order ID or price">
@@ -80,6 +89,7 @@ import { defineComponent } from 'vue';
 import { ref } from 'vue'
 import PrintSidebar from "components/menu/PrintSidebar";
 import ArchiveList from "components/archive/ArchiveList";
+import LoaderXL from "components/loader/LoaderXL";
 
 export default defineComponent({
     name: "Archive",
@@ -101,9 +111,11 @@ export default defineComponent({
     },
     components: {
       PrintSidebar,
-      ArchiveList
+      ArchiveList,
+      LoaderXL,
     },
     computed: {
+      isLoadingOrders() {return !!this.rows.length;},
       rows() {
         return this.$store.getters['archive/rows']
       },

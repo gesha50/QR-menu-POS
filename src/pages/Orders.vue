@@ -1,7 +1,17 @@
 <template>
 <div class="Orders">
   <div class="q-pa-md">
+    <div
+      v-if="!isLoadingOrders"
+      class="flex justify-center"
+      style="height: 100vh;"
+    >
+      <loader-x-l
+        style="margin-top: 100px;"
+      />
+    </div>
     <q-table
+      v-else
       title="Orders"
       :rows="rows"
       :columns="columns"
@@ -25,7 +35,7 @@
               {{ props.row.items }}
           </q-td>
           <q-td key="price" :props="props">
-              {{ props.row.price }}
+              {{ props.row.price + ' ' + $t('valuta')}}
           </q-td>
           <q-td key="status" :props="props">
             <q-badge
@@ -102,6 +112,7 @@
 import { defineComponent } from 'vue';
 import {api} from "boot/axios";
 import {LocalStorage} from "quasar";
+import LoaderXL from "components/loader/LoaderXL";
 
 export default defineComponent({
     name: "Orders",
@@ -115,16 +126,17 @@ export default defineComponent({
     },
     mounted() {
       this.intervalID = setInterval(()=>{
-        console.log('server get orders')
         this.$store.dispatch('orders/getOrders')
-        console.log(this.rows)
       }, 10000)
     },
     unmounted() {
       clearInterval(this.intervalID)
     },
-  components: {},
+    components: {
+      LoaderXL,
+    },
     computed: {
+      isLoadingOrders() {return !!this.rows.length;},
       columns() {
         return this.$store.getters['orders/columns']
       },
@@ -134,7 +146,7 @@ export default defineComponent({
     },
     methods: {
       changeStatus(order, alias) {
-        console.log(order)
+        // console.log(order)
         api.get(`/api/v3/vendor/updatestatus/${alias}/${order.ID}`, {
           headers: {
             Authorization: 'Bearer '+LocalStorage.getItem('userToken')
