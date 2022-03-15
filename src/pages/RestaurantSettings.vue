@@ -2,17 +2,20 @@
   <q-page class="RestaurantSettings">
     <!-- tab -->
     <div class="container q-mb-lg q-py-xl">
-      <div class="q-pa-md lt-sm">
+      <div class="q-pa-md lt-sm row justify-between">
         <q-btn
           dense
           round
           unelevated
           color="accent"
-          icon="chevron_left"
+          icon="reorder"
           @click="open('left')" />
+          <a class="back q-py-sm q-px-lg no-margin" href="/">Back</a>
       </div>
-      <div class="row justify-center">
-        <div class="q-mr-md full-height col-lg-3 col-md-3 col-xs-3 gt-xs tab-contents rounded-borders bg-white">
+      <div class="column justify-center">
+        <div class="row q-mb-lg gt-xs"><a class="back q-py-sm q-px-lg" href="/">Back</a></div>
+        <div class="row justify-center q-px-md">
+          <div class="q-mr-md col-lg-3 col-md-3 col-xs-3 gt-xs tab-contents rounded-borders bg-white">
           <q-tabs
             v-model="tab"
             class="text-grey tab-elements q-py-lg no-border-radius"
@@ -44,11 +47,11 @@
               </div>
             </q-tab-panel>
             <!-- design -->
-            <q-tab-panel name="design">
-              <div>
+            <q-tab-panel name="design" class="no-padding">
+              <div class="q-pa-md">
                 <div class="text-h5 q-mb-md q-mt-sm"><strong>Дизайн</strong></div>
                 <div class="chooseImg">
-                  <h6 class="q-mb-sm q-mt-sm">Change restaurant background</h6>
+                  <!-- <h6 class="q-mb-sm q-mt-sm">Change restaurant background</h6> -->
                   <div class="images shadow-1 q-pa-sm rounded-borders bg-grey-1">
                     <template v-if="preview">
                       <img :src="preview" class="img-fluid default-image" />
@@ -60,12 +63,15 @@
                     <input type="file" accept="image/*" @change="previewImage" ref="file" class="input-none" id="my-file">
                   </div>
                 </div>
-                <q-card-actions class="no-shadow" align="center">
-                  <q-btn @click="saveImg" class="bg-light-green-14 no-shadow q-pa-md" text-color="white" label="Сохранить"/>
-                </q-card-actions>
               </div>
+                <div class="full-width bg-white container-btn">
+                  <q-card-actions class="save-qbtn q-pb-md" align="center">
+                    <q-btn @click="saveImg" text-color="white" label="Сохранить"/>
+                  </q-card-actions>
+                </div>
             </q-tab-panel>
           </q-tab-panels>
+        </div>
         </div>
       </div>
     </div>
@@ -80,8 +86,8 @@
             active-color="red-5"
             vertical
           >
-            <q-tab class="q-mt-sm" name="settings" icon="notifications" label="Настройки" />
-            <q-tab class="q-mt-lg" name="design" icon="mail" label="Дизайн" />
+            <q-tab class="q-mt-lg" name="settings" icon="notifications" label="Настройки" />
+            <q-tab class="q-mt-sm" name="design" icon="mail" label="Дизайн" />
           </q-tabs>
         </q-card>
       </q-dialog>
@@ -91,7 +97,7 @@
 
 <script>
 import {defineComponent, ref} from 'vue';
-import { api } from 'boot/axios'
+import {LocalStorage} from "quasar";
 
 export default defineComponent({
   name: "RestaurantSettings",
@@ -181,6 +187,18 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+.back {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 120%;
+  text-align: center;
+  color: #5B5B5B;
+  text-decoration: none;
+  background: #ffffff;
+  border-radius: 8px;
+  margin-left: 8.8%;
+}
 .chooseImg {
   width: 320px;
   .images {
@@ -197,6 +215,11 @@ export default defineComponent({
     display: none;
   }
 }
+.tab-mobile{
+  border-radius: 0 20px 20px 0!important;
+  width: 300px;
+  height: 500px;
+}
 .q-tabs--vertical .q-tab__indicator {
   width: 5px;
   border-radius: 20px 0 0 20px !important;
@@ -212,14 +235,19 @@ export default defineComponent({
     font-size: 15px;
   }
 }
-.save-qbtn .q-btn{
-  height: 46px;
+.tab-contents{
   border-radius: 15px;
-  background-color: #07C900;
-  width: 95%;
-  font-size: 17px;
-  font-weight: 550;
+  height: 600px;
+}
+.container-btn {
   position: absolute;
-  bottom: 20px;
+  bottom: 0;
+  .save-qbtn .q-btn{
+    border-radius: 15px;
+    background-color: #07C900;
+    width: 50%;
+    font-size: 17px;
+    font-weight: 550;
+  }
 }
 </style>
