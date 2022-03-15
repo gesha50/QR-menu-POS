@@ -39,7 +39,7 @@
         ></q-input>
       </label>
     </div>
-    <button class="login-button" type="submit">{{$t('btn.login')}}</button>
+    <q-btn class="login-button" :loading="isUserLogin" :label="$t('btn.login')" type="submit" />
   </form>
 </div>
 </template>
@@ -54,7 +54,8 @@ export default defineComponent({
           restaurant: {
             email: this.$store.getters['settings/owner'].email,
             password: null,
-          }
+          },
+          isUserLogin: false
         }
     },
     created() {
@@ -68,12 +69,14 @@ export default defineComponent({
     computed: {},
     methods: {
       authOwner() {
+        this.isUserLogin = true
         const formData = new FormData()
         formData.append('email', this.restaurant.email)
         formData.append('password', this.restaurant.password)
         this.$api.post('api/v2/vendor/auth/gettoken', formData)
           .then(res=>{
-            console.log(res.data)
+            this.isUserLogin = false
+              console.log(res.data)
             if (res.data.status) {
               this.$q.notify({
                 color: 'green-4',
@@ -95,6 +98,7 @@ export default defineComponent({
             }
           })
           .catch(e=>{
+            this.isUserLogin = false
             console.log(e)
             this.$q.notify({
               color: 'red-5',

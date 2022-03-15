@@ -2,8 +2,8 @@
 export default {
   valuta: '₽',
   btn: {
-    login: 'Login',
-    reset: 'Reset',
+    login: 'Войти',
+    reset: 'Сброс',
   },
   failed: 'Действие не выполнено',
   success: 'Успешно',

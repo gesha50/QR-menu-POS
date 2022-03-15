@@ -14,6 +14,7 @@
     ></cart-drawer>
 
     <notify-drawer
+      @click="closeNotifyDrawer($event)"
       :notifyDrawer="notifyDrawer"
     ></notify-drawer>
 
@@ -59,6 +60,11 @@ export default defineComponent({
     closeCartDrawer(e) {
       if (e.target.classList[0] === 'fullscreen') {
         this.drawer = !this.drawer
+      }
+    },
+    closeNotifyDrawer(e) {
+      if (e.target.classList[0] === 'fullscreen') {
+        this.notifyDrawer = !this.notifyDrawer
       }
     },
     connect() {

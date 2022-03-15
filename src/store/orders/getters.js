@@ -4,6 +4,6 @@ export function columns (state) {
 }
 
 export function rows (state) {
-  return state.rows
+  return state.rows.filter(row => row.actions[0] !== 'действий не требуется')
 }
 

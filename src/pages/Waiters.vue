@@ -11,7 +11,13 @@
         </div>
       </div>
       <div class="scroll-bar scroll-y overflow-auto">
-        <div class="LoginPage row justify-around items-center">
+          <div
+            v-if="isLoadingWaiters"
+            class="flex justify-center"
+          >
+            <loader-x-l />
+          </div>
+        <div v-else class="LoginPage row justify-around items-center">
           <div class="col-12 col-sm-6 col-md-4" v-for="(waiter, i) in filteredWaiters" :key="i">
             <waiter-card
               :waiter="waiter"
@@ -28,6 +34,7 @@
 import {api} from "boot/axios";
 import LogoTop from "components/login/LogoTop";
 import WaiterCard from "components/login/WaiterCard";
+import LoaderXL from "components/loader/LoaderXL";
 
 export default {
   name: "Waiters",
@@ -35,11 +42,13 @@ export default {
     return {
       searchText: '',
       waiters: [],
+      isLoadingWaiters: false
     }
   },
   components: {
     LogoTop,
-    WaiterCard
+    WaiterCard,
+    LoaderXL
   },
   mounted() {
     this.getAllWaiters()
@@ -57,6 +66,7 @@ export default {
   },
   methods: {
     getAllWaiters() {
+      this.isLoadingWaiters = true
       api.get('/api/staff/list', {
         headers: {
           Authorization: 'Bearer ' + this.$q.localStorage.getItem('ownerToken')
@@ -65,8 +75,10 @@ export default {
       .then(res=>{
         console.log(res.data)
         this.waiters = res.data.list
+        this.isLoadingWaiters = false
       })
       .catch(e=>{
+        this.isLoadingWaiters = false
         console.log(e)
       })
     },

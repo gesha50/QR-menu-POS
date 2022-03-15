@@ -15,11 +15,11 @@
               <time>{{ time }}</time>
             </div>
           </div>
-          <div v-if="cart.length>1" class="TableBlock__footer">
-            Ordered {{ cart.length }} items
+          <div v-if="allCart.length>1" class="TableBlock__footer">
+            Ordered {{ allCart.length }} items
           </div>
-          <div v-else-if="cart.length===1" class="TableBlock__footer">
-            Ordered {{ cart.length }} item
+          <div v-else-if="allCart.length===1" class="TableBlock__footer">
+            Ordered {{ allCart.length }} item
           </div>
           <div v-else class="TableBlock__footer">
             No Order
@@ -49,6 +49,11 @@ export default defineComponent({
   computed: {
     time() {
       return `${this.hrs > 9 ? this.hrs : '0'+this.hrs}:${this.min > 9 ? this.min : '0'+this.min}:${this.sec > 9 ? this.sec : '0'+this.sec}`
+    },
+    allCart() {
+      return this.$store.getters['items/ItemsInCart'](this.table.id)
+        ? this.$store.getters['items/ItemsInCart'](this.table.id).allCart
+        : []
     },
     cart() {
       return this.$store.getters['items/ItemsInCart'](this.table.id)

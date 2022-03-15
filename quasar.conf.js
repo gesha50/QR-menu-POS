@@ -53,7 +53,7 @@ module.exports = configure(function (ctx) {
           ? 'http://127.0.0.1:8000' //'http://qrm.loc' 'http://127.0.0.1:8000'
           : 'https://qr-menu.uz'
       },
-      vueRouterMode: 'history', // available values: 'hash', 'history'
+      vueRouterMode: 'hash', // available values: 'hash', 'history'
 
       // transpile: false,
       // publicPath: '/',

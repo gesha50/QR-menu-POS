@@ -4,7 +4,6 @@
     v-model="myDrawer"
     class="relative-position"
     width="380"
-
     :class="$q.dark.isActive ? 'bg-black' : 'bg-white'"
   >
     <q-scroll-area v-if="cart.length || allCart.length" class="fit q-pl-sm" style="">
@@ -375,7 +374,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 .close {
   height: 0;
   transform: scaleY(0);
@@ -411,7 +410,7 @@ export default defineComponent({
   .CartDrawer {
     .q-drawer-container {
       .q-drawer {
-        width: 50% !important;
+        //width: 50% !important;
       }
     }
   }
@@ -430,9 +429,13 @@ export default defineComponent({
 .CartList {
   margin-bottom: 236px;
 }
-.q-drawer {
-  position: fixed !important;
-  overflow-y: auto;
+.CartDrawer {
+  .q-drawer-container {
+    .q-drawer {
+      position: fixed !important;
+      overflow-y: auto;
+    }
+  }
 }
 .CartItem {
   &__img {

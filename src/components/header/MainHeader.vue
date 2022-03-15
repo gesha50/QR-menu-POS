@@ -61,7 +61,7 @@
 import Logo from "components/header/Logo"
 export default {
   name: "MainHeader",
-  emits: ["click"],
+  emits: ["openCloseNotifyDrawer", 'openCloseDrawer'],
   props: {
     isWaiterActive: Boolean,
     drawer: Boolean,
@@ -107,17 +107,11 @@ export default {
         this.$router.push('/login')
       }
     },
-    openCloseDrawer() {
-      this.$emit('openCloseDrawer', this.drawer)
-    },
-    openCloseNotifyDrawer() {
-      this.$emit('openCloseNotifyDrawer', this.notifyDrawer)
-    }
   },
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .header {
   padding: 4px 0;
 }
