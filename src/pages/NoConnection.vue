@@ -22,7 +22,8 @@
 </script>
 <style lang="scss">
 .container{
-  width: 80%;
+  width: 100%;
+  height: calc(100vh - 58px);
   margin: 0 auto;
   background-color: #fff;
     .logo{
