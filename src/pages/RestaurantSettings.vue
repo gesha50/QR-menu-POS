@@ -34,6 +34,7 @@
             animated
             vertical
           >
+           <!-- settings -->
             <q-tab-panel name="settings">
               <div>
                 <div class="text-h5 q-mb-md q-mt-sm"><strong>Настройки</strong></div>
@@ -45,52 +46,51 @@
                 />
               </div>
             </q-tab-panel>
-            <q-tab-panel name="design" class="no-padding">
-              <div class="q-pa-md">
-                <div class="text-h5 q-mb-md q-mt-sm"><strong>Дизайн</strong></div>
-                <div class="chooseImg">
-                  <!-- <h6 class="q-mb-sm q-mt-sm">Change restaurant background</h6> -->
-                  <div class="images shadow-1 q-pa-sm rounded-borders bg-grey-1">
-                    <template v-if="preview">
-                      <img :src="preview" class="img-fluid default-image" />
-                    </template>
-                    <img class="default-image" v-else :src="backgroundImagePath">
+            <!-- design -->
+            <q-tab-panel name="design">
+              <div>
+                <form @submit.prevent="saveImg">
+                  <div class="text-h5 q-mb-md q-mt-sm"><strong>Дизайн</strong></div>
+                  <div class="chooseImg">
+                    <!-- <h6 class="q-mb-sm q-mt-sm">Change restaurant background</h6> -->
+                    <div class="images shadow-1 q-pa-sm rounded-borders bg-grey-1">
+                      <template v-if="preview">
+                        <img :src="preview" class="img-fluid default-image" />
+                      </template>
+                      <img class="default-image" v-else :src="backgroundImagePath">
+                    </div>
+                    <div class="row justify-center">
+                      <label for="my-file">
+                        <q-badge
+                          class="cursor-pointer q-pa-md q-mt-md"
+                          style="font-size: 17px; font-weight: 500;"
+                          color="red-5"
+                          label="Select Image"
+                        />
+                      </label>
+                      <input type="file" accept="image/*" @change="previewImage" ref="file" class="input-none" id="my-file">
+                    </div>
                   </div>
-                  <div class="row justify-center">
-                    <label for="my-file">
-                      <q-badge
-                        class="cursor-pointer q-pa-md q-mt-md"
-                        style="font-size: 17px; font-weight: 500;"
-                        color="red-5"
-                        label="Select Image"
+                  <div class="full-width bg-white container-btn">
+                    <q-card-actions class="no-shadow save-qbtn q-pb-md" align="center">
+                      <q-btn
+                        :loading="isImgSend"
+                        type="submit"
+                        class="bg-light-green-14 no-shadow q-pa-md"
+                        text-color="white"
+                        label="Сохранить"
                       />
-                    </label>
-                    <input type="file" accept="image/*" @change="previewImage" ref="file" class="input-none" id="my-file">
+                      <q-btn
+                        v-if="!isImageDefault"
+                        :loading="isImgSend"
+                        class="bg-yellow-5 no-shadow q-pa-md"
+                        label="Картинка по умолчанию"
+                        @click="defaultBackgroundImage"
+                      />
+                    </q-card-actions>
                   </div>
-                </div>
-                <q-card-actions class="no-shadow" align="center">
-                  <q-btn
-                    :loading="isImgSend"
-                    type="submit"
-                    class="bg-light-green-14 no-shadow q-pa-md"
-                    text-color="white"
-                    label="Сохранить"
-                  />
-                  <q-btn
-                    v-if="!isImageDefault"
-                    :loading="isImgSend"
-                    class="bg-yellow-5 no-shadow q-pa-md"
-                    label="Картинка по умолчанию"
-                    @click="defaultBackgroundImage"
-                  />
-                </q-card-actions>
                 </form>
               </div>
-                <div class="full-width bg-white container-btn">
-                  <q-card-actions class="save-qbtn q-pb-md" align="center">
-                    <q-btn @click="saveImg" text-color="white" label="Сохранить"/>
-                  </q-card-actions>
-                </div>
             </q-tab-panel>
           </q-tab-panels>
         </div>
