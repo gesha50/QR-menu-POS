@@ -61,11 +61,22 @@ const routes = [
     }
   },
 
+  {
+    path: '/no-connection',
+    component: () => import('layouts/SettingsLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/NoConnection.vue') }
+    ]
+  },
+
   // Always leave this as last one,
   // but you can also remove it
   {
     path: '/:catchAll(.*)*',
-    component: () => import('pages/Error404.vue')
+    component: () => import('layouts/SettingsLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Error404.vue') }
+    ]
   }
 ]
 
