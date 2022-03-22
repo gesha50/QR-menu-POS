@@ -6,6 +6,7 @@
       size="xl"
       label="С собой"
       rounded
+      style="font-size: 20px; font-family: 'RalewayBold'; text-transform: capitalize;"
     >
       <div
         class="bg-white column content-center justify-center q-ml-lg"

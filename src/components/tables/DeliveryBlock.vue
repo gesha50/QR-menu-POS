@@ -6,6 +6,7 @@
       color="red-8"
       label="Доставка"
       rounded
+      style="font-family: 'RalewayBold'; font-size: 20px; text-transform: capitalize;"
     >
       <div
         class="bg-white column content-center justify-center q-ml-lg"
