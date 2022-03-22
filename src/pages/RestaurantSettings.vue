@@ -29,7 +29,7 @@
         </div>
         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
           <q-tab-panels
-            class="tab-contents rounded-borders"
+            class="tab-contents rounded-borders relative-position"
             v-model="tab"
             animated
             vertical
@@ -72,7 +72,7 @@
                     </div>
                   </div>
                   <div class="full-width bg-white container-btn">
-                    <q-card-actions class="no-shadow save-qbtn q-pb-md" align="center">
+                    <q-card-actions class="no-shadow save-qbtn q-pb-lg" align="center">
                       <q-btn
                         :loading="isImgSend"
                         type="submit"
@@ -83,7 +83,7 @@
                       <q-btn
                         v-if="!isImageDefault"
                         :loading="isImgSend"
-                        class="bg-yellow-5 no-shadow q-pa-md"
+                        class="bg-yellow-5 no-shadow q-pa-md "
                         label="Картинка по умолчанию"
                         @click="defaultBackgroundImage"
                       />
@@ -289,10 +289,11 @@ export default defineComponent({
 .container-btn {
   position: absolute;
   bottom: 0;
+  left: 0;
   .save-qbtn .q-btn{
     border-radius: 15px;
     background-color: #07C900;
-    width: 50%;
+    width: 45%;
     font-size: 17px;
     font-weight: 550;
   }
