@@ -1,32 +1,34 @@
 <template>
-    <div class="q-pa-md item">
-      <router-link
-        class="tableBlockLink"
-        :class="$q.dark.isActive ? 'text-white' : 'text-black'"
-        :to="'/menu/'+table.id"
-      >
-      <div :class="tableBackground(status, time)" class=" q-ma-md TableBlock">
-        <div class="column justify-between full-height">
-          <div class="flex justify-between">
-            <div class="TableBlock__title">
-              {{ $t('index.table') }} {{table.name}}
+    <div class="item q-px-sm">
+      <div class="table full-height" :class="tableBackground(status, time)">
+        <router-link
+          class="tableBlockLink"
+          :class="$q.dark.isActive ? 'text-white' : 'text-black'"
+          :to="'/menu/'+table.id"
+        >
+          <div class="q-pa-md TableBlock">
+            <div class="column justify-between full-height">
+              <div class="flex justify-between">
+                <div class="TableBlock__title">
+                  {{ $t('index.table') }} {{table.name}}
+                </div>
+                <div class="">
+                  <time>{{ time }}</time>
+                </div>
+              </div>
+              <div v-if="allCart.length>1" class="TableBlock__footer">
+                Ordered {{ allCart.length }} items
+              </div>
+              <div v-else-if="allCart.length===1" class="TableBlock__footer">
+                Ordered {{ allCart.length }} item
+              </div>
+              <div v-else class="TableBlock__footer">
+                No Order
+              </div>
             </div>
-            <div class="">
-              <time>{{ time }}</time>
-            </div>
           </div>
-          <div v-if="allCart.length>1" class="TableBlock__footer">
-            Ordered {{ allCart.length }} items
-          </div>
-          <div v-else-if="allCart.length===1" class="TableBlock__footer">
-            Ordered {{ allCart.length }} item
-          </div>
-          <div v-else class="TableBlock__footer">
-            No Order
-          </div>
-        </div>
+        </router-link>
       </div>
-      </router-link>
     </div>
 </template>
 
@@ -140,13 +142,15 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+.table{
+  border-radius: 10px;
+}
 .tableBlockLink{
   text-decoration: none;
 }
   .TableBlock {
     padding: 10px 20px;
-    border-radius: 10px;
-    height: 110px;
+    height: 130px;
     font-family: GSansReg;
     &__title {
       font-family: "Google Sans";

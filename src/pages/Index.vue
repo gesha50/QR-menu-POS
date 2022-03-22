@@ -4,26 +4,30 @@
   >
     <div v-if="!areasTablesObj" class="">loading</div>
     <div v-else class="">
-      <q-tabs
-        v-model="tab"
-        mobile-arrows
-        class="bg-purple text-white shadow-2 full-width"
-        dense
-        align="justify"
-      >
-        <q-tab
-          v-for="(area, i) in areasTablesObj"
-          :key="i"
-          :name="translitName(area.restoArea.name)"
-          :label="area.restoArea.name"
-        />
-        <q-tab
-          v-if="otherTables"
-          name="otherTables"
-          :label="$t('table.OtherTables')"
-        />
-      </q-tabs>
-      <q-separator class="full-width"/>
+      <div class="tableTabs" style="padding: 16px;">
+        <q-tabs
+          v-model="tab"
+          mobile-arrows
+          class="bg-white text-grey-6 full-width tableTabs__links"
+          dense
+          align="justify"
+          indicator-color="red-8"
+          active-color="black"
+        >
+          <q-tab
+            v-for="(area, i) in areasTablesObj"
+            :key="i"
+            :name="translitName(area.restoArea.name)"
+            :label="area.restoArea.name"
+            style="border-right: 1px solid #F5F5F5"
+          />
+          <q-tab
+            v-if="otherTables"
+            name="otherTables"
+            :label="$t('table.OtherTables')"
+          />
+        </q-tabs>
+      </div>
       <q-tab-panels
         v-model="tab"
         class="bg-transparent"
@@ -32,27 +36,18 @@
         <q-tab-panel
           v-for="(area, i) in areasTablesObj"
           :key="i"
-          class="row"
           :name="translitName(area.restoArea.name)"
         >
-          <div class="col-12 col-sm-2 col-md-1 q-mb-sm row justify-around">
-            <take-away-block />
-            <delivery-block />
-          </div>
-          <div class="col-12 col-sm-10 col-md-11 row ">
+          <div class="row">
             <table-block
             v-for="(table, index) in area.tables"
             :key="index"
             :table="table"
-            class="col-12 col-sm-6 col-md-3"
+            class="col col-sm-6 col-md-3"
           ></table-block>
           </div>
         </q-tab-panel>
         <q-tab-panel v-if="otherTables" name="otherTables" class="row">
-          <div class="col-3 row justify-around">
-            <take-away-block />
-            <delivery-block />
-          </div>
           <table-block
             v-for="(table, index) in otherTables"
             :key="index"
@@ -61,6 +56,10 @@
           ></table-block>
         </q-tab-panel>
       </q-tab-panels>
+      <div class="row justify-end absolute-bottom-right">
+        <take-away-block />
+        <delivery-block />
+      </div>
     </div>
   </q-page>
 </template>
@@ -81,7 +80,7 @@ export default defineComponent({
   },
   computed: {
     areasTablesObj() {
-      return this.$store.getters['items/areasTablesObj']
+      return this.$store.getters['items/areasTablesObj'].filter(area=> !!area.tables.length)
     },
     otherTables() {
       return this.$store.getters['items/otherTables']
@@ -105,3 +104,16 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss">
+.tableTabs {
+  &__links {
+    height: 60px;
+    font-family: 'RalewayBold';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+  }
+}
+
+</style>

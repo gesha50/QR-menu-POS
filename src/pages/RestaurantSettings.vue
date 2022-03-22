@@ -71,7 +71,7 @@
                 <q-card-actions class="no-shadow" align="center">
                   <q-btn
                     :loading="isImgSend"
-                    type="submit"
+                    @click="saveImg"
                     class="bg-light-green-14 no-shadow q-pa-md"
                     text-color="white"
                     label="Сохранить"
@@ -84,7 +84,6 @@
                     @click="defaultBackgroundImage"
                   />
                 </q-card-actions>
-                </form>
               </div>
                 <div class="full-width bg-white container-btn">
                   <q-card-actions class="save-qbtn q-pb-md" align="center">

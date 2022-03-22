@@ -2,12 +2,22 @@
 <div class="DeliveryBlock q-pa-md">
     <q-btn
       :to="'/menu/delivery'"
-      size="35px"
-      round
-      class="text-amber-6"
-      color="pink-9"
-      icon="local_shipping"
-    />
+      size="xl"
+      color="red-8"
+      label="Доставка"
+      rounded
+    >
+      <div
+        class="bg-white column content-center justify-center q-ml-lg"
+        style="border-radius: 50%; width: 50px; height: 50px; margin-right: -10px;"
+      >
+        <img
+          style="padding: 2px"
+          width="33"
+          src="../../assets/img/index/delivery.png"
+        >
+      </div>
+    </q-btn>
 </div>
 </template>
 
@@ -43,7 +53,7 @@ export default defineComponent({
         .q-icon {
             font-size: 40px;
         }
-       }   
+       }
     }
 }
 </style>
