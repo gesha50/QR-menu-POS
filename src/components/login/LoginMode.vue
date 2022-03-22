@@ -61,17 +61,17 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .white {
   background-color: #ffffff;
   border-radius: 25px;
   padding: 3px;
   margin: 10px 0 30px;
-}
-.q-btn-group {
-  box-shadow: none;
-  .q-btn-item {
-    background-color: #000;
+  .q-btn-group {
+    box-shadow: none;
+    .q-btn-item {
+      background-color: #000;
+    }
   }
 }
 .LoginPage {

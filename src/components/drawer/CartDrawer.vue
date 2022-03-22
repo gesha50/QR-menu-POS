@@ -264,8 +264,9 @@ export default defineComponent({
               total += ex.price * this.cart[i].counter
             })
         }
-        console.log(this.priceBefore)
-        total = total + Number(this.priceBefore)
+        if (!this.cart.length) {
+          total = total + Number(this.priceBefore)
+        }
         return total.toFixed(2)
       },
     },
