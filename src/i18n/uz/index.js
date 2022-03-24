@@ -1,8 +1,12 @@
+import error404 from "src/i18n/uz/error404";
+
 export default {
+  error404,
   valuta: 'сўм',
   btn: {
     login: 'Login',
-    reset: 'Reset',
+    reset: 'Qayta tiklash',
+    back: 'orqaga'
   },
   failed: 'Action failed',
   success: 'Action was successful',

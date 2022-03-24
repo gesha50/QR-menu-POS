@@ -1,9 +1,12 @@
+import error404 from "src/i18n/ru/error404";
 
 export default {
+  error404,
   valuta: '₽',
   btn: {
     login: 'Войти',
     reset: 'Сброс',
+    back: 'назад'
   },
   failed: 'Действие не выполнено',
   success: 'Успешно',

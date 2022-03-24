@@ -1,11 +1,12 @@
-// This is just an example,
-// so you can safely delete all default props below
+import error404 from "src/i18n/en-US/error404";
 
 export default {
+  error404,
   valuta: '$',
   btn: {
     login: 'Login',
     reset: 'Reset',
+    back: 'back'
   },
   failed: 'Action failed',
   success: 'Action was successful',

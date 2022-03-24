@@ -6,9 +6,12 @@
           <div class="icon">
             <img src="../assets/img/error.png" alt="error">
           </div>
-          <h3>Страница не найдена</h3>
-          <p>Извините! Контент, который вы ищете, не существует. Либо удалили, либо ссылку опечатали.</p>
-          <a class="btn-back q-py-md q-px-lg" href="/"><span class="material-icons">arrow_back</span> Возвращаться</a>
+          <h3>{{ $t('error404.header') }}</h3>
+          <p>{{ $t('error404.description') }}</p>
+          <a class="btn-back q-py-md q-px-lg" href="/">
+            <span class="material-icons">arrow_back</span>
+            {{ $t('btn.back') }}
+          </a>
         </div>
       </div>
     </div>
