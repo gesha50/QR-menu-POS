@@ -11,6 +11,7 @@ export function changeCategory (state,id) {
 export function createCartForCurrentTable (state, table_id) {
   if (!state.carts[table_id] || state.carts[table_id]==={}) {
     state.carts[table_id] = {
+      order_id: null,
       status: 0,
       curCart: [],
       allCart: [],
@@ -22,6 +23,7 @@ export function createCartForCurrentTable (state, table_id) {
 
 export function removeAllFromCart (state, table_id) {
   state.carts[table_id] = {
+    order_id: null,
     status: 0,
     curCart: [],
     allCart: [],
@@ -101,8 +103,10 @@ export function addItemInCart (state, data) {
 export function orderBlocked(state, arr) {
   let table_id = arr[0]
   let totalPrice = arr[1]
+  let order_id = arr[2]
   if (!state.carts[table_id].allCart.length) {
     // first order part go to kitchen
+    state.carts[table_id].order_id = order_id
     state.carts[table_id].status = 1
     state.carts[table_id].allCart = [...state.carts[table_id].curCart]
     state.carts[table_id].curCart = []

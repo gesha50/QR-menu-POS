@@ -246,6 +246,11 @@ export default defineComponent({
           ? this.$store.getters['items/ItemsInCart'](this.table_id).status
           : []
       },
+      order_id() {
+        return this.$store.getters['items/ItemsInCart'](this.table_id)
+          ? this.$store.getters['items/ItemsInCart'](this.table_id).order_id
+          : null
+      },
       priceBefore() {
         return this.$store.getters['items/ItemsInCart'](this.table_id)
           ? this.$store.getters['items/ItemsInCart'](this.table_id).priceBefore
@@ -327,6 +332,7 @@ export default defineComponent({
 
         // post order in orders
         let obj = {
+          'order_id': this.order_id,
           'vendor_id': this.$q.localStorage.getItem('restaurantID'),
           'delivery_method': 'dinein',
           'payment_method': 'cod',
@@ -355,9 +361,9 @@ export default defineComponent({
                 Authorization: 'Bearer '+LocalStorage.getItem('userToken')
               }
             })
-              .then(res=>{
-                console.log(res.data)
-                this.$store.dispatch('items/orderBlocked', [this.table_id, this.totalPrice])
+              .then(result=>{
+                console.log(result.data)
+                this.$store.dispatch('items/orderBlocked', [this.table_id, this.totalPrice, res.data.id])
                 this.cartLoader = false
                 // this.$router.push('/')
               })
