@@ -1,42 +1,26 @@
 import error404 from "src/i18n/en-US/error404";
+import login from "src/i18n/en-US/login"
+import btn from "src/i18n/en-US/buttons"
+import restaurantSettings from "src/i18n/en-US/restaurantSettings";
+import loginWaiter from "src/i18n/en-US/loginWaiter";
+import waiters from "src/i18n/en-US/waiters";
+import tables from "src/i18n/en-US/tables";
+import archive from "src/i18n/en-US/archive";
 
 export default {
+  btn,
+  login,
+  waiters,
+  restaurantSettings,
+  loginWaiter,
+  tables,
+  archive,
   error404,
   valuta: '$',
-  btn: {
-    login: 'Login',
-    reset: 'Reset',
-    back: 'back'
-  },
+  search: 'search...',
   failed: 'Action failed',
   success: 'Action was successful',
-  index: {
-    table: 'Table',
-  },
-  settings: {
-    exit_restaurant_mode: 'Exit from restaurant mode'
-  },
-  login: {
-    password: 'password',
-    waiter: 'waiter',
-    email_owner: 'Email owner restaurant',
-    mode: {
-      choose_mode: 'Please choose mode',
-      individual: 'Individual',
-      restaurant: 'Restaurant'
-    },
-    rules: {
-      email: 'Please write correct email',
-      password: 'Please write password',
-      id: 'Please write ID',
-      enterFourNum: 'Please enter 4 numbers'
-    },
-    success: 'Login success',
-    failed: 'Login failed'
-  },
-  table: {
-    OtherTables: 'Other Tables',
-  },
+  noConnection: 'No internet connection',
   status: {
     just_created: 'just created',
     accepted_by_admin: 'accepted by admin',

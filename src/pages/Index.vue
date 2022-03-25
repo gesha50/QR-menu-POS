@@ -24,7 +24,7 @@
           <q-tab
             v-if="otherTables"
             name="otherTables"
-            :label="$t('table.OtherTables')"
+            :label="$t('tables.OtherTables')"
           />
         </q-tabs>
       </div>
@@ -43,7 +43,7 @@
             v-for="(table, index) in area.tables"
             :key="index"
             :table="table"
-            class="col col-sm-6 col-md-3"
+            class="col col-xs-12 col-sm-6 col-md-3"
           ></table-block>
           </div>
         </q-tab-panel>

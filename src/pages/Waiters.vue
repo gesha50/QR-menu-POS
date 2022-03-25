@@ -4,10 +4,10 @@
     <logo-top></logo-top>
     <div class="bg q-pb-lg">
       <div class="header-block column justify-center q-mb-lg">
-        <h3 class="no-margin text-center">Список официантов</h3>
+        <h3 class="no-margin text-center">{{ $t('waiters.list') }}</h3>
         <div class="input-container q-mx-auto q-mt-md relative-position	">
           <img class="absolute" src="../assets/img/search.svg" alt="search">
-          <input v-model="searchText" class="no-border q-py-sm" type="text" name="waiterSearch" placeholder="Поиск...">
+          <input v-model="searchText" class="no-border q-py-sm" type="text" name="waiterSearch" :placeholder="$t('search')">
         </div>
       </div>
       <div class="scroll-bar scroll-y overflow-auto">

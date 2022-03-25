@@ -9,9 +9,9 @@
             active-class="btn-active"
             indicator-color="transparent"
           >
-            <q-tab class="tab-btn" name="mails" label="Order History" />
-            <q-tab class="tab-btn" name="alarms" label="Order On Hold" />
-            <q-tab class="tab-btn" name="movies" label="Offline Order" />
+            <q-tab class="tab-btn" name="mails" :label="$t('archive.history')" />
+            <q-tab class="tab-btn" name="alarms" :label="$t('archive.inWork')" />
+            <q-tab class="tab-btn" name="movies" :label="$t('archive.offline')" />
           </q-tabs>
         </div>
         <div class="root">
@@ -27,14 +27,14 @@
           <q-tab-panels v-else v-model="tab" class="text-white">
             <q-tab-panel class="tab-panel" name="mails">
               <div class="search-form">
-                <input v-model="searchText" type="text" placeholder="Search Order ID or price">
+                <input v-model="searchText" type="text" :placeholder="$t('archive.search')">
                 <img src="../assets/img/icons_search.svg" alt="search">
               </div>
               <div class="tabel-block">
                 <div class="tabel-head">
-                  <p>Order ID</p>
-                  <p>Date</p>
-                  <p>Total Sales</p>
+                  <p>{{ $t('archive.orderID') }}</p>
+                  <p>{{ $t('archive.date') }}</p>
+                  <p>{{ $t('archive.total') }}</p>
                 </div>
                 <div class="tabel-body" v-for="(row, index) in filteredRows" :key="index">
                   <archive-list
@@ -48,14 +48,14 @@
 
             <q-tab-panel class="tab-panel" name="alarms">
               <div class="search-form">
-                <input v-model="searchText" type="text" placeholder="Search Order ID or price">
+                <input v-model="searchText" type="text" :placeholder="$t('archive.search')">
                 <img src="../assets/img/icons_search.svg" alt="search">
               </div>
               <div class="tabel-block">
                 <div class="tabel-head">
-                  <p>Order ID</p>
-                  <p>Date</p>
-                  <p>Total Sales</p>
+                  <p>{{ $t('archive.orderID') }}</p>
+                  <p>{{ $t('archive.date') }}</p>
+                  <p>{{ $t('archive.total') }}</p>
                 </div>
                 <div class="tabel-body" v-for="(row, index) in isActiveRows" :key="index">
                   <archive-list

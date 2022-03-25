@@ -10,20 +10,20 @@
             <div class="column justify-between full-height">
               <div class="flex justify-between">
                 <div class="TableBlock__title">
-                  {{ $t('index.table') }} {{table.name}}
+                  {{ $t('tables.table') }} {{table.name}}
                 </div>
                 <div class="">
                   <time>{{ time }}</time>
                 </div>
               </div>
               <div v-if="allCart.length>1" class="TableBlock__footer">
-                Ordered {{ allCart.length }} items
+                {{ $t('tables.orders', {counter: allCart.length}) }}
               </div>
               <div v-else-if="allCart.length===1" class="TableBlock__footer">
-                Ordered {{ allCart.length }} item
+                {{ $t('tables.order', {counter: allCart.length}) }}
               </div>
               <div v-else class="TableBlock__footer">
-                No Order
+                {{ $t('tables.noOrder') }}
               </div>
             </div>
           </div>
@@ -162,9 +162,10 @@ export default defineComponent({
       text-align: left;
     }
   }
-@media (max-width: $breakpoint-xs-max) {
+@media (max-width: $breakpoint-sm-max) {
   .item {
-    padding: 10px 0;
+    padding-bottom: 10px;
+    padding-top: 10px;
   }
 }
 </style>

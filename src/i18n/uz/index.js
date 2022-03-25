@@ -1,42 +1,26 @@
 import error404 from "src/i18n/uz/error404";
+import login from "src/i18n/uz/login"
+import btn from "src/i18n/uz/buttons"
+import restaurantSettings from "src/i18n/uz/restaurantSettings";
+import loginWaiter from "src/i18n/uz/loginWaiter";
+import waiters from "src/i18n/uz/waiters";
+import tables from "src/i18n/uz/tables";
+import archive from "src/i18n/uz/archive";
 
 export default {
+  btn,
+  login,
+  waiters,
+  restaurantSettings,
+  loginWaiter,
+  tables,
+  archive,
   error404,
   valuta: 'сўм',
-  btn: {
-    login: 'Login',
-    reset: 'Qayta tiklash',
-    back: 'orqaga'
-  },
-  failed: 'Action failed',
-  success: 'Action was successful',
-  index: {
-    table: 'Jadval',
-  },
-  settings: {
-    exit_restaurant_mode: 'Exit from restaurant mode'
-  },
-  login: {
-    password: 'password',
-    waiter: 'waiter',
-    email_owner: 'Email owner restaurant',
-    mode: {
-      choose_mode: 'Please choose mode',
-      individual: 'Individual mode',
-      restaurant: 'Restaurant mode'
-    },
-    rules: {
-      email: 'Please write correct email',
-      password: 'Please write password',
-      id: 'Please write ID',
-      enterFourNum: 'Please enter 4 numbers'
-    },
-    success: 'Login success',
-    failed: 'Login failed'
-  },
-  table: {
-    OtherTables: 'Boshqa Jadvallar',
-  },
+  search: 'Qidiruv...',
+  failed: 'Aksiya amalga oshmadi',
+  success: 'Muvaffaqiyatli',
+  noConnection: 'Internetga ulanish yo\'q',
   status: {
     just_created: 'faqat',
     accepted_by_admin: 'qabul qilindi',

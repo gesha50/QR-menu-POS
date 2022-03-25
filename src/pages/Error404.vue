@@ -8,10 +8,10 @@
           </div>
           <h3>{{ $t('error404.header') }}</h3>
           <p>{{ $t('error404.description') }}</p>
-          <a class="btn-back q-py-md q-px-lg" href="/">
+          <router-link class="btn-back q-py-md q-px-lg" to="/">
             <span class="material-icons">arrow_back</span>
             {{ $t('btn.back') }}
-          </a>
+          </router-link>
         </div>
       </div>
     </div>

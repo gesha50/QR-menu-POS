@@ -4,7 +4,7 @@
     <logo-top></logo-top>
     <div class="bg">
       <div class="header-block column justify-center q-mb-md">
-        <h3 class="no-margin text-center">Введите код</h3>
+        <h3 class="no-margin text-center">{{ $t('loginWaiter.title') }}</h3>
       </div>
       <div class="column pin-pad justify-center">
         <div class="pin-code row justify-center q-mb-md">
@@ -30,12 +30,12 @@
           <q-btn size="lg" round color="white" text-color="black" @click="password += '9'; authWaiter()" label="9" />
         </div>
         <div class="row justify-around">
-          <q-btn size="lg" class="resetBtn" round color="white" text-color="black" @click="resetWaiterData()" label="сброс" />
+          <q-btn size="lg" class="resetBtn" round color="white" text-color="black" @click="resetWaiterData()" :label="$t('btn.reset')" />
           <q-btn size="lg" round color="white" text-color="black" @click="password += '0'; authWaiter()" label="0" />
           <q-btn size="lg" round color="white" text-color="black" @click="deleteNumber" icon="fas fa-backspace" />
         </div>
       </div>
-      <router-link class="back q-py-sm q-px-lg" to="/">Назад</router-link>
+      <router-link class="back q-py-sm q-px-lg" to="/">{{ $t('btn.back') }}</router-link>
     </div>
   </div>
 </q-page>

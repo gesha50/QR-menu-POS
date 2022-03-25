@@ -1,7 +1,7 @@
 <template>
   <div class="root fit relative-position">
     <div class="order-id">
-      <h4>Order ID #{{ id }}</h4>
+      <h4>{{ $t('archive.orderID') }} #{{ id }}</h4>
       <div class="flex">
         <p>{{ restaurantName }}</p>
         <p>Dine-In T-34</p>
@@ -36,22 +36,22 @@
     <div class="order-price absolute-bottom">
       <div class="price-block">
         <div class="flex-item">
-          <h5>Grand Total</h5>
+          <h5>{{ $t('archive.grandTotal') }}</h5>
           <p>{{ totalPrice + ' ' + $t('valuta') }}</p>
         </div>
       </div>
-      <button class="button-print" @click="print()"><img src="~/assets/img/cil_print.svg" alt="print"> Print invice</button>
+      <button class="button-print" @click="print()"><img src="~/assets/img/cil_print.svg" alt="print">{{ $t('archive.invoice') }}</button>
     </div>
   </div>
   <div class="print" id="print">
     <div class="first">
-      <pre style="margin: 0;"><b>Order ID:</b>   #{{ id }}</pre>
-      <pre style="margin: 0;"><b>Printed:</b>    {{currentDateTime()}}</pre>
+      <pre style="margin: 0;"><b>{{ $t('archive.orderID') }}:</b>   #{{ id }}</pre>
+      <pre style="margin: 0;"><b>{{ $t('archive.printed') }}:</b>    {{currentDateTime()}}</pre>
     </div>
     <div class="block">
       <div class="head">
-        <pre>Наименование</pre>
-        <pre>Итого</pre>
+        <pre>{{ $t('archive.title') }}</pre>
+        <pre>{{ $t('archive.totalPrint') }}</pre>
       </div>
       <div class="items-block">
         <div
@@ -80,7 +80,7 @@
         </div>
       </div>
       <div class="price-main">
-        <pre><b>Итого:</b></pre>
+        <pre><b>{{ $t('archive.totalPrint') }}:</b></pre>
         <hr>
         <pre>{{totalPrice + ' ' + $t('valuta') }}</pre>
       </div>

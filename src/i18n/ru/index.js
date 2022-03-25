@@ -1,42 +1,26 @@
 import error404 from "src/i18n/ru/error404";
+import login from "src/i18n/ru/login"
+import btn from "src/i18n/ru/buttons"
+import restaurantSettings from "src/i18n/ru/restaurantSettings";
+import loginWaiter from "src/i18n/ru/loginWaiter";
+import waiters from "src/i18n/ru/waiters";
+import tables from "src/i18n/ru/tables";
+import archive from "src/i18n/ru/archive";
 
 export default {
+  btn,
+  login,
+  waiters,
+  restaurantSettings,
+  loginWaiter,
+  tables,
+  archive,
   error404,
   valuta: '₽',
-  btn: {
-    login: 'Войти',
-    reset: 'Сброс',
-    back: 'назад'
-  },
+  search: 'Поиск...',
   failed: 'Действие не выполнено',
   success: 'Успешно',
-  index: {
-    table: 'Стол',
-  },
-  settings: {
-    exit_restaurant_mode: 'Выход из режима ресторана'
-  },
-  login: {
-    password: 'пароль',
-    waiter: 'официант',
-    email_owner: 'Email владельца ресторана',
-    mode: {
-      choose_mode: 'Выберите режим',
-      individual: 'Индивидуальный',
-      restaurant: 'Ресторан'
-    },
-    rules: {
-      email: 'Введите корректный email',
-      password: 'Введите пароль',
-      id: 'Введите ID',
-      enterFourNum: 'Введите 4 цифры'
-    },
-    success: 'Вход выполнен',
-    failed: 'Вход не выполнен'
-  },
-  table: {
-    OtherTables: 'Другие Столы',
-  },
+  noConnection: 'Нет подключения к интернету',
   status: {
     just_created: 'только что',
     accepted_by_admin: 'принято админом',

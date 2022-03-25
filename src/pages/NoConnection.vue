@@ -12,7 +12,7 @@
                 </div>
 
                 <div class="message q-mt-md">
-                    <p>Нет подключения к интернету</p>
+                    <p>{{ $t('noConnection') }}</p>
                 </div>
             </div>
         </q-page>

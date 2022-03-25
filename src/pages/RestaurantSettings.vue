@@ -10,10 +10,10 @@
           color="accent"
           icon="reorder"
           @click="open('left')" />
-          <a class="back q-py-sm q-px-lg no-margin" href="/">Back</a>
+          <a class="back q-py-sm q-px-lg no-margin" href="/">{{ $t('btn.back') }}</a>
       </div>
       <div class="column justify-center">
-        <div class="row q-mb-lg gt-xs"><a class="back q-py-sm q-px-lg" href="/">Back</a></div>
+        <div class="row q-mb-lg gt-xs"><a class="back q-py-sm q-px-lg" href="/">{{ $t('btn.back') }}</a></div>
         <div class="row justify-center q-px-md">
           <div class="q-mr-md col-lg-3 col-md-3 col-xs-3 gt-xs tab-contents rounded-borders bg-white">
           <q-tabs
@@ -23,8 +23,8 @@
             active-color="red-5"
             vertical
           >
-            <q-tab class="justify-start" name="settings" icon="notifications" label="Настройки" />
-            <q-tab name="design" icon="person" label="Профиль" />
+            <q-tab name="design" icon="panorama" :label="$t('restaurantSettings.design')" />
+            <q-tab class="justify-start" name="logout" icon="logout" :label="$t('btn.logout')" />
           </q-tabs>
         </div>
         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
@@ -35,22 +35,22 @@
             vertical
           >
            <!-- settings -->
-            <q-tab-panel name="settings">
-              <div>
-                <div class="text-h5 q-mb-md q-mt-sm"><strong>Настройки</strong></div>
+            <q-tab-panel name="logout">
+              <div class="text-center">
+                <div class="text-h5 q-mb-md q-mt-sm"><strong>{{ $t('restaurantSettings.settingTitle') }}</strong></div>
                 <q-btn
                   class="bg-red-5"
                   v-if="isRestaurant"
                   @click="logout"
-                  :label="$t('settings.exit_restaurant_mode')"
+                  :label="$t('restaurantSettings.exitRestaurantMode')"
                 />
               </div>
             </q-tab-panel>
             <!-- design -->
             <q-tab-panel name="design">
-              <div>
+              <div class="text-center">
                 <form @submit.prevent="saveImg">
-                  <div class="text-h5 q-mb-md q-mt-sm"><strong>Дизайн</strong></div>
+                  <div class="text-h5 q-mb-md q-mt-sm"><strong>{{ $t('restaurantSettings.designTitle') }}</strong></div>
                   <div class="chooseImg">
                     <!-- <h6 class="q-mb-sm q-mt-sm">Change restaurant background</h6> -->
                     <div class="images shadow-1 q-pa-sm rounded-borders bg-grey-1">
@@ -65,7 +65,7 @@
                           class="cursor-pointer q-pa-md q-mt-md"
                           style="font-size: 17px; font-weight: 500;"
                           color="red-5"
-                          label="Select Image"
+                          :label="$t('restaurantSettings.selectImg')"
                         />
                       </label>
                       <input type="file" accept="image/*" @change="previewImage" ref="file" class="input-none" id="my-file">
@@ -78,13 +78,13 @@
                         type="submit"
                         class="bg-light-green-14 no-shadow q-pa-md"
                         text-color="white"
-                        label="Сохранить"
+                        :label="$t('btn.save')"
                       />
                       <q-btn
                         v-if="!isImageDefault"
                         :loading="isImgSend"
                         class="bg-yellow-5 no-shadow q-pa-md "
-                        label="Картинка по умолчанию"
+                        :label="$t('restaurantSettings.defaultImg')"
                         @click="defaultBackgroundImage"
                       />
                     </q-card-actions>
@@ -108,8 +108,8 @@
             active-color="red-5"
             vertical
           >
-            <q-tab class="q-mt-lg" name="settings" icon="notifications" label="Настройки" />
-            <q-tab class="q-mt-sm" name="design" icon="mail" label="Дизайн" />
+            <q-tab class="q-mt-sm" name="design" icon="panorama" :label="$t('restaurantSettings.design')" />
+            <q-tab class="q-mt-lg" name="logout" icon="logout" :label="$t('btn.logout')" />
           </q-tabs>
         </q-card>
       </q-dialog>
@@ -134,7 +134,7 @@ export default defineComponent({
         image_list: [],
         dialog,
         position,
-        tab: ref('settings'),
+        tab: ref('design'),
         open(pos) {
           position.value = pos
           dialog.value = true
@@ -233,7 +233,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .back {
   font-style: normal;
   font-weight: bold;
@@ -248,6 +248,7 @@ export default defineComponent({
 }
 .chooseImg {
   width: 320px;
+  margin: auto;
   .images {
     width: 100%;
     height: 190px;
@@ -284,12 +285,9 @@ export default defineComponent({
 }
 .tab-contents{
   border-radius: 15px;
-  height: 600px;
+  //height: 600px;
 }
 .container-btn {
-  position: absolute;
-  bottom: 0;
-  left: 0;
   .save-qbtn .q-btn{
     border-radius: 15px;
     background-color: #07C900;

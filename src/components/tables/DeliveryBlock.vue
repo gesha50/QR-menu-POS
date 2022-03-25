@@ -4,10 +4,10 @@
       :to="'/menu/delivery'"
       size="xl"
       color="red-8"
-      label="Доставка"
       rounded
       style="font-family: 'RalewayBold'; font-size: 20px; text-transform: capitalize;"
     >
+      <div>{{ $t('tables.delivery') }}</div>
       <div
         class="bg-white column content-center justify-center q-ml-lg"
         style="border-radius: 50%; width: 50px; height: 50px; margin-right: -10px;"

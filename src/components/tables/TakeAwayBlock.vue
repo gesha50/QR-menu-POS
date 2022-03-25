@@ -4,10 +4,10 @@
       :to="'/menu/take-away'"
       color="red-8"
       size="xl"
-      label="С собой"
       rounded
       style="font-size: 20px; font-family: 'RalewayBold'; text-transform: capitalize;"
     >
+      <div class="desktop-only">{{ $t('tables.takeAway') }}</div>
       <div
         class="bg-white column content-center justify-center q-ml-lg"
         style="border-radius: 50%; width: 50px; height: 50px; margin-right: -10px;"
