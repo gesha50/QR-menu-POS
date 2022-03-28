@@ -6,6 +6,7 @@ import loginWaiter from "src/i18n/en-US/loginWaiter";
 import waiters from "src/i18n/en-US/waiters";
 import tables from "src/i18n/en-US/tables";
 import archive from "src/i18n/en-US/archive";
+import orders from "./orders";
 
 export default {
   btn,
@@ -15,25 +16,11 @@ export default {
   loginWaiter,
   tables,
   archive,
+  orders,
   error404,
   valuta: '$',
   search: 'search...',
   failed: 'Action failed',
   success: 'Action was successful',
   noConnection: 'No internet connection',
-  status: {
-    just_created: 'just created',
-    accepted_by_admin: 'accepted by admin',
-    accepted_by_restaurant: 'accepted by restaurant',
-    assigned_to_driver: 'assigned to driver',
-    prepared: 'prepared',
-    picked_up: 'picked up',
-    delivered: 'delivered',
-    rejected_by_admin: 'rejected by admin',
-    rejected_by_restaurant: 'rejected by restaurant',
-    updated: 'updated',
-    closed: 'closed',
-    rejected_by_driver: 'rejected by driver',
-    accepted_by_driver: 'accepted by driver'
-  },
 }

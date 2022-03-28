@@ -1,0 +1,27 @@
+export default {
+    created_at: 'created at',
+    tableOrMethod: 'table / method',
+    items: 'items',
+    price: 'price',
+    statuses: 'status',
+    actions: 'actions',
+    noActions: 'no actions',
+    cancel: 'cancel',
+    accept: 'accept',
+    perPageRows: 'Records per page:',
+    status: {
+        just_created: 'just created',
+        accepted_by_admin: 'accepted by admin',
+        accepted_by_restaurant: 'accepted by restaurant',
+        assigned_to_driver: 'assigned to driver',
+        prepared: 'prepared',
+        picked_up: 'picked up',
+        delivered: 'delivered',
+        rejected_by_admin: 'rejected by admin',
+        rejected_by_restaurant: 'rejected by restaurant',
+        updated: 'updated',
+        closed: 'closed',
+        rejected_by_driver: 'rejected by driver',
+        accepted_by_driver: 'accepted by driver'
+      },
+}

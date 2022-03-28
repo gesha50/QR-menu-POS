@@ -19,7 +19,19 @@
       :pagination="{rowsPerPage: 20}"
       flat
       bordered
+      :rows-per-page-label="$t('orders.perPageRows')"
     >
+    <template v-slot:header="props">
+        <q-tr :props="props">
+          <q-th
+            v-for="col in props.cols"
+            :key="col.name"
+            :props="props"
+          >
+            {{ $t(col.label) }}
+          </q-th>
+        </q-tr>
+      </template>
       <template v-slot:body="props">
         <q-tr :props="props">
           <q-td key="ID" :props="props">
@@ -42,14 +54,14 @@
               class="q-pa-sm"
               color="accent"
               rounded
-              :label="$t(`status.${props.row.status}`)"
+              :label="$t(`orders.status.${props.row.status}`)"
             />
           </q-td>
           <q-td key="actions" :props="props">
 
             <template v-for="(action, i) in props.row.actions" :key="i">
               <div v-if="action === 'действий не требуется'" >
-                действий не требуется
+                {{ $t('orders.noActions') }}
               </div>
               <q-btn
                 size="sm"
@@ -58,7 +70,7 @@
                 v-else-if="action === 'rejected_by_restaurant'"
                 @click="changeStatus(props.row, action)"
               >
-                отменить
+                {{ $t('orders.cancel') }}
               </q-btn>
               <q-btn
                 size="sm"
@@ -66,7 +78,7 @@
                 v-else-if="action === 'accepted_by_restaurant'"
                 @click="changeStatus(props.row, action)"
               >
-                принять
+                {{ $t('orders.accept') }}
               </q-btn>
               <q-btn
                 size="sm"
@@ -74,7 +86,7 @@
                 v-else-if="action === 'prepared'"
                 @click="changeStatus(props.row, action)"
               >
-                готовый
+                {{ $t('orders.status.prepared') }}
               </q-btn>
               <q-btn
                 size="sm"
@@ -82,7 +94,7 @@
                 v-else-if="action === 'delivered'"
                 @click="changeStatus(props.row, action)"
               >
-                доставленный
+                {{ $t('orders.status.delivered') }}
               </q-btn>
               <q-btn
                 size="sm"
@@ -90,7 +102,7 @@
                 v-else-if="action === 'closed'"
                 @click="changeStatus(props.row, action)"
               >
-                закрыто
+                {{ $t('orders.status.closed') }}
               </q-btn>
               <q-btn
                 size="sm"
