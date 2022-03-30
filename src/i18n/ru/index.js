@@ -7,6 +7,7 @@ import waiters from "src/i18n/ru/waiters";
 import tables from "src/i18n/ru/tables";
 import archive from "src/i18n/ru/archive";
 import orders from "./orders";
+import settings from "./settings";
 
 export default {
   btn,
@@ -17,6 +18,7 @@ export default {
   tables,
   archive,
   orders,
+  settings,
   error404,
   valuta: '₽',
   search: 'Поиск...',

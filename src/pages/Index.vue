@@ -8,18 +8,19 @@
         <q-tabs
           v-model="tab"
           mobile-arrows
-          class="bg-white text-grey-6 full-width tableTabs__links"
+          class="full-width tableTabs__links"
+          :class="$q.dark.isActive ? 'bg-black text-grey-6' : 'bg-white text-grey-6' "
           dense
           align="justify"
           indicator-color="red-8"
-          active-color="black"
+          :active-color="$q.dark.isActive ? 'white' : 'black'"
         >
           <q-tab
             v-for="(area, i) in areasTablesObj"
             :key="i"
             :name="translitName(area.restoArea.name)"
             :label="area.restoArea.name"
-            style="border-right: 1px solid #F5F5F5"
+            :style="$q.dark.isActive ? 'border-right: 1px solid #1f1f1f' : 'border-right: 1px solid #F5F5F5'"
           />
           <q-tab
             v-if="otherTables"

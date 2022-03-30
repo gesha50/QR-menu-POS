@@ -1,13 +1,8 @@
 <template>
   <q-page class="">
-<!--    <div class="flex flex-center">-->
-<!--      <q-select @update:model-value="changedLang" filled v-model="lang" :options="options" />-->
-<!--      <q-btn @click="toggleDarkMode" />-->
-<!--    </div>-->
-
     <!-- tab -->
     <div class="container q-mb-lg">
-      <div class="text-h5 q-mb-md q-mt-md"><strong>Настройки</strong></div>
+      <div class="text-h5 q-mb-md q-mt-md"><strong>{{ $t('settings.title') }}</strong></div>
       <div class="q-pa-md lt-sm">
         <q-btn
           dense
@@ -18,18 +13,20 @@
           @click="open('left')" />
       </div>
       <div class="row">
-        <div class="q-mr-md col-lg-4 col-md-4 col-xs-4 gt-xs tab-contents">
+        <div
+         class="q-mr-md col-lg-4 col-md-4 col-xs-4 gt-xs tab-contents"
+         :class="$q.dark.isActive? 'bg-grey-10' : 'bg-white'"
+        >
           <q-tabs
             v-model="tab"
-            class="text-grey tab-elements"
+            class="text-grey tab-elements bd-blue-7"
             inline-label
             active-color="red-5"
             vertical
           >
-            <q-tab class="q-mt-lg" name="profile" icon="mail" label="Профиль" />
-            <q-tab class="q-mt-sm" name="notifications" icon="notifications" label="Уведавления" />
-            <q-tab class="q-mt-sm" name="theme" icon="alarm" label="Внешний вид" />
-            <q-tab class="q-mt-sm" name="security" icon="security" label="Безопасность" />
+            <q-tab class="q-mt-lg" name="profile" icon="badge" :label="$t('settings.tabs.profile') " />
+            <q-tab class="q-mt-sm" name="theme" icon="brush" :label="$t('settings.tabs.design') " />
+            <q-tab class="q-mt-sm" name="lang" icon="language" :label="$t('settings.tabs.lang') " />
           </q-tabs>
         </div>
         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
@@ -42,89 +39,51 @@
           <!-- profile -->
             <q-tab-panel name="profile">
               <div>
-                <div class="text-h5 q-mb-md q-mt-sm"><strong>Профиль</strong></div>
-                <div v-for="(item, i) in items"
-                  :key="i">
-                  <div class="flex justify-between"
-                  >
-                    <div class="q-mt-lg tab-content-name"><strong>{{item.label}}</strong></div>
-                    <q-toggle
-                      class="toggle-btn"
-                      size="60px"
-                      color="red-5"
-                      height="150px"
-                      :val="item.id"
-                      v-model="item.toggle"
-                      icon-color="white"
-                    />
-                    </div>
-                      <hr class="description-underline">
-                  </div>
-                  <q-card-actions class="save-qbtn" align="center">
-                      <q-btn text-color="white" label="Сохранить извеления"/>
-                  </q-card-actions>
+                <div class="text-h5 q-mb-md q-mt-sm"><strong>{{ $t('settings.tabs.profile')  }}</strong></div>
                </div>
             </q-tab-panel>
-          <!-- notifications -->
-            <q-tab-panel name="notifications">
-              <div>
-                <div class="text-h5 q-mb-md q-mt-sm"><strong>Уведавления</strong></div>
-                <div v-for="(item, i) in items"
-                  :key="i">
-                  <div class="flex justify-between"
-                  >
-                    <div class="q-mt-lg tab-content-name"><strong>{{item.label}}</strong></div>
-                    <q-toggle
-                      class="toggle-btn"
-                      size="60px"
-                      color="red-5"
-                      height="150px"
-                      :val="item.id"
-                      v-model="item.toggle"
-                      icon-color="white"
-                    />
-                    </div>
-                      <hr class="description-underline">
-                  </div>
-                  <q-card-actions class="save-qbtn" align="center">
-                      <q-btn text-color="white" label="Сохранить извеления"/>
-                  </q-card-actions>
-               </div>
-            </q-tab-panel>
+
           <!-- theme -->
             <q-tab-panel name="theme">
               <div>
-                <div class="text-h5 q-mb-md q-mt-sm"><strong>Внешний вид</strong></div>
-                  <q-card-actions class="save-qbtn" align="center">
-                      <q-btn text-color="white" label="Сохранить извеления"/>
-                  </q-card-actions>
+                <div class="text-h5 q-mb-md q-mt-sm"><strong>{{ $t('settings.tabs.design') }}</strong></div>
+                <div class="row justify-around">
+                  <q-item tag="label" v-ripple>
+                  <q-item-section avatar>
+                    <q-radio
+                      @click="setDarkMode(true)"
+                      val="dark"
+                      color="red-8"
+                       v-model="mode"
+                    />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label>{{ $t('settings.mode.dark') }}</q-item-label>
+                  </q-item-section>
+                </q-item>
+
+                <q-item tag="label" v-ripple>
+                  <q-item-section avatar>
+                    <q-radio
+                      @click="setDarkMode(false)"
+                      val="light"
+                      color="red-8"
+                      v-model="mode"
+                    />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label>{{ $t('settings.mode.white') }}</q-item-label>
+                  </q-item-section>
+                </q-item>
+                </div>
                </div>
             </q-tab-panel>
           <!-- security -->
-            <q-tab-panel name="security">
+            <q-tab-panel name="lang">
               <div>
-                <div class="text-h5 q-mb-md q-mt-sm"><strong>Безопасность</strong></div>
-                <div v-for="(item, i) in items"
-                  :key="i">
-                  <div class="flex justify-between"
-                  >
-                    <div class="q-mt-lg tab-content-name"><strong>{{item.label}}</strong></div>
-                    <q-toggle
-                      class="toggle-btn"
-                      size="60px"
-                      color="red-5"
-                      height="150px"
-                      :val="item.id"
-                      v-model="item.toggle"
-                      icon-color="white"
-                    />
-                    </div>
-                      <hr class="description-underline">
-                  </div>
-                  <q-card-actions class="save-qbtn" align="center">
-                      <q-btn text-color="white" label="Сохранить извеления"/>
-                  </q-card-actions>
-               </div>
+                <div class="text-h5 q-mb-md q-mt-sm"><strong>{{ $t('settings.tabs.lang') }}</strong></div>
+                <q-select @update:model-value="changedLang" filled v-model="lang" :options="options" />
+              </div>
             </q-tab-panel>
           </q-tab-panels>
         </div>
@@ -164,34 +123,13 @@ export default defineComponent({
     return {
       dialog,
       position,
+      mode:this.$q.dark.isActive ? 'dark' : 'light',
 
       open(pos) {
         position.value = pos
         dialog.value = true
       },
-      tab: ref('notifications'),
-      items:[
-        {
-          id: 1,
-          label: "Новое сообщение",
-          toggle: false,
-        },
-        {
-          id: 2,
-          label: "Еженедельный отчет",
-          toggle: true,
-        },
-        {
-          id:3,
-          label:"Успешный платеж",
-          toggle:true,
-        },
-         {
-          id:3,
-          label:"Оповещение о выставлении счетов",
-          toggle:true,
-        }
-      ],
+      tab: ref('profile'),
       lang: this.$store.getters["settings/getLang"],
       options: [
         'en-US',
@@ -209,9 +147,9 @@ export default defineComponent({
   },
 
   methods: {
-    toggleDarkMode() {
+    setDarkMode(bool) {
       this.$q.localStorage.set('darkMode', !this.$q.dark.isActive)
-      this.$q.dark.toggle()
+      this.$q.dark.set(bool)
     },
     changedLang(val) {
       this.$q.localStorage.set('currentLang',val)
@@ -238,7 +176,6 @@ export default defineComponent({
 .tab-contents{
   position: relative;
   height: 600px !important;
-  background-color: #fff;
   border-radius: 15px;
   text-align: start;
   .row, .column, .flex {
