@@ -1,5 +1,5 @@
 <template>
-  <div class="tabel-body-box" :class="{'bg-grey-4': isActive }" @click="addToCheck">
+  <div class="tabel-body-box" :class="[$q.dark.isActive ? 'dark text-blue-grey-12' : 'light', activeClass]" @click="addToCheck">
     <p>#{{ archive_data.ID }}</p>
     <p>{{ archive_data.created_at }}</p>
     <p>{{ archive_data.price + ' ' + $t('valuta') }}</p>
@@ -20,13 +20,28 @@ export default {
       }
     },
   computed: {
-      isActive() {
-        return this.CurrentActive === this.archive_data.ID;
+      activeClass() {
+        if( this.CurrentActive === this.archive_data.ID) {
+          if(this.$q.dark.isActive) {
+            return 'bg-black'
+          }
+          return 'bg-grey-4'
+        }
+        return 'bg-blue-grey-10'
       }
   }
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.light {
+  &:hover p {
+    color: black;
+  }
+}
+.dark {
+  &:hover p {
+    color: white;
+  }
+}
 </style>

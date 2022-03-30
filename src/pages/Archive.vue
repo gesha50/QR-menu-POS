@@ -2,12 +2,16 @@
   <q-page>
     <div class="main-block">
       <div class="tab" :class="showSidebar ? 'padding-right' : '' ">
-        <div class="tab-root shadow-N rounded-borders bg-white">
+        <div
+         class="tab-root shadow-N rounded-borders"
+         :class="$q.dark.isActive ? 'bg-black text-grey-6' : 'bg-white text-grey-6' "
+        >
           <q-tabs
             v-model="tab"
             class="tab-flex"
             active-class="btn-active"
             indicator-color="transparent"
+
           >
             <q-tab class="tab-btn" name="mails" :label="$t('archive.history')" />
             <q-tab class="tab-btn" name="alarms" :label="$t('archive.inWork')" />
@@ -26,12 +30,15 @@
           </div>
           <q-tab-panels v-else v-model="tab" class="text-white">
             <q-tab-panel class="tab-panel" name="mails">
-              <div class="search-form">
-                <input v-model="searchText" type="text" :placeholder="$t('archive.search')">
-                <img src="../assets/img/icons_search.svg" alt="search">
+              <div class="q-mb-lg">
+                <q-input color="orange-4" dense :placeholder="$t('archive.search')" v-model="searchText">
+                  <template v-slot:prepend>
+                    <q-icon name="search" />
+                  </template>
+                </q-input>
               </div>
               <div class="tabel-block">
-                <div class="tabel-head">
+                <div class="tabel-head" :class="$q.dark.isActive ? 'bg-black text-white' : 'bg-white text-black' ">
                   <p>{{ $t('archive.orderID') }}</p>
                   <p>{{ $t('archive.date') }}</p>
                   <p>{{ $t('archive.total') }}</p>
@@ -47,12 +54,15 @@
             </q-tab-panel>
 
             <q-tab-panel class="tab-panel" name="alarms">
-              <div class="search-form">
-                <input v-model="searchText" type="text" :placeholder="$t('archive.search')">
-                <img src="../assets/img/icons_search.svg" alt="search">
+              <div class="q-mb-lg">
+                <q-input color="orange-4" dense :placeholder="$t('archive.search')" v-model="searchText">
+                  <template v-slot:prepend>
+                    <q-icon name="search" />
+                  </template>
+                </q-input>
               </div>
               <div class="tabel-block">
-                <div class="tabel-head">
+                <div class="tabel-head"  :class="$q.dark.isActive ? 'bg-black text-white' : 'bg-white text-black'">
                   <p>{{ $t('archive.orderID') }}</p>
                   <p>{{ $t('archive.date') }}</p>
                   <p>{{ $t('archive.total') }}</p>
@@ -68,7 +78,13 @@
             </q-tab-panel>
 
             <q-tab-panel class="tab-panel" name="movies">
-
+              <div class="q-mb-lg">
+                <q-input color="orange-4" dense :placeholder="$t('archive.search')" v-model="searchText">
+                  <template v-slot:prepend>
+                    <q-icon name="search" />
+                  </template>
+                </q-input>
+              </div>
             </q-tab-panel>
           </q-tab-panels>
         </div>
@@ -243,40 +259,11 @@ export default defineComponent({
         box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.04);
         .tab-panel {
           padding: 0;
-          .search-form {
-            position: relative;
-            display: block;
-            margin: 0 0 20px;
-            input {
-              width: 100%;
-              padding: 15px 0 15px 30px;
-              border: none;
-              outline: none;
-              font-family: 'Raleway',sans-serif;
-              font-style: normal;
-              font-weight: 500;
-              font-size: 16px;
-              line-height: 19px;
-              margin: 0;
-              font-feature-settings: 'pnum' on, 'lnum' on;
-              color: #010101;
-              border-bottom: 1px solid #cccccc;
-            }
-            img {
-              width: 20px;
-              height: 20px;
-              position: absolute;
-              top: 50%;
-              left: 0;
-              transform: translateY(-50%);
-            }
-          }
           .tabel-block {
             .tabel-head {
               display: flex;
               align-items: center;
               justify-content: space-between;
-              background: $grey-4;
               border-radius: 8px;
               padding: 15px 10px;
               p {
@@ -286,7 +273,6 @@ export default defineComponent({
                 line-height: 130%;
                 margin: 0;
                 font-feature-settings: 'pnum' on, 'lnum' on;
-                color: #1E1E1E;
               }
             }
             .tabel-body {
@@ -297,21 +283,6 @@ export default defineComponent({
                 border-radius: 8px;
                 padding: 15px 10px;
                 cursor: pointer;
-                -moz-user-select: none;
-                -webkit-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-                &:nth-child( even) {
-                  background: rgba(0, 0, 0, 0.07);
-                }
-                &:nth-child(odd) {
-                  background: #ffffff;
-                }
-                &:hover {
-                  p {
-                    color: #000000;
-                  }
-                }
                 p {
                   font-style: normal;
                   font-weight: normal;
@@ -319,7 +290,6 @@ export default defineComponent({
                   line-height: 130%;
                   margin: 0;
                   font-feature-settings: 'pnum' on, 'lnum' on;
-                  color: #898690;
                   transition: all 0.2s;
                 }
               }
