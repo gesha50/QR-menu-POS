@@ -1,5 +1,5 @@
 <template>
-  <div class="root fit relative-position">
+  <div class="root fit relative-position" :class="$q.dark.isActive ? 'bg-black text-white' : 'bg-white text-black' ">
     <div class="order-id">
       <h4>{{ $t('archive.orderID') }} #{{ id }}</h4>
       <div class="flex">
@@ -33,7 +33,10 @@
         </div>
       </div>
     </div>
-    <div class="order-price absolute-bottom">
+    <div
+     class="order-price absolute-bottom"
+     :class="$q.dark.isActive ? 'bg-grey-10 text-white' : 'bg-white text-black' "
+     >
       <div class="price-block">
         <div class="flex-item">
           <h5>{{ $t('archive.grandTotal') }}</h5>
@@ -213,7 +216,6 @@ export default {
         line-height: 130%;
         margin: 0 0 5px;
         font-feature-settings: 'pnum' on, 'lnum' on;
-        color: #1E1E1E;
       }
       .flex {
         display: flex;
@@ -226,7 +228,6 @@ export default {
           line-height: 130%;
           margin: 0;
           font-feature-settings: 'pnum' on, 'lnum' on;
-          color: #1E1E1E;
         }
       }
     }
@@ -240,12 +241,6 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        &:nth-child(even) {
-          background: rgba(0, 0, 0, 0.07);
-        }
-        &:nth-child(odd) {
-          background: #ffffff;
-        }
         .item-name {
           display: flex;
           p {
@@ -255,7 +250,6 @@ export default {
             line-height: 100%;
             margin: 0;
             font-feature-settings: 'pnum' on, 'lnum' on;
-            color: #1E1E1E;
           }
           .name {
             margin-left: 8px;
@@ -266,7 +260,6 @@ export default {
               line-height: 100%;
               margin: 0;
               font-feature-settings: 'pnum' on, 'lnum' on;
-              color: #1E1E1E;
             }
             span {
               font-style: normal;
@@ -275,7 +268,6 @@ export default {
               line-height: 100%;
               margin: 0;
               font-feature-settings: 'pnum' on, 'lnum' on;
-              color: #1E1E1E;
             }
           }
         }
@@ -286,7 +278,6 @@ export default {
           line-height: 130%;
           margin: 0;
           font-feature-settings: 'pnum' on, 'lnum' on;
-          color: #1E1E1E;
         }
       }
     }
@@ -307,7 +298,6 @@ export default {
             line-height: 130%;
             margin: 0;
             font-feature-settings: 'pnum' on, 'lnum' on;
-            color: #1E1E1E;
           }
           p {
             font-style: normal;
@@ -316,7 +306,6 @@ export default {
             line-height: 130%;
             margin: 0;
             font-feature-settings: 'pnum' on, 'lnum' on;
-            color: #1E1E1E;
           }
         }
       }

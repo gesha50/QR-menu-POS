@@ -103,7 +103,7 @@
 <script>
 import { defineComponent } from 'vue';
 import { ref } from 'vue'
-import PrintSidebar from "components/menu/PrintSidebar";
+import PrintSidebar from "components/archive/PrintSidebar";
 import ArchiveList from "components/archive/ArchiveList";
 import LoaderXL from "components/loader/LoaderXL";
 
