@@ -44,7 +44,7 @@
             v-for="(table, index) in area.tables"
             :key="index"
             :table="table"
-            class="col col-xs-12 col-sm-6 col-md-3"
+            class="col col-xs-12 col-sm-6 col-md-3 q-mb-md"
           ></table-block>
           </div>
         </q-tab-panel>
