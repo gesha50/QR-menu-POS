@@ -24,7 +24,7 @@
             active-color="red-5"
             vertical
           >
-            <q-tab class="q-mt-lg" name="profile" icon="badge" :label="$t('settings.tabs.profile') " />
+            <!-- <q-tab class="q-mt-lg" name="profile" icon="badge" :label="$t('settings.tabs.profile') " /> -->
             <q-tab class="q-mt-sm" name="theme" icon="brush" :label="$t('settings.tabs.design') " />
             <q-tab class="q-mt-sm" name="lang" icon="language" :label="$t('settings.tabs.lang') " />
           </q-tabs>
@@ -129,7 +129,7 @@ export default defineComponent({
         position.value = pos
         dialog.value = true
       },
-      tab: ref('profile'),
+      tab: ref('theme'),
       lang: this.$store.getters["settings/getLang"],
       options: [
         'en-US',

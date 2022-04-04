@@ -38,7 +38,7 @@
                 </q-input>
               </div>
               <div class="tabel-block">
-                <div class="tabel-head" :class="$q.dark.isActive ? 'bg-black text-white' : 'bg-white text-black' ">
+                <div class="tabel-head" :class="$q.dark.isActive ? 'bg-black text-white' : 'bg-grey-4 text-black' ">
                   <p>{{ $t('archive.orderID') }}</p>
                   <p>{{ $t('archive.date') }}</p>
                   <p>{{ $t('archive.total') }}</p>
@@ -62,7 +62,7 @@
                 </q-input>
               </div>
               <div class="tabel-block">
-                <div class="tabel-head"  :class="$q.dark.isActive ? 'bg-black text-white' : 'bg-white text-black'">
+                <div class="tabel-head"  :class="$q.dark.isActive ? 'bg-black text-white' : 'bg-grey-4 text-black'">
                   <p>{{ $t('archive.orderID') }}</p>
                   <p>{{ $t('archive.date') }}</p>
                   <p>{{ $t('archive.total') }}</p>

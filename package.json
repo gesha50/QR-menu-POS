@@ -8,10 +8,10 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
     "test": "echo \"No test specified\" && exit 0",
-    "dev": "quasar dev",
+    "dev": "quasar dev -m pwa",
     "icons": "icongenie generate -i app-icon.png --skip-trim --theme-color ffffff",
-    "web-build": "quasar build",
-    "web-deploy-spa": "surge dist/spa",
+    "web-build": "quasar build -m pwa",
+    "web-deploy-spa": "surge dist/pwa",
     "local-serve": "quasar serve dist/spa --history -o",
     "dev-mobile-ios": "quasar dev -m cordova -T ios",
     "dev-mobile-android": "quasar dev -m cordova -T android",

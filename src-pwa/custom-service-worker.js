@@ -27,10 +27,13 @@ precacheAndRoute(self.__WB_MANIFEST)
 
 
 registerRoute(({url}) =>  {
-    url.pathname.startsWith('/favicon.')
+    url.pathname.startsWith('/favicon.ico')
     url.pathname.startsWith('/storage')
     url.pathname.startsWith('/icons/')
-    url.pathname.startsWith( '/app.')
+    url.pathname.startsWith( '/css/')
+    url.pathname.startsWith( '/img/')
+    url.pathname.startsWith( '/js/')
+    url.pathname.startsWith( '/fonts/')
 }, new CacheFirst());
 
 registerRoute(

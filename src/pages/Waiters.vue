@@ -6,8 +6,14 @@
       <div class="header-block column justify-center q-mb-lg">
         <h3 class="no-margin text-center">{{ $t('waiters.list') }}</h3>
         <div class="input-container q-mx-auto q-mt-md relative-position	">
-          <img class="absolute" src="../assets/img/search.svg" alt="search">
-          <input v-model="searchText" class="no-border q-py-sm" type="text" name="waiterSearch" :placeholder="$t('search')">
+          <q-input color="black" dense rounded outlined v-model="searchText">
+            <template v-slot:prepend>
+              <q-avatar>
+                <q-icon name="search" size="sm" />
+              </q-avatar>
+            </template>
+          </q-input>
+          <!-- <input v-model="searchText" class="no-border q-py-sm" type="text" name="waiterSearch" :placeholder="$t('search')"> -->
         </div>
       </div>
       <div class="scroll-bar scroll-y overflow-auto">

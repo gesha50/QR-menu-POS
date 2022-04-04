@@ -1,5 +1,5 @@
 <template>
-  <div class="tabel-body-box" :class="[$q.dark.isActive ? 'dark text-blue-grey-12' : 'light', activeClass]" @click="addToCheck">
+  <div class="tabel-body-box" :class="[activeClass, textColor]" @click="addToCheck">
     <p>#{{ archive_data.ID }}</p>
     <p>{{ archive_data.created_at }}</p>
     <p>{{ archive_data.price + ' ' + $t('valuta') }}</p>
@@ -20,15 +20,25 @@ export default {
       }
     },
   computed: {
-      activeClass() {
-        if( this.CurrentActive === this.archive_data.ID) {
+    activeClass() {
+        if(this.CurrentActive === this.archive_data.ID) {
           if(this.$q.dark.isActive) {
             return 'bg-black'
           }
           return 'bg-grey-4'
+        } else {
+          if(this.$q.dark.isActive) {
+            return 'bg-blue-grey-10'
+          }
+          return 'light bg-grey-2'
         }
-        return 'bg-blue-grey-10'
+    },
+    textColor() {
+      if(this.$q.dark.isActive) {
+        return 'text-white'
       }
+        return 'text-grey-9'
+    },
   }
 }
 </script>

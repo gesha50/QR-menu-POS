@@ -28,7 +28,7 @@
             <i v-if="item.isActive" class="fas fa-check-circle text-green"></i>
             <i v-else class="fas fa-times-circle text-red"></i>
           </div>
-          <div class="CardItem__price q-ml-md">$ {{ item.price }}</div>
+          <div class="CardItem__price q-ml-md">{{ $t('valuta') + ' ' + item.price }}</div>
         </div>
       </div>
   </div>
