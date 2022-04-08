@@ -8,6 +8,7 @@ import tables from "src/i18n/ru/tables";
 import archive from "src/i18n/ru/archive";
 import orders from "./orders";
 import settings from "./settings";
+import notify from "./notify";
 
 export default {
   btn,
@@ -19,6 +20,7 @@ export default {
   archive,
   orders,
   settings,
+  notify,
   error404,
   valuta: '₽',
   search: 'Поиск...',

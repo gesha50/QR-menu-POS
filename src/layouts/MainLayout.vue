@@ -82,7 +82,7 @@ export default defineComponent({
     },
     eventNewOrder(data) {
       console.log(data)
-      let message = `Сумма: ${data.order.order_price + this.$t('valuta')}, Стол: ${data.order.table.name}`
+      let message = `${this.$t('notify.summ')}: ${data.order.order_price + this.$t('valuta')}, ${this.$t('notify.table')}: ${data.order.table.name}`
       this.playAudio(this.audioNewOrder)
       this.addNotify('fas fa-cart-arrow-down','New Order', message)
       this.showNotify('fas fa-cart-arrow-down', message)
@@ -103,7 +103,7 @@ export default defineComponent({
         restAreaName = data.order.tableassigned[0].restoarea.name
         table = data.order.tableassigned[0].name
       }
-      let message = `zone:  ${restAreaName}, table: ${table}, status: ${data.status}`
+      let message = `${this.$t('notify.zone')}:  ${restAreaName}, ${this.$t('notify.table')}: ${table}, ${this.$t('notify.status')}: ${data.status}`
       this.showNotify(icon, message)
       this.playAudio(this.audioChangeStatus)
       this.addNotify(icon,'Change Status', message)

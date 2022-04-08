@@ -8,7 +8,7 @@
   >
     <q-scroll-area v-if="cart.length || allCart.length" class="fit q-pl-sm" style="">
       <q-list v-if="allCart.length" padding class="rounded-borders">
-        <q-item class="bg-grey-4 justify-between" >
+        <q-item class="justify-between" :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-4' " >
           <div class="">
             <q-item-section>Заказ в работе</q-item-section>
             <q-item-section style="margin-left: 0;" >Товаров: {{ allCart.length }}</q-item-section>
@@ -26,7 +26,10 @@
             />
           </div>
         </q-item>
-        <div class="bg-grey-3 transitionCart" :class="{ 'close': !isAllCartShow }">
+        <div
+          class="transitionCart"
+          :class="[ $q.dark.isActive ? 'bg-grey-8' : 'bg-grey-3', { 'close': !isAllCartShow }]"
+        >
           <template v-for="(Item, index) in allCart" :key="index">
             <q-item class="CartItem">
               <q-item-section top thumbnail class="q-ml-none">
