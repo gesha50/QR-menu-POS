@@ -47,7 +47,7 @@
               {{ props.row.items }}
           </q-td>
           <q-td key="price" :props="props">
-              {{ props.row.price + ' ' + $t('valuta')}}
+              {{ props.row.price + ' ' + this.$q.localStorage.getItem('currency')}}
           </q-td>
           <q-td key="status" :props="props">
             <q-badge

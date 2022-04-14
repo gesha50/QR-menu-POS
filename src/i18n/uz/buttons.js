@@ -3,5 +3,6 @@ export default {
   reset: 'Qayta tiklash',
   back: 'orqaga',
   logout: 'chiqish',
-  save: 'saqlash'
+  save: 'saqlash',
+  cancel: 'bekor qilish'
 }

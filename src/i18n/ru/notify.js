@@ -2,5 +2,6 @@ export default {
     summ: 'Сумма',
     table: 'Стол',
     zone: 'Зона',
-    status: 'Статус'
+    status: 'Статус',
+    empty: 'Уведомлений нет'
 }

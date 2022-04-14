@@ -3,17 +3,17 @@
   <q-drawer
     v-model="myDrawer"
     class="relative-position"
-    width="380"
+    :width="380"
     :class="$q.dark.isActive ? 'bg-black' : 'bg-white'"
   >
     <q-scroll-area v-if="cart.length || allCart.length" class="fit q-pl-sm" style="">
       <q-list v-if="allCart.length" padding class="rounded-borders">
         <q-item class="justify-between" :class="$q.dark.isActive ? 'bg-grey-9' : 'bg-grey-4' " >
           <div class="">
-            <q-item-section>Заказ в работе</q-item-section>
-            <q-item-section style="margin-left: 0;" >Товаров: {{ allCart.length }}</q-item-section>
+            <q-item-section>{{ $t('cart.orderInWork') }}</q-item-section>
+            <q-item-section style="margin-left: 0;" >{{ $t('cart.items') }}: {{ allCart.length }}</q-item-section>
             <q-item-section style="margin-left: 0;" >
-              Сумма: {{ priceBefore.toFixed(2) + ' ' + $t('valuta') }}
+              {{ $t('cart.sum') }}: {{ priceBefore.toFixed(2) + ' ' + this.$q.localStorage.getItem('currency') }}
             </q-item-section>
           </div>
           <div class="column justify-center">
@@ -60,19 +60,23 @@
                   </q-item-label>
                   <q-icon @click="removeFromCart(Item)" color="red" name="fas fa-trash-alt" style="cursor:not-allowed;" />
                 </div>
-                <div class="row justify-between">
+                <div class="row justify-between no-wrap">
                   <q-btn-group rounded outline class=" CountersBtn items-center">
                     <q-btn :disable="true" flat @click="decrement(Item)" class="CountersBtn__dec" icon="fas fa-minus" />
                     <div class="CountersBtn__counter q-mx-md">{{ Item.counter}}</div>
                     <q-btn :disable="true" flat @click="increment(Item)" class="CountersBtn__inc" icon="fas fa-plus" />
                   </q-btn-group>
-                  <div class="CountersBtn__price">{{$t('valuta') + ' ' + Item.price }}</div>
+                  <div class="CountersBtn__price">
+                    {{ Item.price + ' ' + this.$q.localStorage.getItem('currency') }}
+                  </div>
                 </div>
                 <div v-if="Item.extras && Item.extras.length" class="CartItem__extra q-mt-md ">
                   <div class="" v-for="(extra, ind) in Item.extras" :key="ind">
                     <div class="row justify-between">
                       <div class="CartItem__extraTitle">{{extra.name}}</div>
-                      <div class="CartItem__extraPrice">{{$t('valuta') + ' ' + extra.price}}</div>
+                      <div class="CartItem__extraPrice">
+                        {{this.$q.localStorage.getItem('currency') + ' ' + extra.price}}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -112,19 +116,23 @@
                 </q-item-label>
                 <q-icon @click="removeFromCart(Item)" color="red" name="fas fa-trash-alt" style="cursor:pointer;" />
               </div>
-              <div class="row justify-between">
+              <div class="row justify-between no-wrap">
                   <q-btn-group rounded outline class=" CountersBtn items-center">
                     <q-btn flat @click="decrement(Item)" class="CountersBtn__dec" icon="fas fa-minus" />
                     <div class="CountersBtn__counter q-mx-md">{{ Item.counter}}</div>
                     <q-btn flat @click="increment(Item)" class="CountersBtn__inc" icon="fas fa-plus" />
                   </q-btn-group>
-                <div class="CountersBtn__price">{{$t('valuta') + ' ' + Item.price }}</div>
+                <div class="CountersBtn__price">
+                  {{Item.price + ' ' + this.$q.localStorage.getItem('currency') }}
+                </div>
               </div>
               <div v-if="Item.extras && Item.extras.length" class="CartItem__extra q-mt-md ">
                 <div class="" v-for="(extra, ind) in Item.extras" :key="ind">
                   <div class="row justify-between">
                     <div class="CartItem__extraTitle">{{extra.name}}</div>
-                    <div class="CartItem__extraPrice">{{$t('valuta') + ' ' + extra.price}}</div>
+                    <div class="CartItem__extraPrice">
+                      {{extra.price  + ' ' + this.$q.localStorage.getItem('currency')}}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -137,7 +145,7 @@
       <q-list padding class="rounded-borders CartList">
           <q-item class="CartItem text-center">
             <q-item-section>
-              <q-item-label class="CartItem__title q-mb-md"> Cart is EMPTY :( </q-item-label>
+              <q-item-label class="CartItem__title q-mb-md"> {{ $t('cart.empty') }} </q-item-label>
             </q-item-section>
           </q-item>
       </q-list>
@@ -161,9 +169,24 @@
         name="add_comment"
         color="blue-grey-3"
       />
+
+      <q-select
+        v-show="table_id==='delivery'"
+        color="orange-14"
+        bg-color="red-5"
+        popup-content-style="background-color: $red-5"
+        rounded
+        filled
+        v-model="deliveryArea"
+        :options="deliveryAreas"
+        label="Choose delivery area"
+      />
+
       <div class="totalPrice bg-grey-2 full-width row justify-between q-pa-md">
-        <div class="totalPrice__title">Total Price:</div>
-        <div class="totalPrice__price">{{ totalPrice + ' ' + $t('valuta') }}</div>
+        <div class="totalPrice__title">{{ $t('cart.total') }}:</div>
+        <div class="totalPrice__price">
+          {{ totalPrice + ' ' + this.$q.localStorage.getItem('currency') }}
+        </div>
       </div>
       <div class="checkout">
         <q-btn
@@ -172,7 +195,7 @@
           :disable="isCartEmpty"
           @click="sendToCook"
           class="full-width checkout__btn bg-amber-6"
-          label="Send to COOK"
+          :label="$t('cart.sendToCook')"
         />
         <q-btn
           v-else-if="cartStatus===1"
@@ -180,7 +203,7 @@
           :loading="cartLoader"
           @click="sendToCook"
           class="full-width checkout__btn bg-amber-7"
-          label="Order more"
+          :label="$t('cart.orderMore')"
         />
         <q-btn
           v-if="cartStatus > 0"
@@ -188,7 +211,7 @@
           :loading="closeLoader"
           @click="closeTable"
           class="full-width checkout__btn bg-red-6"
-          label="Close table"
+          :label="$t('cart.closeTable')"
         />
       </div>
     </div>
@@ -215,7 +238,9 @@ export default defineComponent({
           isComment: false,
           cartLoader: false,
           closeLoader: false,
-          isAllCartShow: false
+          isAllCartShow: false,
+          deliveryAreas: [],
+          deliveryArea: null
         }
     },
     components: {
@@ -275,10 +300,34 @@ export default defineComponent({
         if (!this.cart.length) {
           total = total + Number(this.priceBefore)
         }
+        if (this.deliveryArea !== null) {
+          total = total + this.deliveryArea.price
+        }
         return total.toFixed(2)
       },
     },
-    methods: {
+  created() {
+    if (this.table_id === 'delivery') {
+      api.get('api/deliveries/areas/restaurant/'+this.$q.localStorage.getItem('restaurantID'), {
+        headers: {
+          Authorization: 'Bearer '+LocalStorage.getItem('userToken')
+        }
+      })
+      .then(res=>{
+        res.data.areas.forEach(area=>{
+          let obj = {}
+          obj.value = area.id
+          obj.label = area.name + ' + ' + area.cost + ' ' + this.$q.localStorage.getItem('currency')
+          obj.price = area.cost
+          this.deliveryAreas.push(obj)
+        })
+        if (this.deliveryAreas.length) {
+          this.deliveryArea = this.deliveryAreas[0]
+        }
+      })
+    }
+  },
+  methods: {
       closeTable() {
         this.closeLoader = true
         api.get('api/v3/vendor/checkout-table/'+this.table_id,{
@@ -287,8 +336,6 @@ export default defineComponent({
           }
         })
           .then(res=>{
-            console.log(res.data)
-            console.log(this.table_id)
             this.$store.dispatch('items/removeAllFromCart', this.table_id)
             this.closeLoader = false
             this.$router.push('/')
@@ -337,7 +384,6 @@ export default defineComponent({
         let obj = {
           'order_id': this.order_id,
           'vendor_id': this.$q.localStorage.getItem('restaurantID'),
-          'delivery_method': 'dinein',
           'payment_method': 'cod',
           'deliveryAreaId': 0,
           'coupon_code': null,
@@ -347,38 +393,78 @@ export default defineComponent({
           'comment': this.comment,
           'address_id': null,
           'timeslot': null,
-          'stripe_token': null,
-          // 'customFields': 'client_name',
+          'stripe_token': null
         }
-        // console.log(obj)
-        api.post('api/v2/client/orders/store', obj,{
-          headers: {
-            Authorization: 'Bearer '+LocalStorage.getItem('userToken')
-          }
-        })
-          .then(res => {
-            console.log(res.data)
-            // post order_at in tables table in DB
-            api.get('api/v3/vendor/order-table/'+this.table_id,{
-              headers: {
-                Authorization: 'Bearer '+LocalStorage.getItem('userToken')
-              }
-            })
-              .then(result=>{
-                console.log(result.data)
-                this.$store.dispatch('items/orderBlocked', [this.table_id, this.totalPrice, res.data.id])
-                this.cartLoader = false
-                // this.$router.push('/')
-              })
-              .catch(e=>{
-                console.log(e)
-                this.cartLoader = false
-              })
+        if (this.table_id === 'take-away') {
+          obj.delivery_method = 'pickup'
+          obj.timeslot = 'quicker as possible'
+          api.post('api/v2/client/orders/store', obj,{
+            headers: {
+              Authorization: 'Bearer '+LocalStorage.getItem('userToken')
+            }
           })
-          .catch(e=>{
+          .then(res=>{
+            console.log(res.data)
+            this.cartLoader = false
+          })
+          .catch(e=> {
             console.log(e)
             this.cartLoader = false
           })
+        } else if (this.table_id === 'delivery') {
+          obj.delivery_method = 'delivery'
+          obj.timeslot = 'quicker as possible'
+          obj.deliveryAreaId = this.deliveryArea.value
+          obj.delivery_price = this.deliveryArea.cost
+          obj.address_id = 1
+          obj.customFields = {
+            deliveryFee: 0
+          }
+
+          api.post('api/v2/client/orders/store', obj,{
+            headers: {
+              Authorization: 'Bearer '+LocalStorage.getItem('userToken')
+            }
+          })
+            .then(res=>{
+              console.log(res.data)
+              this.cartLoader = false
+            })
+            .catch(e=> {
+              console.log(e)
+              this.cartLoader = false
+            })
+        } else {
+          obj.delivery_method = 'dinein'
+          api.post('api/v2/client/orders/store', obj,{
+            headers: {
+              Authorization: 'Bearer '+LocalStorage.getItem('userToken')
+            }
+          })
+            .then(res => {
+              console.log(res.data)
+              // post order_at in tables table in DB
+              api.get('api/v3/vendor/order-table/'+this.table_id,{
+                headers: {
+                  Authorization: 'Bearer '+LocalStorage.getItem('userToken')
+                }
+              })
+                .then(result=>{
+                  console.log(result.data)
+                  this.$store.dispatch('items/orderBlocked', [this.table_id, this.totalPrice, res.data.id])
+                  this.cartLoader = false
+                  // this.$router.push('/')
+                })
+                .catch(e=>{
+                  console.log(e)
+                  this.cartLoader = false
+                })
+            })
+            .catch(e=>{
+              console.log(e)
+              this.cartLoader = false
+            })
+        }
       },
     },
 })
@@ -490,6 +576,7 @@ export default defineComponent({
     font-size: 20px;
     line-height: 1.2;
     font-weight: 400;
+    text-align: end;
   }
 }
 .totalPrice {

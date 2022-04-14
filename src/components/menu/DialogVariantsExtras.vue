@@ -32,7 +32,7 @@
           </div>
         </div>
         <div v-if="item.extras.length" class="col-12" :class="{'q-mt-lg': item.has_variants}">
-          <div class="extra">Extra</div>
+          <div class="extra">{{ $t('dialogMenu.extra') }}</div>
           <div
             v-for="(extra, i) in item.extras"
             :key="i"
@@ -49,15 +49,25 @@
               right-label
               icon-color="white"
             />
-            <div class="extra-price"><strong>+ {{ extra.price + ' ' + $t('valuta') }} </strong></div>
+            <div class="extra-price">
+              <strong>+ {{ extra.price + ' ' + this.$q.localStorage.getItem('currency') }} </strong>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- buttons example -->
       <q-card-actions align="center">
-        <q-btn flat text-color="grey-7" size="md" label="Отмена" @click="onCancelClick" />
-        <q-btn :disable="isChooseVariant" rounded text-color="white" size="md" class="order-qbtn" label="Добавить в заказ" @click="onOKClick" />
+        <q-btn flat text-color="grey-7" size="md" :label="$t('btn.cancel')" @click="onCancelClick" />
+        <q-btn
+          :disable="isChooseVariant"
+          rounded
+          text-color="white"
+          size="md"
+          class="order-qbtn"
+          :label="$t('dialogMenu.add')"
+          @click="onOKClick"
+        />
       </q-card-actions>
     </q-card>
   </q-dialog>

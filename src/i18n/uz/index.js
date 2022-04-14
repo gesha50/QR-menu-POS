@@ -6,9 +6,10 @@ import loginWaiter from "src/i18n/uz/loginWaiter";
 import waiters from "src/i18n/uz/waiters";
 import tables from "src/i18n/uz/tables";
 import archive from "src/i18n/uz/archive";
-import orders from "./orders";
-import settings from "./settings";
-import notify from "./notify";
+import orders from "src/i18n/uz/orders";
+import settings from "src/i18n/uz/settings";
+import notify from "src/i18n/uz/notify";
+import cart from "src/i18n/uz/cart";
 
 
 export default {
@@ -22,10 +23,19 @@ export default {
   orders,
   settings,
   notify,
+  cart,
   error404,
   valuta: 'сўм',
   search: 'Qidiruv...',
   failed: 'Aksiya amalga oshmadi',
   success: 'Muvaffaqiyatli',
   noConnection: 'Internetga ulanish yo\'q',
+  dialogMenu: {
+    extra: 'Qo\'shimchalar',
+    add: 'Savatga qo\'shish'
+  },
+  dialogComment: {
+    label: 'Oshxona uchun sharh',
+    add: 'Izoh qo\'shish'
+  }
 }

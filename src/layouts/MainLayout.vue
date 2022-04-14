@@ -31,6 +31,7 @@ import { defineComponent } from 'vue'
 import MainHeader from "components/header/MainHeader";
 import CartDrawer from "components/drawer/CartDrawer";
 import NotifyDrawer from "components/drawer/NotifyDrawer";
+import {LocalStorage} from "quasar";
 
 export default defineComponent({
   name: 'MainLayout',
@@ -52,11 +53,37 @@ export default defineComponent({
   },
   created() {
     this.connect()
+    if (!this.$q.localStorage.has('currency')) {
+      this.getCurrency()
+    }
   },
   unmounted() {
     this.channel.unsubscribe('user.' + this.$q.localStorage.getItem('owner_id'))
   },
   methods: {
+    getCurrency() {
+      let rest_id = this.$q.localStorage.getItem('restaurantID')
+      this.$api.get('api/v3/vendor/restaurant/' + rest_id + '/currency',{
+        headers: {
+          Authorization: 'Bearer '+LocalStorage.getItem('userToken')
+        }
+      })
+      .then(res=>{
+        if (res.data.currency ==='UZS') {
+          this.$q.localStorage.set('currency', 'сўм')
+        } else if (res.data.currency === 'RUB') {
+          this.$q.localStorage.set('currency', '₽')
+        } else if (res.data.currency === 'USD') {
+          this.$q.localStorage.set('currency', '$')
+        } else if (res.data.currency === 'EUR') {
+          this.$q.localStorage.set('currency', '€')
+        } else {
+          this.$q.localStorage.set('currency', res.data.currency)
+        }
+
+      })
+      .catch(e=>console.log(e))
+    },
     closeCartDrawer(e) {
       if (e.target.classList[0] === 'fullscreen') {
         this.drawer = !this.drawer
@@ -82,13 +109,13 @@ export default defineComponent({
     },
     eventNewOrder(data) {
       console.log(data)
-      let message = `${this.$t('notify.summ')}: ${data.order.order_price + this.$t('valuta')}, ${this.$t('notify.table')}: ${data.order.table.name}`
+      let message = `${this.$t('notify.summ')}: ${data.order.order_price + this.$q.localStorage.getItem('currency')}, ${this.$t('notify.table')}: ${data.order.table_id ? data.order.table.name :''}`
       this.playAudio(this.audioNewOrder)
       this.addNotify('fas fa-cart-arrow-down','New Order', message)
       this.showNotify('fas fa-cart-arrow-down', message)
     },
     eventCallWaiter(data) {
-      let message = `${data.msg}: ${data.table.restoarea.name} ${data.table.name}`
+      let message = `${data.msg}: ${data.table.restoarea.name ? data.table.restoarea.name : ''} ${data.table.name ? data.table.name : ''}`
       this.playAudio(this.audioCallWaiter)
       this.addNotify('fas fa-running','Call Waiter', message)
       this.showNotify('fas fa-running', message)

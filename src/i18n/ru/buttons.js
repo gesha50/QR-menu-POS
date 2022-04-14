@@ -3,5 +3,6 @@ export default {
   reset: 'Сброс',
   back: 'назад',
   logout: 'выйти',
-  save: 'сохранить'
+  save: 'сохранить',
+  cancel: 'отмена'
 }

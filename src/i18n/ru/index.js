@@ -6,9 +6,10 @@ import loginWaiter from "src/i18n/ru/loginWaiter";
 import waiters from "src/i18n/ru/waiters";
 import tables from "src/i18n/ru/tables";
 import archive from "src/i18n/ru/archive";
-import orders from "./orders";
-import settings from "./settings";
-import notify from "./notify";
+import orders from "src/i18n/ru/orders";
+import settings from "src/i18n/ru/settings";
+import notify from "src/i18n/ru/notify";
+import cart from "src/i18n/ru/cart";
 
 export default {
   btn,
@@ -21,10 +22,18 @@ export default {
   orders,
   settings,
   notify,
+  cart,
   error404,
-  valuta: '₽',
   search: 'Поиск...',
   failed: 'Действие не выполнено',
   success: 'Успешно',
   noConnection: 'Нет подключения к интернету',
+  dialogMenu: {
+    extra: 'Дополнения',
+    add: 'Добавить в корзину'
+  },
+  dialogComment: {
+    label: 'Комментарий для кухни',
+    add: 'Добавить комментарий'
+  }
 }

@@ -3,5 +3,6 @@ export default {
   reset: 'Reset',
   back: 'back',
   logout: 'logout',
-  save: 'save'
+  save: 'save',
+  cancel: 'cancel'
 }

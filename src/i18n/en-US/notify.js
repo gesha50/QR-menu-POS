@@ -2,5 +2,6 @@ export default {
     summ: 'Аmount',
     table: 'Table',
     zone: 'Zone',
-    status: 'Status'
+    status: 'Status',
+    empty: 'No Notify'
 }

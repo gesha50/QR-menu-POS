@@ -7,7 +7,7 @@
           autofocus
           class="q-ma-sm q-mb-lg"
           style="width: 300px;"
-          label="Comment to Kitchen"
+          :label="$t('dialogComment.label')"
           :model-value="comment"
           @update:model-value="changeComment($event)"
           @keydown.enter.prevent="onOKClick"
@@ -19,8 +19,15 @@
       </div>
       <!-- buttons example -->
       <q-card-actions align="center">
-        <q-btn flat text-color="grey-7" size="md" label="Отмена" @click="onCancelClick" />
-        <q-btn rounded text-color="white" size="md" class="order-qbtn" label="Добавить комментарий" @click="onOKClick" />
+        <q-btn flat text-color="grey-7" size="md" :label="$t('btn.cancel')" @click="onCancelClick" />
+        <q-btn
+          rounded
+          text-color="white"
+          size="md"
+          class="order-qbtn"
+          :label="$t('dialogComment.add')"
+          @click="onOKClick"
+        />
       </q-card-actions>
     </q-card>
   </q-dialog>

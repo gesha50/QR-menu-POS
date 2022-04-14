@@ -2,7 +2,7 @@
   <div class="tabel-body-box" :class="[activeClass, textColor]" @click="addToCheck">
     <p>#{{ archive_data.ID }}</p>
     <p>{{ archive_data.created_at }}</p>
-    <p>{{ archive_data.price + ' ' + $t('valuta') }}</p>
+    <p>{{ archive_data.price + ' ' + this.$q.localStorage.getItem('currency') }}</p>
   </div>
 </template>
 

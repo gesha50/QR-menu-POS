@@ -25,7 +25,7 @@
           <div v-if="item.pivot.qty>1" class="q-pr-sm">
             {{ item.pivot.qty + ' x ' }}
           </div>
-            {{ item.price  + ' ' + $t('valuta') }}
+            {{ item.price  + ' ' + this.$q.localStorage.getItem('currency') }}
           </div>
         </div>
         <div class="float-right">
@@ -40,7 +40,7 @@
       <div class="price-block">
         <div class="flex-item">
           <h5>{{ $t('archive.grandTotal') }}</h5>
-          <p>{{ totalPrice + ' ' + $t('valuta') }}</p>
+          <p>{{ totalPrice + ' ' + this.$q.localStorage.getItem('currency') }}</p>
         </div>
       </div>
       <button class="button-print" @click="print()"><img src="~/assets/img/cil_print.svg" alt="print">{{ $t('archive.invoice') }}</button>
@@ -74,7 +74,7 @@
               <div v-if="item.pivot.qty>1" class="q-pr-sm">
                 <pre>{{ item.pivot.qty + ' x ' }}</pre>
               </div>
-              <pre>{{ item.price  + ' ' + $t('valuta') }}</pre>
+              <pre>{{ item.price  + ' ' + this.$q.localStorage.getItem('currency') }}</pre>
             </div>
           </div>
           <div class="float-right">
@@ -85,7 +85,7 @@
       <div class="price-main">
         <pre><b>{{ $t('archive.totalPrint') }}:</b></pre>
         <hr>
-        <pre>{{totalPrice + ' ' + $t('valuta') }}</pre>
+        <pre>{{totalPrice + ' ' + this.$q.localStorage.getItem('currency') }}</pre>
       </div>
     </div>
   </div>
