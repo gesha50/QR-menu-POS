@@ -247,6 +247,9 @@ export default defineComponent({
       DialogAddComment
     },
     computed: {
+      configAxios() {
+        return this.$store.getters['settings/configAxios']
+      },
       isCartEmpty() {
         return this.cart.length <= 0;
       },
@@ -330,11 +333,7 @@ export default defineComponent({
   methods: {
       closeTable() {
         this.closeLoader = true
-        api.get('api/v3/vendor/checkout-table/'+this.table_id,{
-          headers: {
-            Authorization: 'Bearer '+LocalStorage.getItem('userToken')
-          }
-        })
+        api.get('api/v3/vendor/checkout-table/'+this.table_id, this.configAxios)
           .then(res=>{
             this.$store.dispatch('items/removeAllFromCart', this.table_id)
             this.closeLoader = false
@@ -398,14 +397,12 @@ export default defineComponent({
         if (this.table_id === 'take-away') {
           obj.delivery_method = 'pickup'
           obj.timeslot = 'quicker as possible'
-          api.post('api/v2/client/orders/store', obj,{
-            headers: {
-              Authorization: 'Bearer '+LocalStorage.getItem('userToken')
-            }
-          })
+          api.post('api/v2/client/orders/store', obj,this.configAxios)
           .then(res=>{
             console.log(res.data)
+            this.$store.dispatch('items/removeAllFromCart', this.table_id)
             this.cartLoader = false
+            this.$router.push('/')
           })
           .catch(e=> {
             console.log(e)
@@ -421,14 +418,12 @@ export default defineComponent({
             deliveryFee: 0
           }
 
-          api.post('api/v2/client/orders/store', obj,{
-            headers: {
-              Authorization: 'Bearer '+LocalStorage.getItem('userToken')
-            }
-          })
+          api.post('api/v2/client/orders/store', obj, this.configAxios)
             .then(res=>{
               console.log(res.data)
+              this.$store.dispatch('items/removeAllFromCart', this.table_id)
               this.cartLoader = false
+              this.$router.push('/')
             })
             .catch(e=> {
               console.log(e)
@@ -436,19 +431,11 @@ export default defineComponent({
             })
         } else {
           obj.delivery_method = 'dinein'
-          api.post('api/v2/client/orders/store', obj,{
-            headers: {
-              Authorization: 'Bearer '+LocalStorage.getItem('userToken')
-            }
-          })
+          api.post('api/v2/client/orders/store', obj, this.configAxios)
             .then(res => {
               console.log(res.data)
               // post order_at in tables table in DB
-              api.get('api/v3/vendor/order-table/'+this.table_id,{
-                headers: {
-                  Authorization: 'Bearer '+LocalStorage.getItem('userToken')
-                }
-              })
+              api.get('api/v3/vendor/order-table/'+this.table_id, this.configAxios)
                 .then(result=>{
                   console.log(result.data)
                   this.$store.dispatch('items/orderBlocked', [this.table_id, this.totalPrice, res.data.id])

@@ -2,7 +2,6 @@ import guest from './middleware/guest'
 import auth from './middleware/auth'
 import restaurant from "src/router/middleware/restaurant";
 import notRestaurant from "src/router/middleware/notRestaurant";
-import restaurantWaiter from "src/router/middleware/restaurantWaiter";
 
 const routes = [
   {

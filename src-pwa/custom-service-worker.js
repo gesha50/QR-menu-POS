@@ -26,11 +26,11 @@ precacheAndRoute(self.__WB_MANIFEST)
 */
 
 registerRoute(({url}) =>  url.pathname.startsWith('/favicon.ico'), new CacheFirst());
-registerRoute(({url}) =>  url.pathname.startsWith('/icons/'), new CacheFirst());
-registerRoute(({url}) =>  url.pathname.startsWith( '/css/'), new CacheFirst());
-registerRoute(({url}) =>  url.pathname.startsWith( '/img/'), new CacheFirst());
-registerRoute(({url}) =>  url.pathname.startsWith( '/fonts/'), new CacheFirst());
-registerRoute(({url}) =>  url.pathname.startsWith('/storage'), new CacheFirst());
+// registerRoute(({url}) =>  url.pathname.startsWith('/icons/'), new CacheFirst());
+// registerRoute(({url}) =>  url.pathname.startsWith( '/css/'), new CacheFirst());
+// registerRoute(({url}) =>  url.pathname.startsWith( '/img/'), new CacheFirst());
+// registerRoute(({url}) =>  url.pathname.startsWith( '/fonts/'), new CacheFirst());
+// registerRoute(({url}) =>  url.pathname.startsWith('/storage'), new CacheFirst());
 
 registerRoute(
     ({url}) => url.pathname.startsWith('/api'),

@@ -1,4 +1,7 @@
 export default {
+    ID: 'ID',
+    'take-away': 'take-away',
+    delivery: 'delivery',
     created_at: 'created at',
     tableOrMethod: 'table / method',
     items: 'items',

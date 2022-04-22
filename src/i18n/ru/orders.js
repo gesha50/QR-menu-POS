@@ -1,4 +1,7 @@
 export default {
+    ID: 'ID',
+    'take-away': 'с собой',
+    delivery: 'доставка',
     created_at: 'создан',
     tableOrMethod: 'стол / метод',
     items: 'кол-во блюд',

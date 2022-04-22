@@ -1,4 +1,6 @@
-
+export function configAxios (state) {
+  return state.configAxios
+}
 export function getLang (state) {
   return state.lang
 }

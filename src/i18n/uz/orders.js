@@ -1,4 +1,7 @@
 export default {
+  ID: 'ID',
+  'take-away': 'siz bilan birga',
+  delivery: 'yuk tashish',
   created_at: 'yaratilgan',
   tableOrMethod: 'jadval / usul',
   items: 'ovqat ',

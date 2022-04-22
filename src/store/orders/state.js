@@ -4,7 +4,7 @@ export default function () {
       {
         name: 'ID',
         required: true,
-        label: 'ID',
+        label: 'orders.ID',
         align: 'left',
         field: row => row.ID,
         format: val => `${val}`,

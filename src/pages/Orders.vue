@@ -41,7 +41,7 @@
               {{ props.row.created_at }}
           </q-td>
           <q-td key="table" :props="props">
-              {{ props.row.table }}
+              {{ typeof props.row.table === 'string' ? $t('orders.' + props.row.table) : props.row.table }}
           </q-td>
           <q-td key="items" :props="props">
               {{ props.row.items }}

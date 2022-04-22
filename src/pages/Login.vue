@@ -21,14 +21,17 @@ export default {
     LoginMode,
     LogoTop
   },
-  methods: {
-
+  computed: {
+    login() {
+      return this.$store.getters['settings/auth'].loggedIn
+    }
   }
 }
 </script>
 
 <style lang="scss">
 .q-page {
+  height: calc(100vh - 58px);
   .bg {
     width: 700px;
     background: rgba(255, 255, 255, 0.8);

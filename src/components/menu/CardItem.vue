@@ -25,10 +25,10 @@
         <div class="CardItem__title">{{ item.name }}</div>
         <div class="row q-mt-sm">
           <div class="CardItem__isActive column justify-center">
-            <i v-if="item.isActive" class="fas fa-check-circle text-green"></i>
+            <i v-if="item.available" class="fas fa-check-circle text-green"></i>
             <i v-else class="fas fa-times-circle text-red"></i>
           </div>
-          <div class="CardItem__price q-ml-md">{{ this.$q.localStorage.getItem('currency') + ' ' + item.price }}</div>
+          <div class="CardItem__price q-ml-md">{{ item.price + ' ' + this.$q.localStorage.getItem('currency') }}</div>
         </div>
       </div>
   </div>
