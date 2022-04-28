@@ -3,8 +3,16 @@
   <div class="column justify-evenly items-center">
     <logo-top></logo-top>
     <div class="bg q-pb-lg">
-      <div class="header-block column justify-center q-mb-lg">
+      <div class="header-block column justify-center q-mb-lg relative-position">
         <h3 class="no-margin text-center">{{ $t('waiters.list') }}</h3>
+        <div class="absolute-top-right">
+          <q-btn
+            :to="{ name: 'restaurant.settings' }"
+            class="bg-white"
+            round
+            icon="settings"
+          />
+        </div>
         <div class="input-container q-mx-auto q-mt-md relative-position	">
           <q-input color="black" dense rounded outlined v-model="searchText">
             <template v-slot:prepend>

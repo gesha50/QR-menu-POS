@@ -13,7 +13,11 @@
           <a class="back q-py-sm q-px-lg no-margin" href="/">{{ $t('btn.back') }}</a>
       </div>
       <div class="column justify-center">
-        <div class="row q-mb-lg gt-xs"><a class="back q-py-sm q-px-lg" href="/">{{ $t('btn.back') }}</a></div>
+        <div class="row q-mb-lg gt-xs">
+          <q-btn dense class="back q-py-sm q-px-lg" to="/">
+            {{ $t('btn.back') }}
+          </q-btn>
+        </div>
         <div class="row justify-center q-px-md">
           <div class="q-mr-md col-lg-3 col-md-3 col-xs-3 gt-xs tab-contents rounded-borders bg-white">
           <q-tabs
